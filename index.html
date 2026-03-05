@@ -1025,7 +1025,8 @@
             touchStartY = e.touches[0].clientY;
             touchCurrentX = touchStartX;
             isDragging = false;
-            cardStack.style.transition = 'none';
+            // Kill transition on front card so it tracks finger instantly
+            cards[frontIndex].style.transition = 'none';
         }, { passive: true });
 
         cardStack.addEventListener('touchmove', (e) => {
@@ -1038,22 +1039,46 @@
             }
 
             if (isDragging) {
-                cardStack.style.transform = `translateX(${deltaX}px)`;
+                const front = cards[frontIndex];
+                const rotate = deltaX * 0.02;
+                front.style.transform = `translateX(${deltaX}px) rotate(${rotate}deg)`;
             }
         }, { passive: true });
 
         cardStack.addEventListener('touchend', (e) => {
-            cardStack.style.transition = 'transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-            cardStack.style.transform = 'translateX(0)';
-
             const deltaX = touchCurrentX - touchStartX;
 
+            // Restore transition on front card
+            cards[frontIndex].style.transition = 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+
             if (isDragging && Math.abs(deltaX) > swipeThreshold) {
-                if (deltaX < 0) {
-                    frontIndex = (frontIndex + 1) % total;
-                } else {
-                    frontIndex = (frontIndex - 1 + total) % total;
-                }
+                // Animate the front card off-screen before cycling
+                const front = cards[frontIndex];
+                const direction = deltaX < 0 ? -1 : 1;
+                front.style.transform = `translateX(${direction * 300}px) rotate(${direction * 8}deg)`;
+                front.style.opacity = '0';
+
+                // After animation, cycle and reset
+                setTimeout(() => {
+                    if (deltaX < 0) {
+                        frontIndex = (frontIndex + 1) % total;
+                    } else {
+                        frontIndex = (frontIndex - 1 + total) % total;
+                    }
+                    // Reset all transitions and positions
+                    cards.forEach(c => c.style.transition = 'none');
+                    updateCards();
+                    // Re-enable transitions after a frame
+                    requestAnimationFrame(() => {
+                        requestAnimationFrame(() => {
+                            cards.forEach(c => {
+                                c.style.transition = 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                            });
+                        });
+                    });
+                }, 300);
+            } else {
+                // Snap back to position
                 updateCards();
             }
 
