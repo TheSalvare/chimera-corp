@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chimera Corp — The Salvare</title>
     <style>
+        /* Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Russo+One&family=Jacquard+24&display=swap');
+
         /* ============================================
            FONT FACES
            ============================================ */
@@ -27,43 +30,33 @@
             font-style: normal;
             font-display: swap;
             font-weight: 400;
-            src: url(https://cdn.jsdelivr.net/npm/geist@latest/dist/fonts/geist-pixel-square/GeistPixelSquare-Regular.woff2) format('woff2');
+            src: url(./fonts/GeistPixel-Square.woff2) format('woff2');
         }
 
         /* Per-story fonts — self-hosted
            Replace src paths with your local font files */
 
-        /* The Squab HQ — Typex by Rian Hughes / Device
-           Upload your Typex .woff2 file and update the path below */
+        /* The Squab HQ — Bevellier Bold (self-hosted) */
         @font-face {
-            font-family: 'Typex';
+            font-family: 'Bevellier';
+            font-style: normal;
+            font-display: swap;
+            font-weight: 700;
+            src: url(./fonts/Bevellier-Bold.woff2) format('woff2');
+        }
+        @font-face {
+            font-family: 'Bevellier';
             font-style: normal;
             font-display: swap;
             font-weight: 400;
-            src: url(./fonts/Typex-Regular.woff2) format('woff2');
+            src: url(./fonts/Bevellier-Regular.woff2) format('woff2');
         }
 
-        /* Oneth — placeholder for future font */
-        /*
-        @font-face {
-            font-family: 'OnethFont';
-            font-style: normal;
-            font-display: swap;
-            font-weight: 400;
-            src: url(./fonts/OnethFont.woff2) format('woff2');
-        }
-        */
+        /* Oneth — Russo One via Google Fonts
+           Loaded via @import below */
 
-        /* Sol's Sword — placeholder for future font */
-        /*
-        @font-face {
-            font-family: 'SolFont';
-            font-style: normal;
-            font-display: swap;
-            font-weight: 400;
-            src: url(./fonts/SolFont.woff2) format('woff2');
-        }
-        */
+        /* Sol's Sword — Jacquard 24 via Google Fonts
+           Loaded via @import below */
 
         /* ============================================
            CSS CUSTOM PROPERTIES
@@ -87,9 +80,9 @@
             --font-pixel: 'Geist Pixel Square', 'Courier New', monospace;
 
             /* Story-specific fonts */
-            --font-squab: 'Typex', 'Geist Mono Variable', monospace;
-            --font-oneth: var(--font-sans);   /* swap when font is added */
-            --font-sol: var(--font-sans);      /* swap when font is added */
+            --font-squab: 'Bevellier', 'Geist Mono Variable', monospace;
+            --font-oneth: 'Russo One', sans-serif;
+            --font-sol: 'Jacquard 24', cursive;
         }
 
         /* ============================================
@@ -102,15 +95,7 @@
         /* ============================================
            DOT GRID BACKGROUND
            ============================================ */
-        .dot-grid {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-image: radial-gradient(circle, var(--dot-color) 1px, transparent 1px);
-            background-size: 24px 24px;
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0.6;
-        }
+        /* Dot grid is now rendered via canvas */
 
         /* ============================================
            SCANLINE + NOISE TEXTURE OVERLAYS
@@ -244,6 +229,13 @@
             padding: 6px 12px;
             border: 1px solid var(--border-light);
             border-radius: 4px;
+            transition: color 0.3s, border-color 0.3s, box-shadow 0.3s;
+            cursor: default;
+        }
+        .hero-meta-tag:hover {
+            color: var(--text-primary);
+            border-color: var(--border-medium);
+            box-shadow: 0 0 12px rgba(33, 33, 33, 0.06);
         }
         .hero-divider {
             width: 100%;
@@ -300,14 +292,14 @@
         .clearance-light {
             width: 8px; height: 8px;
             border-radius: 50%;
-            background: var(--text-primary);
+            background: var(--accent-green);
             animation: blink-light 3s ease-in-out infinite;
         }
         @keyframes blink-light {
-            0%, 40%, 100% { opacity: 1; background: var(--text-primary); }
-            42%, 48% { opacity: 0.3; background: var(--text-tertiary); }
-            50% { opacity: 1; background: var(--text-primary); }
-            75%, 78% { opacity: 0.15; background: var(--text-tertiary); }
+            0%, 40%, 100% { opacity: 1; }
+            42%, 48% { opacity: 0.3; }
+            50% { opacity: 1; }
+            75%, 78% { opacity: 0.15; }
         }
         .clearance-value {
             font-family: var(--font-mono);
@@ -315,6 +307,7 @@
             letter-spacing: 0.14em;
             text-transform: uppercase;
             font-weight: 500;
+            color: var(--accent-green);
         }
 
         /* ============================================
@@ -390,6 +383,7 @@
             position: relative;
             width: 420px;
             height: 440px;
+            touch-action: pan-y;
         }
         .dossier-card {
             position: absolute;
@@ -474,29 +468,37 @@
         /* Per-story card typography overrides */
         .card--squab .card-title {
             font-family: var(--font-squab);
-            font-size: 1.65rem;
+            font-size: 1.9rem;
+            font-weight: 700;
             letter-spacing: 0.02em;
             text-transform: uppercase;
         }
         .card--squab .card-description {
             font-family: var(--font-squab);
-            font-size: 0.82rem;
+            font-size: 1rem;
             font-weight: 400;
             letter-spacing: 0.01em;
         }
 
         .card--oneth .card-title {
             font-family: var(--font-oneth);
+            font-size: 1.65rem;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
         }
         .card--oneth .card-description {
             font-family: var(--font-oneth);
+            font-size: 0.9rem;
         }
 
         .card--sol .card-title {
             font-family: var(--font-sol);
+            font-size: 2.5rem;
+            letter-spacing: 0.02em;
         }
         .card--sol .card-description {
             font-family: var(--font-sol);
+            font-size: 1.15rem;
         }
 
         .card-footer {
@@ -635,6 +637,20 @@
         }
         .reveal.visible { opacity: 1; transform: translateY(0); }
 
+        /* Typewriter effect */
+        .typewriter-line {
+            opacity: 0;
+            transition: opacity 0.25s ease-out;
+        }
+        .typewriter-line.typed {
+            opacity: 1;
+        }
+        .typewriter-cursor::after {
+            content: '_';
+            animation: blink-cursor 0.6s step-end infinite;
+            color: var(--text-tertiary);
+        }
+
         /* ============================================
            RESPONSIVE
            ============================================ */
@@ -665,7 +681,8 @@
 </head>
 <body>
     <!-- Background layers -->
-    <div class="dot-grid"></div>
+    <!-- Interactive dot grid canvas -->
+    <canvas id="dotGrid" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;"></canvas>
     <div class="texture-overlay"></div>
     <svg style="position:absolute;width:0;height:0;">
         <filter id="noiseFilter">
@@ -692,7 +709,7 @@
         <section class="hero">
             <div class="hero-main">
                 <h1 class="hero-title anim-fade-up anim-delay-1">make good,<br>things happen.</h1>
-                <p class="hero-subtitle anim-fade-up anim-delay-2">I'm Ben, and I am a creative engineer. Follow the projects and complete your objectives. Your commitment is required.</p>
+                <p class="hero-subtitle anim-fade-up anim-delay-2">I'm Ben, a creative engineer.<br>An operative known as The Salvare. Assigned task: world building.<br>Scaling the Chimera Corp, a three part series of illustrative novels and interactive technology.<br><br>Follow the projects and complete your objectives.<br>Your consumption is required.</p>
                 <div class="hero-meta anim-fade-up anim-delay-3">
                     <span class="hero-meta-tag">PROJECTS_IN_PROGRESS</span>
                     <span class="hero-meta-tag">OBJECTIVES_INCOMPLETE</span>
@@ -700,7 +717,7 @@
                 </div>
             </div>
             <div class="hero-sidebar anim-fade">
-                <span class="sidebar-text">Progress Report<span class="sidebar-cursor">_</span></span>
+                <span class="sidebar-text">Scaling energy consumption<span class="sidebar-cursor">_</span></span>
                 <span class="sidebar-arrow"></span>
             </div>
         </section>
@@ -719,27 +736,27 @@
             <div class="section-label">Report // Chimera Corp</div>
             <div class="code-block">
                 <div class="code-line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21</div>
-                <div class="code-content">
-                    <span class="code-comment">// chimera.config</span><br>
+                <div class="code-content" id="codeContent">
+                    <span class="typewriter-line"><span class="code-comment">// chimera.config</span></span><br>
                     <br>
-                    <span class="code-key">organisation</span>: <span class="code-value">"Chimera Corp"</span><br>
-                    <span class="code-key">operative</span>: <span class="code-value">"The Salvare"</span><br>
-                    <span class="code-key">projects</span>: <span class="code-value">"Optimizing"</span><br>
-                    <span class="code-key">clearance</span>: <span class="code-value">"Public"</span><br>
+                    <span class="typewriter-line"><span class="code-key">organisation</span>: <span class="code-value">"Chimera Corp"</span></span><br>
+                    <span class="typewriter-line"><span class="code-key">operative</span>: <span class="code-value">"The Salvare"</span></span><br>
+                    <span class="typewriter-line"><span class="code-key">projects</span>: <span class="code-value">"Optimizing"</span></span><br>
+                    <span class="typewriter-line"><span class="code-key">clearance</span>: <span class="code-value">"Public"</span></span><br>
                     <br>
-                    <span class="code-key">operative</span>: [<br>
-                    &nbsp;&nbsp;{ <span class="code-key">id</span>: <span class="code-value">"ILLUSTRATION"</span>, <span class="code-key">status</span>: <span class="code-value">"Toons"</span> },<br>
-                    &nbsp;&nbsp;{ <span class="code-key">id</span>: <span class="code-value">"WRITTING"</span>, <span class="code-key">status</span>: <span class="code-value">"Legible"</span> },<br>
-                    &nbsp;&nbsp;{ <span class="code-key">id</span>: <span class="code-value">"ENGINEERING"</span>, <span class="code-key">status</span>: <span class="code-value">"Front-end"</span> },<br>
-                    &nbsp;&nbsp;{ <span class="code-key">id</span>: <span class="code-value">"DESIGN"</span>, <span class="code-key">status</span>: <span class="code-value">"Products"</span> },<br>
-                    ]<br>
+                    <span class="typewriter-line"><span class="code-key">operative</span>: [</span><br>
+                    <span class="typewriter-line">&nbsp;&nbsp;{ <span class="code-key">id</span>: <span class="code-value">"ILLUSTRATION"</span>, <span class="code-key">status</span>: <span class="code-value">"Toons"</span> },</span><br>
+                    <span class="typewriter-line">&nbsp;&nbsp;{ <span class="code-key">id</span>: <span class="code-value">"WRITTING"</span>, <span class="code-key">status</span>: <span class="code-value">"Legible"</span> },</span><br>
+                    <span class="typewriter-line">&nbsp;&nbsp;{ <span class="code-key">id</span>: <span class="code-value">"ENGINEERING"</span>, <span class="code-key">status</span>: <span class="code-value">"Front-end"</span> },</span><br>
+                    <span class="typewriter-line">&nbsp;&nbsp;{ <span class="code-key">id</span>: <span class="code-value">"DESIGN"</span>, <span class="code-key">status</span>: <span class="code-value">"Products"</span> },</span><br>
+                    <span class="typewriter-line">]</span><br>
                     <br>
-                    <span class="code-key">projects</span>: [<br>
-                    &nbsp;&nbsp;{ <span class="code-key">id</span>: <span class="code-value">"SQUAB-001"</span>, <span class="code-key">status</span>: <span class="code-value">"Active"</span> },<br>
-                    &nbsp;&nbsp;{ <span class="code-key">id</span>: <span class="code-value">"ONETH-002"</span>, <span class="code-key">status</span>: <span class="code-value">"Classified"</span> },<br>
-                    &nbsp;&nbsp;{ <span class="code-key">id</span>: <span class="code-value">"SOL-003"</span>, <span class="code-key">status</span>: <span class="code-value">"Classified"</span> },<br>
-                    ]<br>
-                    <span class="code-comment">// Objective: Engage. Discover. Report.</span>
+                    <span class="typewriter-line"><span class="code-key">projects</span>: [</span><br>
+                    <span class="typewriter-line">&nbsp;&nbsp;{ <span class="code-key">id</span>: <span class="code-value">"SQUAB_HQ"</span>, <span class="code-key">status</span>: <span class="code-value">"Active"</span> },</span><br>
+                    <span class="typewriter-line">&nbsp;&nbsp;{ <span class="code-key">id</span>: <span class="code-value">"ENCRYPTED"</span>, <span class="code-key">status</span>: <span class="code-value">"Classified"</span> },</span><br>
+                    <span class="typewriter-line">&nbsp;&nbsp;{ <span class="code-key">id</span>: <span class="code-value">"ENCRYPTED"</span>, <span class="code-key">status</span>: <span class="code-value">"Classified"</span> },</span><br>
+                    <span class="typewriter-line">]</span><br>
+                    <span class="typewriter-line"><span class="code-comment">// Objective: Engage. Discover. Report.</span></span>
                 </div>
             </div>
         </section>
@@ -771,8 +788,8 @@
                             <span class="card-classification card-classification--inactive">Inactive</span>
                         </div>
                         <div class="card-body">
-                            <h3 class="card-title">Oneth</h3>
-                            <p class="card-description">Data restricted. Clearance required.</p>
+                            <h3 class="card-title">Encrypted</h3>
+                            <p class="card-description">Data restricted. Clearance required.<br>Field testing to commence in the coming months.<br>Signal range frequency 2.4 GHz.</p>
                         </div>
                         <div class="card-footer">
                             <span class="card-cta card-cta--inactive">&gt; Objectives classified<span class="cta-cursor"> _</span></span>
@@ -786,8 +803,8 @@
                             <span class="card-classification card-classification--inactive">Inactive</span>
                         </div>
                         <div class="card-body">
-                            <h3 class="card-title">Sol's Sword</h3>
-                            <p class="card-description">Data restricted. Clearance required.</p>
+                            <h3 class="card-title">Encrypted</h3>
+                            <p class="card-description">Data restricted. Clearance required.<br>Field testing to commence in the coming months.<br>Signal range frequency 2.4 GHz.</p>
                         </div>
                         <div class="card-footer">
                             <span class="card-cta card-cta--inactive">&gt; Objectives classified<span class="cta-cursor"> _</span></span>
@@ -880,6 +897,150 @@
         });
 
         updateCards();
+
+        // ============================================
+        // Interactive dot grid canvas
+        // ============================================
+        const canvas = document.getElementById('dotGrid');
+        const ctx = canvas.getContext('2d');
+        const spacing = 24;
+        const baseRadius = 0.8;
+        const maxRadius = 1.8;
+        const influenceRadius = 100;
+        const dotColor = [222, 222, 222];
+        const baseAlpha = 0.6;
+
+        let mouse = { x: -9999, y: -9999 };
+        let smoothMouse = { x: -9999, y: -9999 };
+
+        function resize() {
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = window.innerWidth * dpr;
+            canvas.height = window.innerHeight * dpr;
+            canvas.style.width = window.innerWidth + 'px';
+            canvas.style.height = window.innerHeight + 'px';
+            ctx.scale(dpr, dpr);
+        }
+
+        function draw() {
+            // Smooth interpolation toward actual mouse position
+            const lerp = 0.08;
+            smoothMouse.x += (mouse.x - smoothMouse.x) * lerp;
+            smoothMouse.y += (mouse.y - smoothMouse.y) * lerp;
+
+            const w = window.innerWidth;
+            const h = window.innerHeight;
+            ctx.clearRect(0, 0, w, h);
+
+            const cols = Math.ceil(w / spacing) + 1;
+            const rows = Math.ceil(h / spacing) + 1;
+
+            for (let row = 0; row < rows; row++) {
+                for (let col = 0; col < cols; col++) {
+                    const x = col * spacing;
+                    const y = row * spacing;
+                    const dx = x - smoothMouse.x;
+                    const dy = y - smoothMouse.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    let radius = baseRadius;
+                    let alpha = baseAlpha;
+
+                    if (dist < influenceRadius) {
+                        const t = 1 - (dist / influenceRadius);
+                        const ease = t * t * t;
+                        radius = baseRadius + (maxRadius - baseRadius) * ease;
+                        alpha = baseAlpha + (0.15) * ease;
+                    }
+
+                    ctx.beginPath();
+                    ctx.arc(x, y, radius, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(${dotColor[0]}, ${dotColor[1]}, ${dotColor[2]}, ${alpha})`;
+                    ctx.fill();
+                }
+            }
+            requestAnimationFrame(draw);
+        }
+
+        document.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
+        document.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
+        document.addEventListener('touchmove', (e) => { const t = e.touches[0]; mouse.x = t.clientX; mouse.y = t.clientY; }, { passive: true });
+        document.addEventListener('touchend', () => { mouse.x = -9999; mouse.y = -9999; });
+
+        window.addEventListener('resize', resize);
+        resize();
+        draw();
+
+        // ============================================
+        // Typewriter reveal effect
+        // ============================================
+        function typewriterReveal(containerId, delay, interval) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            const lines = container.querySelectorAll('.typewriter-line');
+            let hasPlayed = false;
+
+            const twObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !hasPlayed) {
+                        hasPlayed = true;
+                        lines.forEach((line, i) => {
+                            setTimeout(() => {
+                                line.classList.add('typed');
+                                // Add cursor to current line, remove from previous
+                                lines.forEach(l => l.classList.remove('typewriter-cursor'));
+                                if (i < lines.length - 1) {
+                                    line.classList.add('typewriter-cursor');
+                                }
+                            }, delay + (i * interval));
+                        });
+                        // Remove final cursor after all lines typed
+                        setTimeout(() => {
+                            lines.forEach(l => l.classList.remove('typewriter-cursor'));
+                        }, delay + (lines.length * interval) + 400);
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            twObserver.observe(container);
+        }
+
+        // Code content — triggers on scroll into view, 80ms between lines
+        typewriterReveal('codeContent', 200, 80);
+
+        // ============================================
+        // Swipe gesture for dossier cards
+        // ============================================
+        const cardStack = document.querySelector('.dossier-stack');
+        let touchStartX = 0;
+        let touchStartY = 0;
+        const swipeThreshold = 50;
+
+        cardStack.style.touchAction = 'pan-y';
+
+        cardStack.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        }, { passive: true });
+
+        cardStack.addEventListener('touchend', (e) => {
+            const touchEndX = e.changedTouches[0].clientX;
+            const touchEndY = e.changedTouches[0].clientY;
+            const deltaX = touchEndX - touchStartX;
+            const deltaY = touchEndY - touchStartY;
+
+            // Only register horizontal swipes (not vertical scrolling)
+            if (Math.abs(deltaX) > swipeThreshold && Math.abs(deltaX) > Math.abs(deltaY)) {
+                if (deltaX < 0) {
+                    // Swipe left — advance
+                    frontIndex = (frontIndex + 1) % total;
+                } else {
+                    // Swipe right — go back
+                    frontIndex = (frontIndex - 1 + total) % total;
+                }
+                updateCards();
+            }
+        }, { passive: true });
     </script>
 </body>
 </html>
