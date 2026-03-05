@@ -377,7 +377,7 @@
             justify-content: center;
             align-items: center;
             padding: 60px 0;
-            padding-bottom: 40px;
+            padding: 40px;
             min-height: 480px;
         }
         .dossier-stack {
@@ -736,7 +736,7 @@
         <section class="about-section reveal">
             <div class="section-label">Report // Chimera Corp</div>
             <div class="code-block">
-                <div class="code-line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23</div>
+                <div class="code-line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21</div>
                 <div class="code-content" id="codeContent">
                     <span class="typewriter-line"><span class="code-comment">// chimera.config</span></span><br>
                     <br>
@@ -1010,37 +1010,66 @@
         typewriterReveal('codeContent', 200, 80);
 
         // ============================================
-        // Swipe gesture for dossier cards
+        // Drag swipe for dossier cards
         // ============================================
         const cardStack = document.querySelector('.dossier-stack');
         let touchStartX = 0;
         let touchStartY = 0;
+        let touchCurrentX = 0;
+        let isDragging = false;
         const swipeThreshold = 50;
 
         cardStack.style.touchAction = 'pan-y';
 
+        function getFrontCard() {
+            return cards[frontIndex];
+        }
+
         cardStack.addEventListener('touchstart', (e) => {
             touchStartX = e.touches[0].clientX;
             touchStartY = e.touches[0].clientY;
+            touchCurrentX = touchStartX;
+            isDragging = false;
+            const front = getFrontCard();
+            front.style.transition = 'none';
+        }, { passive: true });
+
+        cardStack.addEventListener('touchmove', (e) => {
+            touchCurrentX = e.touches[0].clientX;
+            const deltaX = touchCurrentX - touchStartX;
+            const deltaY = e.touches[0].clientY - touchStartY;
+
+            // Only start dragging if horizontal movement dominates
+            if (!isDragging && Math.abs(deltaX) > 10 && Math.abs(deltaX) > Math.abs(deltaY)) {
+                isDragging = true;
+            }
+
+            if (isDragging) {
+                const front = getFrontCard();
+                const drag = deltaX * 0.6; // dampen slightly
+                const rotate = deltaX * 0.015;
+                const opacity = Math.max(0.5, 1 - Math.abs(deltaX) / 600);
+                front.style.transform = `translateX(${drag}px) rotate(${rotate}deg)`;
+                front.style.opacity = opacity;
+            }
         }, { passive: true });
 
         cardStack.addEventListener('touchend', (e) => {
-            const touchEndX = e.changedTouches[0].clientX;
-            const touchEndY = e.changedTouches[0].clientY;
-            const deltaX = touchEndX - touchStartX;
-            const deltaY = touchEndY - touchStartY;
+            const front = getFrontCard();
+            front.style.transition = 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
 
-            // Only register horizontal swipes (not vertical scrolling)
-            if (Math.abs(deltaX) > swipeThreshold && Math.abs(deltaX) > Math.abs(deltaY)) {
+            const deltaX = touchCurrentX - touchStartX;
+
+            if (isDragging && Math.abs(deltaX) > swipeThreshold) {
                 if (deltaX < 0) {
-                    // Swipe left — advance
                     frontIndex = (frontIndex + 1) % total;
                 } else {
-                    // Swipe right — go back
                     frontIndex = (frontIndex - 1 + total) % total;
                 }
-                updateCards();
             }
+
+            updateCards();
+            isDragging = false;
         }, { passive: true });
     </script>
 </body>
