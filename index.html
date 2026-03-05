@@ -377,13 +377,14 @@
             justify-content: center;
             align-items: center;
             padding: 60px 0;
-            padding-bottom: 40px;
             min-height: 480px;
+            overflow: hidden;
         }
         .dossier-stack {
             position: relative;
             width: 420px;
-            height: 440px;
+            height: 520px;
+            margin: 0 auto;
             touch-action: pan-y;
         }
         .dossier-card {
@@ -396,7 +397,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            min-height: 420px;
+            min-height: 500px;
             transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             cursor: default;
             box-shadow: 0 1px 3px rgba(0,0,0,0.04);
@@ -502,6 +503,50 @@
             font-size: 1.15rem;
         }
 
+        .card-progress {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-light);
+        }
+        .card-progress-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .card-progress-text {
+            font-family: var(--font-mono);
+            font-size: 0.55rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+        }
+        .card-progress-value {
+            font-family: var(--font-mono);
+            font-size: 0.55rem;
+            letter-spacing: 0.06em;
+            color: var(--text-tertiary);
+        }
+        .card-progress-bar {
+            display: flex;
+            gap: 3px;
+        }
+        .card-progress-block {
+            flex: 1;
+            height: 6px;
+            background: var(--border-light);
+            border-radius: 1px;
+        }
+        .card-progress-block.filled {
+            background: var(--text-primary);
+        }
+        .card-progress-block.filled--active {
+            background: var(--text-primary);
+        }
+        .card-progress-block.filled--inactive {
+            background: var(--accent-red);
+        }
+
         .card-footer {
             margin-top: 28px;
             padding-top: 20px;
@@ -531,6 +576,7 @@
             justify-content: center;
             gap: 16px;
             margin-top: 20px;
+            padding-bottom: 30px;
         }
         .pagination-indicator {
             font-family: var(--font-mono);
@@ -665,11 +711,17 @@
             .code-block { font-size: 0.65rem; }
             .code-line-numbers { font-size: 0.58rem; min-width: 32px; padding: 24px 8px 24px 12px; }
             .code-content { padding: 24px 16px; }
-            .dossier-card { width: 300px; min-height: 360px; padding: 28px 24px 24px; }
+            .dossier-stack { width: 340px; height: 500px; }
+            .dossier-card { width: 340px; min-height: 480px; padding: 28px 24px 24px; }
             .card-title { font-size: 1.4rem; }
             .hero-meta { flex-wrap: wrap; }
+            .projects-section { padding-bottom: 60px; }
             .footer { padding: 20px 20px 16px; }
             .footer-bottom { flex-direction: column; gap: 6px; align-items: center; }
+        }
+        @media (max-width: 520px) {
+            .dossier-stack { width: 300px; height: 490px; }
+            .dossier-card { width: 300px; min-height: 470px; }
         }
         @media (max-width: 480px) {
             .dossier-stack { width: 280px; }
@@ -776,6 +828,24 @@
                         <div class="card-body">
                             <h3 class="card-title">The Squab HQ</h3>
                             <p class="card-description">A comedic spy thriller. Unlikely operatives. Hidden agendas. Complete the aptitude assessment and prove your worth to the agency.</p>
+                            <div class="card-progress">
+                                <div class="card-progress-label">
+                                    <span class="card-progress-text">Progression</span>
+                                    <span class="card-progress-value">20%</span>
+                                </div>
+                                <div class="card-progress-bar">
+                                    <div class="card-progress-block filled filled--active"></div>
+                                    <div class="card-progress-block filled filled--active"></div>
+                                    <div class="card-progress-block"></div>
+                                    <div class="card-progress-block"></div>
+                                    <div class="card-progress-block"></div>
+                                    <div class="card-progress-block"></div>
+                                    <div class="card-progress-block"></div>
+                                    <div class="card-progress-block"></div>
+                                    <div class="card-progress-block"></div>
+                                    <div class="card-progress-block"></div>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-footer">
                             <a href="#" class="card-cta">&gt; Begin your objective<span class="cta-cursor"> _</span></a>
@@ -791,6 +861,24 @@
                         <div class="card-body">
                             <h3 class="card-title">Encrypted</h3>
                             <p class="card-description">Data restricted. Clearance required.<br>Field testing to commence in the coming months.<br>Signal range frequency 2.4 GHz.</p>
+                            <div class="card-progress">
+                                <div class="card-progress-label">
+                                    <span class="card-progress-text">Progression</span>
+                                    <span class="card-progress-value">0%</span>
+                                </div>
+                                <div class="card-progress-bar">
+                                    <div class="card-progress-block"></div>
+                                    <div class="card-progress-block"></div>
+                                    <div class="card-progress-block"></div>
+                                    <div class="card-progress-block"></div>
+                                    <div class="card-progress-block"></div>
+                                    <div class="card-progress-block"></div>
+                                    <div class="card-progress-block"></div>
+                                    <div class="card-progress-block"></div>
+                                    <div class="card-progress-block"></div>
+                                    <div class="card-progress-block"></div>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-footer">
                             <span class="card-cta card-cta--inactive">&gt; Objectives classified<span class="cta-cursor"> _</span></span>
@@ -806,6 +894,24 @@
                         <div class="card-body">
                             <h3 class="card-title">Encrypted</h3>
                             <p class="card-description">Data restricted. Clearance required.<br>Field testing to commence in the coming months.<br>Signal range frequency 2.4 GHz.</p>
+                            <div class="card-progress">
+                                <div class="card-progress-label">
+                                    <span class="card-progress-text">Progression</span>
+                                    <span class="card-progress-value">0%</span>
+                                </div>
+                                <div class="card-progress-bar">
+                                    <div class="card-progress-block"></div>
+                                    <div class="card-progress-block"></div>
+                                    <div class="card-progress-block"></div>
+                                    <div class="card-progress-block"></div>
+                                    <div class="card-progress-block"></div>
+                                    <div class="card-progress-block"></div>
+                                    <div class="card-progress-block"></div>
+                                    <div class="card-progress-block"></div>
+                                    <div class="card-progress-block"></div>
+                                    <div class="card-progress-block"></div>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-footer">
                             <span class="card-cta card-cta--inactive">&gt; Objectives classified<span class="cta-cursor"> _</span></span>
@@ -847,7 +953,7 @@
                 </a>
             </div>
             <div class="footer-bottom">
-                <span class="footer-left">&copy; Chimera Corp // The Salvare</span>
+                <span class="footer-left">&copy; The Salvare</span>
                 <span class="footer-right">All systems operational</span>
             </div>
         </footer>
