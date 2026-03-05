@@ -377,6 +377,7 @@
             justify-content: center;
             align-items: center;
             padding: 60px 0;
+            padding-bottom: 40px;
             min-height: 480px;
         }
         .dossier-stack {
@@ -458,7 +459,7 @@
         }
         .card-description {
             font-family: var(--font-sans);
-            font-size: 0.88rem;
+            font-size: 0.8rem;
             font-weight: 350;
             line-height: 1.65;
             color: var(--text-secondary);
@@ -913,23 +914,21 @@
         let mouse = { x: -9999, y: -9999 };
         let smoothMouse = { x: -9999, y: -9999 };
 
-        // Random square pulse system
-        const pulsingDots = new Map(); // key: "col,row" -> { progress, speed, size }
-        const maxPulsing = 12;
-        const pulseChance = 0.003; // chance per frame to spawn a new pulse
+        // Ambient spotlight bloom system
+        const blooms = [];
+        const maxBlooms = 5;
+        const bloomSpawnChance = 0.008;
 
-        function spawnPulse(cols, rows) {
-            if (pulsingDots.size >= maxPulsing) return;
-            const col = Math.floor(Math.random() * cols);
-            const row = Math.floor(Math.random() * rows);
-            const key = `${col},${row}`;
-            if (!pulsingDots.has(key)) {
-                pulsingDots.set(key, {
-                    progress: 0,
-                    speed: 0.008 + Math.random() * 0.012, // varies how fast each one pulses
-                    size: 1.5 + Math.random() * 2 // varies the square size
-                });
-            }
+        function spawnBloom() {
+            if (blooms.length >= maxBlooms) return;
+            blooms.push({
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight,
+                radius: 80 + Math.random() * 120,
+                progress: 0,
+                speed: 0.002 + Math.random() * 0.003,
+                intensity: 0.5 + Math.random() * 0.4
+            });
         }
 
         function resize() {
@@ -950,73 +949,60 @@
             const h = window.innerHeight;
             ctx.clearRect(0, 0, w, h);
 
+            // Maybe spawn a new bloom
+            if (Math.random() < bloomSpawnChance) spawnBloom();
+
+            // Update blooms
+            for (let i = blooms.length - 1; i >= 0; i--) {
+                blooms[i].progress += blooms[i].speed;
+                if (blooms[i].progress >= 1) blooms.splice(i, 1);
+            }
+
             const cols = Math.ceil(w / spacing) + 1;
             const rows = Math.ceil(h / spacing) + 1;
-
-            // Randomly spawn new pulses
-            if (Math.random() < pulseChance) {
-                spawnPulse(cols, rows);
-            }
-
-            // Update pulse progress and remove finished ones
-            for (const [key, pulse] of pulsingDots) {
-                pulse.progress += pulse.speed;
-                if (pulse.progress >= 1) {
-                    pulsingDots.delete(key);
-                }
-            }
 
             for (let row = 0; row < rows; row++) {
                 for (let col = 0; col < cols; col++) {
                     const x = col * spacing;
                     const y = row * spacing;
-                    const dx = x - smoothMouse.x;
-                    const dy = y - smoothMouse.y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
 
                     let radius = baseRadius;
                     let alpha = baseAlpha;
+
+                    // Mouse hover influence
+                    const dx = x - smoothMouse.x;
+                    const dy = y - smoothMouse.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
 
                     if (dist < influenceRadius) {
                         const t = 1 - (dist / influenceRadius);
                         const ease = t * t * t;
                         radius = baseRadius + (maxRadius - baseRadius) * ease;
-                        alpha = baseAlpha + (0.15) * ease;
+                        alpha = baseAlpha + 0.15 * ease;
                     }
 
-                    const key = `${col},${row}`;
-                    const pulse = pulsingDots.get(key);
+                    // Bloom influence — stack all active blooms
+                    for (const bloom of blooms) {
+                        const bx = x - bloom.x;
+                        const by = y - bloom.y;
+                        const bDist = Math.sqrt(bx * bx + by * by);
 
-                    if (pulse) {
-                        // Smooth bell curve: 0 -> 1 -> 0
-                        const t = pulse.progress;
-                        const blend = Math.sin(t * Math.PI);
-                        const sqSize = pulse.size * blend;
-                        const sqAlpha = baseAlpha + 0.25 * blend;
+                        if (bDist < bloom.radius) {
+                            // Bell curve over bloom lifetime
+                            const life = Math.sin(bloom.progress * Math.PI);
+                            // Gaussian falloff from bloom centre
+                            const falloff = Math.exp(-(bDist * bDist) / (2 * (bloom.radius * 0.4) * (bloom.radius * 0.4)));
+                            const strength = life * falloff * bloom.intensity;
 
-                        // Draw square (rotated 45deg at peak for extra life)
-                        const rotation = blend * 0.15;
-                        ctx.save();
-                        ctx.translate(x, y);
-                        ctx.rotate(rotation);
-                        ctx.fillStyle = `rgba(${dotColor[0]}, ${dotColor[1]}, ${dotColor[2]}, ${sqAlpha})`;
-                        ctx.fillRect(-sqSize / 2, -sqSize / 2, sqSize, sqSize);
-                        ctx.restore();
-
-                        // Also draw the base dot fading out as the square fades in
-                        const dotBlend = 1 - blend;
-                        if (dotBlend > 0.01) {
-                            ctx.beginPath();
-                            ctx.arc(x, y, radius, 0, Math.PI * 2);
-                            ctx.fillStyle = `rgba(${dotColor[0]}, ${dotColor[1]}, ${dotColor[2]}, ${alpha * dotBlend})`;
-                            ctx.fill();
+                            radius = Math.max(radius, baseRadius + (maxRadius * 1.27 - baseRadius) * strength);
+                            alpha = Math.max(alpha, baseAlpha + 0.25 * strength);
                         }
-                    } else {
-                        ctx.beginPath();
-                        ctx.arc(x, y, radius, 0, Math.PI * 2);
-                        ctx.fillStyle = `rgba(${dotColor[0]}, ${dotColor[1]}, ${dotColor[2]}, ${alpha})`;
-                        ctx.fill();
                     }
+
+                    ctx.beginPath();
+                    ctx.arc(x, y, radius, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(${dotColor[0]}, ${dotColor[1]}, ${dotColor[2]}, ${alpha})`;
+                    ctx.fill();
                 }
             }
             requestAnimationFrame(draw);
