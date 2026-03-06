@@ -36,20 +36,13 @@
         /* Per-story fonts — self-hosted
            Replace src paths with your local font files */
 
-        /* The Squab HQ — Bevellier Bold (self-hosted) */
+        /* The Squab HQ — Typex Regular (self-hosted) */
         @font-face {
-            font-family: 'Bevellier';
-            font-style: normal;
-            font-display: swap;
-            font-weight: 700;
-            src: url(./fonts/Bevellier-Bold.woff2) format('woff2');
-        }
-        @font-face {
-            font-family: 'Bevellier';
+            font-family: 'Typex';
             font-style: normal;
             font-display: swap;
             font-weight: 400;
-            src: url(./fonts/Bevellier-Regular.woff2) format('woff2');
+            src: url(./fonts/Typex-Regular.otf) format('otf');
         }
 
         /* Oneth — Russo One via Google Fonts
@@ -80,7 +73,7 @@
             --font-pixel: 'Geist Pixel Square', 'Courier New', monospace;
 
             /* Story-specific fonts */
-            --font-squab: 'Bevellier', 'Geist Mono Variable', monospace;
+            --font-squab: 'Typex', 'Geist Mono Variable', monospace;
             --font-oneth: 'Russo One', sans-serif;
             --font-sol: 'Jacquard 24', cursive;
         }
@@ -272,9 +265,9 @@
             z-index: 100;
         }
         .header-brand {
-            font-family: var(--font-mono);
+            font-family: var(--font-pixel);
             font-size: 0.8rem;
-            font-weight: 500;
+            font-weight: 700;
             letter-spacing: 0.08em;
             text-transform: uppercase;
         }
@@ -307,9 +300,9 @@
         }
         .header-nav:hover { color: var(--text-primary); }
 
-        /* =============================================
+        /* ============================================
            HERO
-           ============================================= */
+           ============================================ */
         .hero {
             display: grid;
             grid-template-columns: 1fr auto;
@@ -322,6 +315,12 @@
             padding: 100px 80px;
             max-width: 960px;
             margin: 0 auto;
+        }
+        .hero-logo {
+            width: 120px;
+            height: auto;
+            margin-bottom: 32px;
+            display: block;
         }
         .hero-title {
             font-family: var(--font-pixel);
@@ -539,16 +538,18 @@
         }
         .card-logo {
             width: 48px; height: 48px;
-            background: var(--bg-tertiary);
-            border: 1px solid var(--border-light);
+            /*background: var(--bg-tertiary);*/
+            /*border: 1px solid var(--border-light);*/
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: var(--font-pixel);
-            font-size: 0.65rem;
-            color: var(--text-tertiary);
-            letter-spacing: 0.04em;
+            overflow: hidden;
+        }
+        .card-logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         .card-classification {
             font-family: var(--font-mono);
@@ -595,14 +596,14 @@
         /* Per-story card typography overrides */
         .card--squab .card-title {
             font-family: var(--font-squab);
-            font-size: 1.9rem;
+            font-size: 1.5rem;
             font-weight: 700;
             letter-spacing: 0.02em;
             text-transform: uppercase;
         }
         .card--squab .card-description {
             font-family: var(--font-squab);
-            font-size: 1rem;
+            font-size: 0.8rem;
             font-weight: 400;
             letter-spacing: 0.01em;
         }
@@ -658,7 +659,7 @@
         }
         .card-progress-block {
             flex: 1;
-            height: 6px;
+            height: 22px;
             background: var(--border-light);
             border-radius: 1px;
         }
@@ -716,7 +717,7 @@
         }
 
         .card-footer {
-            margin-top: 28px;
+            margin-top: 0px;
             padding-top: 20px;
             border-top: 1px solid var(--border-light);
         }
@@ -843,6 +844,7 @@
         .anim-delay-1 { animation-delay: 0.1s; }
         .anim-delay-2 { animation-delay: 0.25s; }
         .anim-delay-3 { animation-delay: 0.4s; }
+        .anim-delay-4 { animation-delay: 0.55s; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .anim-fade { opacity: 0; animation: fadeIn 1s ease-out 0.5s forwards; }
         .reveal {
@@ -935,9 +937,10 @@
         <!-- Hero -->
         <section class="hero">
             <div class="hero-main">
-                <h1 class="hero-title anim-fade-up anim-delay-1">make good,<br>things happen.</h1>
-                <p class="hero-subtitle anim-fade-up anim-delay-2">I'm Ben, a creative engineer.<br>An operative known as The Salvare. Assigned task: world building.<br>Scaling the Chimera Corp, a three part series of illustrative novels and interactive technology.<br><br>Follow the projects and complete your objectives.<br>Your consumption is required.</p>
-                <div class="hero-meta anim-fade-up anim-delay-3">
+                <img src="images/salvarelogo.png" alt="The Salvare" class="hero-logo anim-fade-up anim-delay-1">
+                <h1 class="hero-title anim-fade-up anim-delay-2">make good,<br>things happen.</h1>
+                <p class="hero-subtitle anim-fade-up anim-delay-3">I'm Ben, a creative engineer.<br>An operative known as The Salvare. Assigned task: world building.<br>Scaling the Chimera Corp, a three part series of illustrative novels and interactive technology.<br><br>Follow the projects and complete your objectives.<br>Your consumption is required.</p>
+                <div class="hero-meta anim-fade-up anim-delay-4">
                     <span class="hero-meta-tag">PROJECTS_IN_PROGRESS</span>
                     <span class="hero-meta-tag">OBJECTIVES_INCOMPLETE</span>
                     <span class="hero-meta-tag">OPERATION_WORLD_DOMINATION</span>
@@ -998,7 +1001,7 @@
                     <!-- The Squab HQ — Page 1 -->
                     <div class="dossier-card card--squab">
                         <div class="card-header">
-                            <div class="card-logo">SQ</div>
+                            <div class="card-logo"><img src="./images/squab-logo.png" alt="The Squab HQ" class="card-logo-img"></div>
                             <span class="card-classification card-classification--active">Active</span>
                         </div>
                         <div class="card-body">
@@ -1024,14 +1027,14 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <a href="#" class="card-cta">&gt; Begin your objective<span class="cta-cursor"> _</span></a>
+                            <a href="./thesquabhq/" target="_blank" rel="noopener noreferrer" class="card-cta">&gt; Begin your objective<span class="cta-cursor"> _</span></a>
                         </div>
                     </div>
 
                     <!-- Oneth — Page 2 -->
                     <div class="dossier-card card--oneth">
                         <div class="card-header">
-                            <div class="card-logo">01</div>
+                            <div class="card-logo"><img src="./images/oneth-logo.png" alt="Oneth" class="card-logo-img"></div>
                             <span class="card-classification card-classification--inactive">Inactive</span>
                         </div>
                         <div class="card-body">
@@ -1064,7 +1067,7 @@
                     <!-- Sol's Sword — Page 3 -->
                     <div class="dossier-card card--sol">
                         <div class="card-header">
-                            <div class="card-logo">SOL</div>
+                            <div class="card-logo"><img src="./images/sol-logo.png" alt="Sol's Sword" class="card-logo-img"></div>
                             <span class="card-classification card-classification--inactive">Inactive</span>
                         </div>
                         <div class="card-body">
