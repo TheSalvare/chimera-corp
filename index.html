@@ -36,13 +36,20 @@
         /* Per-story fonts — self-hosted
            Replace src paths with your local font files */
 
-        /* The Squab HQ — Typex Regular (self-hosted) */
+        /* The Squab HQ — Bevellier (self-hosted) */
         @font-face {
-            font-family: 'Typex';
+            font-family: 'Bevellier';
+            font-style: normal;
+            font-display: swap;
+            font-weight: 700;
+            src: url(./fonts/Bevellier-Bold.woff2) format('woff2');
+        }
+        @font-face {
+            font-family: 'Bevellier';
             font-style: normal;
             font-display: swap;
             font-weight: 400;
-            src: url(./fonts/Typex-Regular.otf) format('opentype');
+            src: url(./fonts/Bevellier-Regular.woff2) format('woff2');
         }
 
         /* Oneth — Russo One via Google Fonts
@@ -73,7 +80,7 @@
             --font-pixel: 'Geist Pixel Square', 'Courier New', monospace;
 
             /* Story-specific fonts */
-            --font-squab: 'Typex', 'Geist Mono Variable', monospace;
+            --font-squab: 'Bevellier', 'Geist Mono Variable', monospace;
             --font-oneth: 'Russo One', sans-serif;
             --font-sol: 'Jacquard 24', cursive;
         }
