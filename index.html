@@ -210,6 +210,20 @@
         }
 
         /* ============================================
+           SOLDIE IMAGE
+           ============================================ */
+        .soldie-section {
+            display: flex;
+            justify-content: center;
+            padding: 25px 0 45px;
+        }
+        .soldie-section img {
+            height: 120px;
+            width: auto;
+            display: block;
+        }
+
+        /* ============================================
            END TRANSMISSION
            ============================================ */
         .end-transmission {
@@ -499,7 +513,7 @@
            DOSSIER CARDS
            ============================================ */
         .projects-section {
-            padding: 80px 56px 120px;
+            padding: 80px 56px 40px;
             max-width: 1100px;
             margin: 0 auto;
         }
@@ -513,14 +527,14 @@
         }
         .dossier-stack {
             position: relative;
-            width: 420px;
+            width: 504px;
             height: 520px;
             margin: 0 auto;
             touch-action: pan-y;
         }
         .dossier-card {
             position: absolute;
-            width: 420px;
+            width: 504px;
             background: var(--bg-card);
             border: 1.5px solid var(--border-medium);
             border-radius: 14px;
@@ -603,14 +617,14 @@
         /* Per-story card typography overrides */
         .card--squab .card-title {
             font-family: var(--font-squab);
-            font-size: 1.5rem;
+            font-size: 1.9rem;
             font-weight: 700;
             letter-spacing: 0.02em;
             text-transform: uppercase;
         }
         .card--squab .card-description {
             font-family: var(--font-squab);
-            font-size: 0.8rem;
+            font-size: 1rem;
             font-weight: 400;
             letter-spacing: 0.01em;
         }
@@ -623,7 +637,7 @@
         }
         .card--oneth .card-description {
             font-family: var(--font-oneth);
-            font-size: 0.9rem;
+            font-size: 0.8rem;
         }
 
         .card--sol .card-title {
@@ -634,6 +648,7 @@
         .card--sol .card-description {
             font-family: var(--font-sol);
             font-size: 1.15rem;
+            line-height: 1;
         }
 
         .card-progress {
@@ -912,15 +927,15 @@
             <div class="hero-main">
                 <img src="images/salvarelogo.png" alt="The Salvare" class="hero-logo anim-fade-up anim-delay-1">
                 <h1 class="hero-title anim-fade-up anim-delay-2">make good,<br>things happen.</h1>
-                <p class="hero-subtitle anim-fade-up anim-delay-3">I'm Ben, a creative engineer.<br>An operative known as The Salvare. Assigned task: world building.<br>Scaling the Chimera Corp, a three part series of illustrative novels and interactive technology.<br><br>Follow the projects and complete your objectives.<br>Your consumption is required.</p>
+                <p class="hero-subtitle anim-fade-up anim-delay-3">I'm Ben, a creative engineer.<br>An operative known as The Salvare.<br>Operative assigned task; Scaling the Chimera Corp, a three part series of illustrative novels and interactive technology.<br><br>Follow the projects and complete your objectives.<br>Your consumption is required.</p>
                 <div class="hero-meta anim-fade-up anim-delay-4">
                     <span class="hero-meta-tag">PROJECTS_IN_PROGRESS</span>
-                    <span class="hero-meta-tag">OBJECTIVES_INCOMPLETE</span>
+                    <span class="hero-meta-tag">OBJECTIVES_IN_DEVELOPMENT</span>
                     <span class="hero-meta-tag">OPERATION_WORLD_DOMINATION</span>
                 </div>
             </div>
             <div class="hero-sidebar anim-fade">
-                <span class="sidebar-text">Scaling energy consumption<span class="sidebar-cursor">_</span></span>
+                <span class="sidebar-text">Initialising energy consumption<span class="sidebar-cursor">_</span></span>
                 <span class="sidebar-arrow"></span>
             </div>
         </section>
@@ -948,27 +963,27 @@
                     <span class="typewriter-line"><span class="code-key">clearance</span>: <span class="code-value">"Public"</span></span><br>
                     <br>
                     <span class="typewriter-line"><span class="code-key">operative</span>: [</span><br>
-                    <span class="typewriter-line">&nbsp;&nbsp;{ <span class="code-key">id</span>: <span class="code-value">"ILLUSTRATION"</span>, <span class="code-key">status</span>: <span class="code-value">"Toons"</span> },</span><br>
+                    <span class="typewriter-line">&nbsp;&nbsp;{ <span class="code-key">id</span>: <span class="code-value">"ILLUSTRATION"</span>, <span class="code-key">status</span>: <span class="code-value">"Adequate"</span> },</span><br>
                     <span class="typewriter-line">&nbsp;&nbsp;{ <span class="code-key">id</span>: <span class="code-value">"WRITTING"</span>, <span class="code-key">status</span>: <span class="code-value">"Legible"</span> },</span><br>
-                    <span class="typewriter-line">&nbsp;&nbsp;{ <span class="code-key">id</span>: <span class="code-value">"ENGINEERING"</span>, <span class="code-key">status</span>: <span class="code-value">"Front-end"</span> },</span><br>
-                    <span class="typewriter-line">&nbsp;&nbsp;{ <span class="code-key">id</span>: <span class="code-value">"DESIGN"</span>, <span class="code-key">status</span>: <span class="code-value">"Products"</span> },</span><br>
+                    <span class="typewriter-line">&nbsp;&nbsp;{ <span class="code-key">id</span>: <span class="code-value">"ENGINEERING"</span>, <span class="code-key">status</span>: <span class="code-value">"Inept"</span> },</span><br>
+                    <span class="typewriter-line">&nbsp;&nbsp;{ <span class="code-key">id</span>: <span class="code-value">"DESIGN"</span>, <span class="code-key">status</span>: <span class="code-value">"Admissable"</span> },</span><br>
                     <span class="typewriter-line">]</span><br>
                     <br>
                     <span class="typewriter-line"><span class="code-key">projects</span>: [</span><br>
-                    <span class="typewriter-line">&nbsp;&nbsp;{ <span class="code-key">id</span>: <span class="code-value">"SQUAB_HQ"</span>, <span class="code-key">status</span>: <span class="code-value">"Active"</span> },</span><br>
+                    <span class="typewriter-line">&nbsp;&nbsp;{ <span class="code-key">id</span>: <span class="code-value">"THE_SQUAB_HQ"</span>, <span class="code-key">status</span>: <span class="code-value">"Active"</span> },</span><br>
                     <span class="typewriter-line">&nbsp;&nbsp;{ <span class="code-key">id</span>: <span class="code-value">"ENCRYPTED"</span>, <span class="code-key">status</span>: <span class="code-value">"Classified"</span> },</span><br>
                     <span class="typewriter-line">&nbsp;&nbsp;{ <span class="code-key">id</span>: <span class="code-value">"ENCRYPTED"</span>, <span class="code-key">status</span>: <span class="code-value">"Classified"</span> },</span><br>
                     <span class="typewriter-line">]</span><br>
-                    <span class="typewriter-line"><span class="code-comment">// Objective: Engage. Discover. Report.</span></span><br>
+                    <span class="typewriter-line"><span class="code-comment">// Objective: Discover. Engage. Report.</span></span><br>
                     <br>
-                    <span class="typewriter-line"><span class="code-comment">// Retrieving project dossiers...</span></span>
+                    <span class="typewriter-line"><span class="code-comment">// Retrieving project files...</span></span>
                 </div>
             </div>
         </section>
 
         <!-- Project Dossiers -->
         <section class="projects-section reveal">
-            <div class="section-label">Project // Story time</div>
+            <div class="section-label">Project Files</div>
             <div class="cards-container">
                 <div class="dossier-stack">
                     <!-- The Squab HQ — Page 1 -->
@@ -979,7 +994,7 @@
                         </div>
                         <div class="card-body">
                             <h3 class="card-title">The Squab HQ</h3>
-                            <p class="card-description">A comedic spy thriller. Unlikely operatives. Hidden agendas. Complete the aptitude assessment and prove your worth to the agency.</p>
+                            <p class="card-description">A comedic spy thriller. Unlikely agents. Hidden agendas.<br>An original novel.<br><br>Complete the aptitude assessment and prove your worth to the agency.</p>
                             <div class="card-progress">
                                 <div class="card-progress-label">
                                     <span class="card-progress-text">Progression</span>
@@ -1033,7 +1048,7 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <span class="card-cta card-cta--inactive">&gt; Objectives classified<span class="cta-cursor"> _</span></span>
+                            <span class="card-cta card-cta--inactive">&gt; Classified information<span class="cta-cursor"> _</span></span>
                         </div>
                     </div>
 
@@ -1066,7 +1081,7 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <span class="card-cta card-cta--inactive">&gt; Objectives classified<span class="cta-cursor"> _</span></span>
+                            <span class="card-cta card-cta--inactive">&gt; Classified information<span class="cta-cursor"> _</span></span>
                         </div>
                     </div>
                 </div>
@@ -1083,9 +1098,14 @@
             </div>
         </section>
 
+        <!-- Soldie image -->
+        <div class="soldie-section reveal">
+            <img src="./images/soldie.png" alt="Soldie">
+        </div>
+
         <!-- Terminal email signup -->
         <section class="terminal-signup reveal">
-            <div class="terminal-signup-label">Transmissions</div>
+            <div class="terminal-signup-label">Transmissions // Stay informed and learn how you can become an operative. Submit your identity below.</div>
             <div class="terminal-input-wrapper">
                 <span class="terminal-prompt">&gt;</span>
                 <input type="email" class="terminal-input" id="terminalEmail" placeholder="Enter electronic mail to receive transmissions" autocomplete="email">
