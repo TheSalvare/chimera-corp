@@ -3,27 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="./images/salvarelogo.png">
     <title>Chimera Corp — The Salvare</title>
     <style>
-        /* Google Fonts */
-        @import url('https://fonts.googleapis.com/css2?family=Russo+One&family=Jacquard+24&display=swap');
-
         /* ============================================
            FONT FACES
            ============================================ */
         @font-face {
-            font-family: 'Geist Variable';
+            font-family: 'Geist';
             font-style: normal;
             font-display: swap;
-            font-weight: 100 900;
-            src: url(https://cdn.jsdelivr.net/fontsource/fonts/geist:vf@latest/latin-wght-normal.woff2) format('woff2-variations');
+            font-weight: 400;
+            src: url(./fonts/Geist-Regular.woff2) format('woff2');
         }
         @font-face {
-            font-family: 'Geist Mono Variable';
+            font-family: 'Geist Mono';
             font-style: normal;
             font-display: swap;
-            font-weight: 100 900;
-            src: url(https://cdn.jsdelivr.net/fontsource/fonts/geist-mono:vf@latest/latin-wght-normal.woff2) format('woff2-variations');
+            font-weight: 400;
+            src: url(./fonts/GeistMono-Regular.woff2) format('woff2');
         }
         @font-face {
             font-family: 'Geist Pixel Square';
@@ -32,31 +30,6 @@
             font-weight: 400;
             src: url(./fonts/GeistPixel-Square.woff2) format('woff2');
         }
-
-        /* Per-story fonts — self-hosted
-           Replace src paths with your local font files */
-
-        /* The Squab HQ — Bevellier (self-hosted) */
-        @font-face {
-            font-family: 'Bevellier';
-            font-style: normal;
-            font-display: swap;
-            font-weight: 700;
-            src: url(./fonts/Bevellier-Bold.woff2) format('woff2');
-        }
-        @font-face {
-            font-family: 'Bevellier';
-            font-style: normal;
-            font-display: swap;
-            font-weight: 400;
-            src: url(./fonts/Bevellier-Regular.woff2) format('woff2');
-        }
-
-        /* Oneth — Russo One via Google Fonts
-           Loaded via @import below */
-
-        /* Sol's Sword — Jacquard 24 via Google Fonts
-           Loaded via @import below */
 
         /* ============================================
            CSS CUSTOM PROPERTIES
@@ -75,14 +48,9 @@
             --accent-green: #00793C;
             --accent-red: #CC0017;
 
-            --font-sans: 'Geist Variable', -apple-system, BlinkMacSystemFont, sans-serif;
-            --font-mono: 'Geist Mono Variable', 'SF Mono', 'Fira Code', monospace;
+            --font-sans: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'Geist Mono', 'SF Mono', 'Fira Code', monospace;
             --font-pixel: 'Geist Pixel Square', 'Courier New', monospace;
-
-            /* Story-specific fonts */
-            --font-squab: 'Bevellier', 'Geist Mono Variable', monospace;
-            --font-oneth: 'Russo One', sans-serif;
-            --font-sol: 'Jacquard 24', cursive;
         }
 
         /* ============================================
@@ -607,48 +575,11 @@
         }
         .card-description {
             font-family: var(--font-sans);
-            font-size: 0.8rem;
-            font-weight: 350;
+            font-size: 0.85rem;
+            font-weight: 400;
             line-height: 1.65;
             color: var(--text-secondary);
             max-width: 340px;
-        }
-
-        /* Per-story card typography overrides */
-        .card--squab .card-title {
-            font-family: var(--font-squab);
-            font-size: 1.9rem;
-            font-weight: 700;
-            letter-spacing: 0.02em;
-            text-transform: uppercase;
-        }
-        .card--squab .card-description {
-            font-family: var(--font-squab);
-            font-size: 1rem;
-            font-weight: 400;
-            letter-spacing: 0.01em;
-        }
-
-        .card--oneth .card-title {
-            font-family: var(--font-oneth);
-            font-size: 1.65rem;
-            letter-spacing: 0.02em;
-            text-transform: uppercase;
-        }
-        .card--oneth .card-description {
-            font-family: var(--font-oneth);
-            font-size: 0.8rem;
-        }
-
-        .card--sol .card-title {
-            font-family: var(--font-sol);
-            font-size: 2.5rem;
-            letter-spacing: 0.02em;
-        }
-        .card--sol .card-description {
-            font-family: var(--font-sol);
-            font-size: 1.15rem;
-            line-height: 1;
         }
 
         .card-progress {
@@ -878,7 +809,8 @@
             .dossier-stack { width: 340px; height: 500px; }
             .dossier-card { width: 340px; min-height: 480px; padding: 28px 24px 24px; }
             .card-title { font-size: 1.4rem; }
-            .hero-meta { flex-wrap: wrap; }
+            .hero-meta { flex-wrap: nowrap; }
+            .hero-meta-tag { font-size: 0.5rem; padding: 5px 8px; letter-spacing: 0.06em; }
             .projects-section { padding-bottom: 60px; }
             .footer { padding: 20px 20px 16px; }
             .footer-bottom { flex-direction: column; gap: 6px; align-items: center; }
@@ -893,6 +825,8 @@
             .code-block { font-size: 0.55rem; }
             .code-line-numbers { font-size: 0.5rem; min-width: 28px; padding: 20px 6px 20px 10px; }
             .code-content { padding: 20px 12px; }
+            .hero-meta-tag { font-size: 0.42rem; padding: 4px 6px; letter-spacing: 0.04em; }
+            .hero-meta { gap: 8px; }
         }
     </style>
 </head>
@@ -927,7 +861,7 @@
             <div class="hero-main">
                 <img src="images/salvarelogo.png" alt="The Salvare" class="hero-logo anim-fade-up anim-delay-1">
                 <h1 class="hero-title anim-fade-up anim-delay-2">make good,<br>things happen.</h1>
-                <p class="hero-subtitle anim-fade-up anim-delay-3">I'm Ben, a creative engineer.<br>An operative known as The Salvare.<br>Operative assigned task; Scaling the Chimera Corp, a three part series of illustrative novels and interactive technology.<br><br>Follow the projects and complete your objectives.<br>Your consumption is required.</p>
+                <p class="hero-subtitle anim-fade-up anim-delay-3">I'm Ben, a creative engineer.<br>An operative known as The Salvare.<br>Operative assigned task; Scaling the Chimera Corp, a three part series of illustrations, novels and interactive technology.<br><br>Follow the projects and complete your objectives.<br>Your consumption is required.</p>
                 <div class="hero-meta anim-fade-up anim-delay-4">
                     <span class="hero-meta-tag">PROJECTS_IN_PROGRESS</span>
                     <span class="hero-meta-tag">OBJECTIVES_IN_DEVELOPMENT</span>
@@ -994,16 +928,16 @@
                         </div>
                         <div class="card-body">
                             <h3 class="card-title">The Squab HQ</h3>
-                            <p class="card-description">A comedic spy thriller. Unlikely agents. Hidden agendas.<br>An original novel.<br><br>Complete the aptitude assessment and prove your worth to the agency.</p>
+                            <p class="card-description">A comedic spy thriller featuring unlikely agents and hidden agendas.<br>The Salvare is currently writting.<br><br>Complete the aptitude assessment and prove your worth to the agency.</p>
                             <div class="card-progress">
                                 <div class="card-progress-label">
                                     <span class="card-progress-text">Progression</span>
-                                    <span class="card-progress-value">20%</span>
+                                    <span class="card-progress-value">30%</span>
                                 </div>
                                 <div class="card-progress-bar" id="squabProgress">
                                     <div class="card-progress-block anim-fill" data-fill="true"></div>
                                     <div class="card-progress-block anim-fill" data-fill="true"></div>
-                                    <div class="card-progress-block"></div>
+                                    <div class="card-progress-block anim-fill" data-fill="true"></div>
                                     <div class="card-progress-block"></div>
                                     <div class="card-progress-block"></div>
                                     <div class="card-progress-block"></div>
@@ -1027,14 +961,14 @@
                         </div>
                         <div class="card-body">
                             <h3 class="card-title">Encrypted</h3>
-                            <p class="card-description">Data restricted. Clearance required.<br>Field testing to commence in the coming months.<br>Signal range frequency 2.4 GHz.</p>
+                            <p class="card-description">Data restricted. Clearance required.<br>Field testing to commence in the coming months.<br><br>Signal range frequency 2.4 GHz.</p>
                             <div class="card-progress">
                                 <div class="card-progress-label">
                                     <span class="card-progress-text">Progression</span>
-                                    <span class="card-progress-value">0%</span>
+                                    <span class="card-progress-value">10%</span>
                                 </div>
                                 <div class="card-progress-bar">
-                                    <div class="card-progress-block"></div>
+                                    <div class="card-progress-block anim-fill" data-fill="true"></div>
                                     <div class="card-progress-block"></div>
                                     <div class="card-progress-block"></div>
                                     <div class="card-progress-block"></div>
@@ -1060,14 +994,14 @@
                         </div>
                         <div class="card-body">
                             <h3 class="card-title">Encrypted</h3>
-                            <p class="card-description">Data restricted. Clearance required.<br>Field testing to commence in the coming months.<br>Signal range frequency 2.4 GHz.</p>
+                            <p class="card-description">Data restricted. Clearance required.<br>Field testing to commence in the coming months.<br><br>Signal range frequency 2.4 GHz.</p>
                             <div class="card-progress">
                                 <div class="card-progress-label">
                                     <span class="card-progress-text">Progression</span>
-                                    <span class="card-progress-value">0%</span>
+                                    <span class="card-progress-value">10%</span>
                                 </div>
                                 <div class="card-progress-bar">
-                                    <div class="card-progress-block"></div>
+                                    <div class="card-progress-block anim-fill" data-fill="true"></div>
                                     <div class="card-progress-block"></div>
                                     <div class="card-progress-block"></div>
                                     <div class="card-progress-block"></div>
