@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../images/salvarelogo.png">
+    <title>The Squab HQ — The Salvare</title>
+    <style>
+        /* ============================================
+           FONT FACES — All self-hosted Geist
+           ============================================ */
+        @font-face {
+            font-family: 'Geist';
+            font-style: normal;
+            font-display: swap;
+            font-weight: 400;
+            src: url(../fonts/Geist-Regular.woff2) format('woff2');
+        }
+        @font-face {
+            font-family: 'Geist Mono';
+            font-style: normal;
+            font-display: swap;
+            font-weight: 400;
+            src: url(../fonts/GeistMono-Regular.woff2) format('woff2');
+        }
+        @font-face {
+            font-family: 'Geist Pixel Square';
+            font-style: normal;
+            font-display: swap;
+            font-weight: 400;
+            src: url(../fonts/GeistPixel-Square.woff2) format('woff2');
+        }
+
+        /* ============================================
+           CSS CUSTOM PROPERTIES
+           ============================================ */
+        :root {
+            --bg-primary: #FEFEFE;
+            --bg-secondary: #F8F8F8;
+            --bg-tertiary: #F2F2F2;
+            --text-primary: #212121;
+            --text-secondary: #6B6B6B;
+            --text-tertiary: #9A9A9A;
+            --border-light: #E8E8E8;
+            --border-medium: #D4D4D4;
+            --dot-color: #DEDEDE;
+            --accent-green: #00793C;
+            --accent-red: #CC0017;
+
+            --font-sans: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'Geist Mono', 'SF Mono', 'Fira Code', monospace;
+            --font-pixel: 'Geist Pixel Square', 'Courier New', monospace;
+        }
+
+        /* ============================================
+           RESET & BASE
+           ============================================ */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { font-size: 16px; scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        body { font-family: var(--font-sans); background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; }
+
+        /* ============================================
+           SCANLINE + NOISE TEXTURE OVERLAYS
+           ============================================ */
+        .texture-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.045;
+            mix-blend-mode: multiply;
+            background-image: repeating-linear-gradient(
+                0deg, transparent, transparent 2px,
+                rgba(33, 33, 33, 0.15) 2px, rgba(33, 33, 33, 0.15) 3px
+            );
+            background-size: 100% 3px;
+        }
+
+        .noise-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.05;
+        }
+
+        /* ============================================
+           MAIN WRAPPER
+           ============================================ */
+        .page-wrapper { position: relative; z-index: 1; min-height: 100vh; }
+
+        /* ============================================
+           HEADER
+           ============================================ */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            border-bottom: 1px solid var(--border-light);
+            background: rgba(254, 254, 254, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-brand {
+            font-family: var(--font-pixel);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .header-brand:hover { color: var(--text-secondary); }
+        .header-nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .header-back {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .header-back:hover { color: var(--text-primary); }
+        .header-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--accent-green);
+        }
+        .status-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            animation: pulse-dot 2.5s ease-in-out infinite;
+        }
+        @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+        /* ============================================
+           CLEARANCE STRIP
+           ============================================ */
+        .clearance-strip {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 14px 40px;
+            border-bottom: 1px solid var(--border-light);
+            background: var(--bg-secondary);
+        }
+        .clearance-label {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+        }
+        .clearance-light {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            animation: blink-light 3s ease-in-out infinite;
+        }
+        @keyframes blink-light {
+            0%, 40%, 100% { opacity: 1; }
+            42%, 48% { opacity: 0.3; }
+            50% { opacity: 1; }
+            75%, 78% { opacity: 0.15; }
+        }
+        .clearance-value {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            font-weight: 500;
+            color: var(--accent-green);
+        }
+
+        /* ============================================
+           HERO
+           ============================================ */
+        .hero {
+            padding: 80px 56px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .hero-eyebrow {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .hero-eyebrow::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-light);
+            max-width: 200px;
+        }
+        .hero-title {
+            font-family: var(--font-pixel);
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 400;
+            line-height: 1.05;
+            letter-spacing: -0.01em;
+            margin-bottom: 28px;
+        }
+        .hero-description {
+            font-family: var(--font-sans);
+            font-size: 1.05rem;
+            font-weight: 400;
+            line-height: 1.75;
+            color: var(--text-secondary);
+            max-width: 640px;
+        }
+        .hero-meta {
+            margin-top: 36px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .hero-meta-tag {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            padding: 5px 10px;
+            border: 1px solid var(--border-light);
+            border-radius: 4px;
+            transition: color 0.3s, border-color 0.3s, box-shadow 0.3s;
+            cursor: default;
+        }
+        .hero-meta-tag:hover {
+            color: var(--text-primary);
+            border-color: var(--border-medium);
+            box-shadow: 0 0 12px rgba(33, 33, 33, 0.06);
+        }
+
+        /* ============================================
+           SECTION STYLES
+           ============================================ */
+        .section {
+            padding: 60px 56px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            margin-bottom: 32px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-light);
+            max-width: 200px;
+        }
+        .section-divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, var(--border-light) 20%, var(--border-medium) 50%, var(--border-light) 80%, transparent 100%);
+        }
+
+        /* ============================================
+           ARTWORK GALLERY
+           ============================================ */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .gallery-item {
+            aspect-ratio: 4/3;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            overflow: hidden;
+        }
+        .gallery-item:hover {
+            border-color: var(--border-medium);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .gallery-placeholder-icon {
+            font-family: var(--font-mono);
+            font-size: 1.5rem;
+            color: var(--border-medium);
+        }
+        .gallery-placeholder-text {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+        }
+
+        /* ============================================
+           STORY EXCERPT
+           ============================================ */
+        .story-excerpt {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            padding: 40px;
+            max-width: 680px;
+        }
+        .story-excerpt p {
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            font-weight: 400;
+            line-height: 1.85;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+        .story-excerpt p:last-child { margin-bottom: 0; }
+        .story-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 24px;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            transition: color 0.2s, border-color 0.2s;
+        }
+        .story-download:hover {
+            color: var(--text-primary);
+            border-color: var(--border-medium);
+        }
+
+        /* ============================================
+           ASSESSMENT SECTION
+           ============================================ */
+        .assessment-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            padding: 48px 40px;
+            max-width: 580px;
+            text-align: center;
+        }
+        .assessment-title {
+            font-family: var(--font-pixel);
+            font-size: 1.4rem;
+            font-weight: 400;
+            margin-bottom: 16px;
+        }
+        .assessment-desc {
+            font-family: var(--font-sans);
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            max-width: 460px;
+            margin: 0 auto 28px;
+        }
+        .assessment-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.04em;
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 12px 24px;
+            border: 1.5px solid var(--border-medium);
+            border-radius: 8px;
+            transition: background 0.2s, border-color 0.2s, gap 0.3s;
+        }
+        .assessment-btn:hover {
+            background: var(--bg-tertiary);
+            border-color: var(--text-tertiary);
+            gap: 6px;
+        }
+        .assessment-btn .cta-cursor {
+            animation: blink-cursor 1s step-end infinite;
+        }
+        @keyframes blink-cursor { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        /* ============================================
+           END TRANSMISSION
+           ============================================ */
+        .end-transmission {
+            text-align: center;
+            padding: 48px 40px 24px;
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .footer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 24px 40px 20px;
+            border-top: 1px solid var(--border-light);
+            background: rgba(254, 254, 254, 0.85);
+            backdrop-filter: blur(12px);
+            gap: 12px;
+        }
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        .footer-left {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+        }
+        .footer-right {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent-green);
+        }
+
+        /* ============================================
+           ANIMATIONS
+           ============================================ */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .anim-fade-up { opacity: 0; animation: fadeUp 0.8s ease-out forwards; }
+        .anim-delay-1 { animation-delay: 0.1s; }
+        .anim-delay-2 { animation-delay: 0.25s; }
+        .anim-delay-3 { animation-delay: 0.4s; }
+        .anim-delay-4 { animation-delay: 0.55s; }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 768px) {
+            .hero { padding: 48px 24px; }
+            .section { padding: 40px 24px; }
+            .header { padding: 16px 20px; }
+            .hero-title { font-size: clamp(2rem, 8vw, 3rem); }
+            .hero-meta { flex-wrap: nowrap; }
+            .hero-meta-tag { font-size: 0.5rem; padding: 4px 8px; }
+            .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+            .story-excerpt { padding: 28px 24px; }
+            .assessment-card { padding: 36px 24px; }
+            .footer { padding: 20px 20px 16px; }
+            .footer-bottom { flex-direction: column; gap: 6px; align-items: center; }
+        }
+        @media (max-width: 480px) {
+            .gallery-grid { grid-template-columns: 1fr; }
+            .hero-meta-tag { font-size: 0.42rem; padding: 4px 6px; }
+            .hero-meta { gap: 8px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Texture overlays -->
+    <div class="texture-overlay"></div>
+    <svg style="position:absolute;width:0;height:0;">
+        <filter id="noiseFilter">
+            <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+            <feColorMatrix type="saturate" values="0"/>
+        </filter>
+    </svg>
+    <div class="noise-overlay" style="filter: url(#noiseFilter);"></div>
+
+    <!-- Interactive dot grid canvas -->
+    <canvas id="dotGrid" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;"></canvas>
+
+    <div class="page-wrapper">
+        <!-- Header -->
+        <header class="header">
+            <a href="../" class="header-brand">The Salvare</a>
+            <div class="header-nav">
+                <a href="../index.html" class="header-back">&larr; Back to HQ</a>
+                <div class="header-status">
+                    <span class="status-dot"></span>
+                    Active
+                </div>
+            </div>
+        </header>
+
+        <!-- Clearance Strip -->
+        <div class="clearance-strip">
+            <span class="clearance-label">Project clearance</span>
+            <span class="clearance-light"></span>
+            <span class="clearance-value">Operative</span>
+        </div>
+
+        <!-- Hero -->
+        <section class="hero">
+            <div class="hero-eyebrow anim-fade-up anim-delay-1">Project // The Squab HQ</div>
+            <h1 class="hero-title anim-fade-up anim-delay-2">The Squab HQ</h1>
+            <p class="hero-description anim-fade-up anim-delay-3">A comedic spy thriller. Unlikely operatives. Hidden agendas. An agency run by birds. Welcome to the Squab HQ — where nothing is what it seems and everyone has a file on everyone else.</p>
+            <div class="hero-meta anim-fade-up anim-delay-4">
+                <span class="hero-meta-tag">Illustrative Novel</span>
+                <span class="hero-meta-tag">Interactive Assessment</span>
+                <span class="hero-meta-tag">Status: Active</span>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Artwork Gallery -->
+        <section class="section reveal">
+            <div class="section-label">Gallery // Artwork &amp; Illustrations</div>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <span class="gallery-placeholder-icon">&#9633;</span>
+                    <span class="gallery-placeholder-text">Artwork 01</span>
+                </div>
+                <div class="gallery-item">
+                    <span class="gallery-placeholder-icon">&#9633;</span>
+                    <span class="gallery-placeholder-text">Artwork 02</span>
+                </div>
+                <div class="gallery-item">
+                    <span class="gallery-placeholder-icon">&#9633;</span>
+                    <span class="gallery-placeholder-text">Artwork 03</span>
+                </div>
+                <div class="gallery-item">
+                    <span class="gallery-placeholder-icon">&#9633;</span>
+                    <span class="gallery-placeholder-text">Artwork 04</span>
+                </div>
+                <div class="gallery-item">
+                    <span class="gallery-placeholder-icon">&#9633;</span>
+                    <span class="gallery-placeholder-text">Artwork 05</span>
+                </div>
+                <div class="gallery-item">
+                    <span class="gallery-placeholder-icon">&#9633;</span>
+                    <span class="gallery-placeholder-text">Artwork 06</span>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Story Excerpt -->
+        <section class="section reveal">
+            <div class="section-label">Excerpt // Story Preview</div>
+            <div class="story-excerpt">
+                <p>Story excerpt placeholder. This section will contain a preview passage from The Squab HQ — a taste of the world, the characters, and the tone of the story.</p>
+                <p>Replace this with your actual story content when ready.</p>
+            </div>
+            <a href="#" class="story-download">
+                &gt; Download full story (coming soon)
+            </a>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Assessment -->
+        <section class="section reveal">
+            <div class="section-label">Assessment // Aptitude Test</div>
+            <div class="assessment-card">
+                <h3 class="assessment-title">Aptitude Assessment</h3>
+                <p class="assessment-desc">Chimera Corp requires all new operatives to complete the aptitude assessment. Your responses will determine your faction assignment: SPYS, RATS, or PLANT. There are no wrong answers — only revealing ones.</p>
+                <a href="./squabassessment/.index.html" class="assessment-btn" target="_blank" rel="noopener noreferrer">&gt; Begin assessment<span class="cta-cursor"> _</span></a>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- End transmission -->
+        <div class="end-transmission">// End of dossier. Return to HQ.</div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-bottom">
+                <span class="footer-left">&copy; The Salvare — The Squab HQ</span>
+                <span class="footer-right">All systems operational</span>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Scroll reveal
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+        reveals.forEach(el => observer.observe(el));
+
+        // ============================================
+        // Interactive dot grid canvas
+        // ============================================
+        const canvas = document.getElementById('dotGrid');
+        const ctx = canvas.getContext('2d');
+        const spacing = 24;
+        const baseRadius = 0.8;
+        const maxRadius = 1.8;
+        const influenceRadius = 100;
+        const dotColor = [222, 222, 222];
+        const baseAlpha = 0.6;
+
+        let mouse = { x: -9999, y: -9999 };
+        let smoothMouse = { x: -9999, y: -9999 };
+
+        const blooms = [];
+        const maxBlooms = 5;
+        const bloomSpawnChance = 0.008;
+
+        function spawnBloom() {
+            if (blooms.length >= maxBlooms) return;
+            blooms.push({
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight,
+                radius: 80 + Math.random() * 120,
+                progress: 0,
+                speed: 0.002 + Math.random() * 0.003,
+                intensity: 0.5 + Math.random() * 0.4
+            });
+        }
+
+        function resize() {
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = window.innerWidth * dpr;
+            canvas.height = window.innerHeight * dpr;
+            canvas.style.width = window.innerWidth + 'px';
+            canvas.style.height = window.innerHeight + 'px';
+            ctx.scale(dpr, dpr);
+        }
+
+        function draw() {
+            const lerp = 0.08;
+            smoothMouse.x += (mouse.x - smoothMouse.x) * lerp;
+            smoothMouse.y += (mouse.y - smoothMouse.y) * lerp;
+
+            const w = window.innerWidth;
+            const h = window.innerHeight;
+            ctx.clearRect(0, 0, w, h);
+
+            if (Math.random() < bloomSpawnChance) spawnBloom();
+
+            for (let i = blooms.length - 1; i >= 0; i--) {
+                blooms[i].progress += blooms[i].speed;
+                if (blooms[i].progress >= 1) blooms.splice(i, 1);
+            }
+
+            const cols = Math.ceil(w / spacing) + 1;
+            const rows = Math.ceil(h / spacing) + 1;
+
+            for (let row = 0; row < rows; row++) {
+                for (let col = 0; col < cols; col++) {
+                    const x = col * spacing;
+                    const y = row * spacing;
+
+                    let radius = baseRadius;
+                    let alpha = baseAlpha;
+
+                    const dx = x - smoothMouse.x;
+                    const dy = y - smoothMouse.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < influenceRadius) {
+                        const t = 1 - (dist / influenceRadius);
+                        const ease = t * t * t;
+                        radius = baseRadius + (maxRadius - baseRadius) * ease;
+                        alpha = baseAlpha + 0.15 * ease;
+                    }
+
+                    for (const bloom of blooms) {
+                        const bx = x - bloom.x;
+                        const by = y - bloom.y;
+                        const bDist = Math.sqrt(bx * bx + by * by);
+
+                        if (bDist < bloom.radius) {
+                            const life = Math.sin(bloom.progress * Math.PI);
+                            const falloff = Math.exp(-(bDist * bDist) / (2 * (bloom.radius * 0.4) * (bloom.radius * 0.4)));
+                            const strength = life * falloff * bloom.intensity;
+
+                            radius = Math.max(radius, baseRadius + (maxRadius * 1.27 - baseRadius) * strength);
+                            alpha = Math.max(alpha, baseAlpha + 0.25 * strength);
+                        }
+                    }
+
+                    ctx.beginPath();
+                    ctx.arc(x, y, radius, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(${dotColor[0]}, ${dotColor[1]}, ${dotColor[2]}, ${alpha})`;
+                    ctx.fill();
+                }
+            }
+            requestAnimationFrame(draw);
+        }
+
+        document.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
+        document.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
+        document.addEventListener('touchmove', (e) => { const t = e.touches[0]; mouse.x = t.clientX; mouse.y = t.clientY; }, { passive: true });
+        document.addEventListener('touchend', () => { mouse.x = -9999; mouse.y = -9999; });
+
+        window.addEventListener('resize', resize);
+        resize();
+        draw();
+    </script>
+</body>
+</html>
