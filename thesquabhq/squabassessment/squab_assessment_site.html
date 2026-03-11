@@ -698,7 +698,7 @@ function showResult() {
 
   // Pick a random image from the faction pool
   const randNum = Math.floor(Math.random() * faction.imageCount) + 1;
-  const randImage = `./images/${faction.imagePrefix}${randNum}.png`;
+  const randImage = `./assessment_images/${faction.imagePrefix}${randNum}.png`;
 
   const el = $('result-screen');
   el.innerHTML = `
