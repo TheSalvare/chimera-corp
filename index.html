@@ -961,7 +961,7 @@
                         </div>
                         <div class="card-body">
                             <h3 class="card-title">Encrypted</h3>
-                            <p class="card-description">Data restricted. Clearance required.<br>Field testing to commence in the coming months.<br><br>Signal range frequency 2.4 GHz.</p>
+                            <p class="card-description">Scanning file...<br>Request failed...<br>Data restricted. Clearance required.<br>Field testing to commence in the coming months.<br><br>Signal range frequency 2.4 GHz.</p>
                             <div class="card-progress">
                                 <div class="card-progress-label">
                                     <span class="card-progress-text">Progression</span>
@@ -994,7 +994,7 @@
                         </div>
                         <div class="card-body">
                             <h3 class="card-title">Encrypted</h3>
-                            <p class="card-description">Data restricted. Clearance required.<br>Field testing to commence in the coming months.<br><br>Signal range frequency 2.4 GHz.</p>
+                            <p class="card-description">Scanning file...<br>Request failed...<br>Data restricted. Clearance required.<br>Field testing to commence in the coming months.<br><br>Signal range frequency 2.4 GHz.</p>
                             <div class="card-progress">
                                 <div class="card-progress-label">
                                     <span class="card-progress-text">Progression</span>
@@ -1349,23 +1349,53 @@
         const terminalEmail = document.getElementById('terminalEmail');
         const terminalResponse = document.getElementById('terminalResponse');
 
-        terminalSubmit.addEventListener('click', () => {
+        terminalSubmit.addEventListener('click', async () => {
             const email = terminalEmail.value.trim();
-            if (email && email.includes('@')) {
-                terminalResponse.textContent = '// Signal received. Electronic mail locked. Stand by for transmissions.';
-                terminalResponse.classList.add('visible');
-                terminalEmail.value = '';
-                terminalEmail.disabled = true;
-                terminalSubmit.disabled = true;
-                terminalSubmit.style.opacity = '0.4';
-            } else {
-                terminalResponse.textContent = '// Error: Invalid frequency. Please re-enter.';
+            if (!email || !email.includes('@')) {
+                terminalResponse.textContent = '// Error: Invalid electronic mail. Please re-enter.';
                 terminalResponse.style.color = 'var(--accent-red)';
                 terminalResponse.classList.add('visible');
                 setTimeout(() => {
                     terminalResponse.classList.remove('visible');
                     terminalResponse.style.color = '';
                 }, 2500);
+                return;
+            }
+
+            // Disable while sending
+            terminalSubmit.disabled = true;
+            terminalEmail.disabled = true;
+            terminalSubmit.style.opacity = '0.4';
+            terminalResponse.textContent = '// Transmitting...';
+            terminalResponse.style.color = 'var(--text-tertiary)';
+            terminalResponse.classList.add('visible');
+
+            try {
+                const res = await fetch('https://formspree.io/f/xeergjbj', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify({ email: email })
+                });
+
+                if (res.ok) {
+                    terminalResponse.textContent = '// Signal received. Electronic mail locked. Stand by for transmissions.';
+                    terminalResponse.style.color = 'var(--accent-green)';
+                    terminalResponse.classList.add('visible');
+                    terminalEmail.value = '';
+                } else {
+                    throw new Error('Submission failed');
+                }
+            } catch (err) {
+                terminalResponse.textContent = '// Error: Transmission failed. Please try again.';
+                terminalResponse.style.color = 'var(--accent-red)';
+                terminalResponse.classList.add('visible');
+                terminalSubmit.disabled = false;
+                terminalEmail.disabled = false;
+                terminalSubmit.style.opacity = '1';
+                setTimeout(() => {
+                    terminalResponse.classList.remove('visible');
+                    terminalResponse.style.color = '';
+                }, 3000);
             }
         });
 
