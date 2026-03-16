@@ -360,7 +360,7 @@ const FACTIONS = {
     traits:["Impulsive","Resourceful","Dangerously curious"],
     warning:"Operative is flagged for independent thinking. Monitor closely.",
     roles:{fieldOp:"Field Operative",doubleAgent:"Double Agent"},
-    image:"../../images/squab.png",
+    image:"assessment_images/squab.png",
     imagePrefix:"SPYS_", imageCount:35
   },
   rats: {
@@ -373,7 +373,7 @@ const FACTIONS = {
     traits:["Methodical","Relentless","Quietly terrifying"],
     warning:"Agent shows concerning interest in classified data architecture.",
     roles:{analyst:"Intelligence Analyst",techSpec:"Technical Specialist"},
-    image:"../../images/rats.png",
+    image:"assessment_images/rats.png",
     imagePrefix:"RATS_", imageCount:30
   },
   plant: {
@@ -386,7 +386,7 @@ const FACTIONS = {
     traits:["Patient","Empathetic","Existentially conflicted"],
     warning:"Agent has not reported in for 847 days. Status: UNKNOWN.",
     roles:{handler:"Handler",sleeper:"Sleeper Agent"},
-    image:"../../images/plant.png",
+    image:"assessment_images/plant.png",
     imagePrefix:"PLANT_", imageCount:40
   }
 };
@@ -721,7 +721,7 @@ function showResult() {
 
   // Pick a random image from the faction pool
   const randNum = Math.floor(Math.random() * faction.imageCount) + 1;
-  const randImage = `../../images/${faction.imagePrefix}${randNum}.png`;
+  const randImage = `assessment_images/${faction.imagePrefix}${randNum}.png`;
 
   const el = $('result-screen');
   el.innerHTML = `
