@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="./images/salvarelogo.png">
-    <title>The Salvare // Chimera Corp</title>
+    <title>Chimera Corp // The Salvare</title>
     <style>
         /* ============================================
            FONT FACES
@@ -788,6 +788,53 @@
         }
 
         /* ============================================
+           HERO CTA BUTTONS
+           ============================================ */
+        .hero-cta-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 28px;
+        }
+        .hero-cta {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 12px 24px;
+            border: 1px solid var(--border-medium);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .hero-cta:hover {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            border-color: var(--text-primary);
+        }
+        .hero-cta--primary {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            border-color: var(--text-primary);
+        }
+        .hero-cta--primary:hover {
+            background: transparent;
+            color: var(--text-primary);
+            border-color: var(--border-medium);
+        }
+        .hero-cta-arrow {
+            font-size: 0.6rem;
+            transition: transform 0.3s ease;
+        }
+        .hero-cta:hover .hero-cta-arrow {
+            transform: translateX(3px);
+        }
+
+        /* ============================================
            RESPONSIVE
            ============================================ */
         @media (max-width: 768px) {
@@ -811,6 +858,8 @@
             .card-title { font-size: 1.4rem; }
             .hero-meta { flex-wrap: nowrap; }
             .hero-meta-tag { font-size: 0.5rem; padding: 5px 8px; letter-spacing: 0.06em; }
+            .hero-cta { font-size: 0.6rem; padding: 10px 18px; }
+            .hero-cta-group { gap: 10px; margin-top: 24px; }
             .projects-section { padding-bottom: 60px; }
             .footer { padding: 20px 20px 16px; }
             .footer-bottom { flex-direction: column; gap: 6px; align-items: center; }
@@ -861,7 +910,11 @@
             <div class="hero-main">
                 <img src="images/salvarelogo.png" alt="The Salvare" class="hero-logo anim-fade-up anim-delay-1">
                 <h1 class="hero-title anim-fade-up anim-delay-2">make good,<br>things happen.</h1>
-                <p class="hero-subtitle anim-fade-up anim-delay-3">I'm Ben, a creative engineer.<br>An operative known as The Salvare.<br>Operative assigned task: Scaling the Chimera Corp, a three part series of illustrations, novels and interactive technology.<br><br>Follow the projects and complete your objectives.<br>Your consumption is required.</p>
+                <p class="hero-subtitle anim-fade-up anim-delay-3">We are Chimera Corp.<br>Our operatives are embedded across three active divisions.<br>Running classified operations in visual intelligence, digital infrastructure, and narrative engineering.<br><br>Follow the projects and complete your objectives.<br>Your consumption is required.</p>
+                <div class="hero-cta-group anim-fade-up anim-delay-3">
+                    <a href="https://www.thesalvare.xyz" class="hero-cta hero-cta--primary" target="_blank">Commission Agent <span class="hero-cta-arrow">→</span></a>
+                    <a href="https://www.floragnus.xyz" class="hero-cta" target="_blank">Access Floragnus <span class="hero-cta-arrow">→</span></a>
+                </div>
                 <div class="hero-meta anim-fade-up anim-delay-4">
                     <span class="hero-meta-tag">PROJECTS_IN_PROGRESS</span>
                     <span class="hero-meta-tag">OBJECTIVES_IN_DEVELOPMENT</span>
@@ -887,18 +940,19 @@
         <section class="about-section reveal">
             <div class="section-label">Report // Chimera Corp</div>
             <div class="code-block">
-                <div class="code-line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23</div>
+                <div class="code-line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31</div>
                 <div class="code-content" id="codeContent">
                     <span class="typewriter-line"><span class="code-comment">// chimera.config</span></span><br>
                     <br>
                     <span class="typewriter-line"><span class="code-key">organisation</span>: <span class="code-value">"Chimera Corp"</span></span><br>
                     <span class="typewriter-line"><span class="code-key">operative</span>: <span class="code-value">"The Salvare"</span></span><br>
                     <span class="typewriter-line"><span class="code-key">projects</span>: <span class="code-value">"Optimizing"</span></span><br>
+                    <span class="typewriter-line"><span class="code-key">storage</span>: <span class="code-value">"Floragnus"</span></span><br>
                     <span class="typewriter-line"><span class="code-key">clearance</span>: <span class="code-value">"Public"</span></span><br>
                     <br>
                     <span class="typewriter-line"><span class="code-key">operative</span>: [</span><br>
                     <span class="typewriter-line">&nbsp;&nbsp;{ <span class="code-key">id</span>: <span class="code-value">"ILLUSTRATION"</span>, <span class="code-key">status</span>: <span class="code-value">"Adequate"</span> },</span><br>
-                    <span class="typewriter-line">&nbsp;&nbsp;{ <span class="code-key">id</span>: <span class="code-value">"WRITTING"</span>, <span class="code-key">status</span>: <span class="code-value">"Legible"</span> },</span><br>
+                    <span class="typewriter-line">&nbsp;&nbsp;{ <span class="code-key">id</span>: <span class="code-value">"WRITING"</span>, <span class="code-key">status</span>: <span class="code-value">"Legible"</span> },</span><br>
                     <span class="typewriter-line">&nbsp;&nbsp;{ <span class="code-key">id</span>: <span class="code-value">"ENGINEERING"</span>, <span class="code-key">status</span>: <span class="code-value">"Inept"</span> },</span><br>
                     <span class="typewriter-line">&nbsp;&nbsp;{ <span class="code-key">id</span>: <span class="code-value">"DESIGN"</span>, <span class="code-key">status</span>: <span class="code-value">"Admissable"</span> },</span><br>
                     <span class="typewriter-line">]</span><br>
@@ -907,6 +961,11 @@
                     <span class="typewriter-line">&nbsp;&nbsp;{ <span class="code-key">id</span>: <span class="code-value">"THE_SQUAB_HQ"</span>, <span class="code-key">status</span>: <span class="code-value">"Active"</span> },</span><br>
                     <span class="typewriter-line">&nbsp;&nbsp;{ <span class="code-key">id</span>: <span class="code-value">"ENCRYPTED"</span>, <span class="code-key">status</span>: <span class="code-value">"Classified"</span> },</span><br>
                     <span class="typewriter-line">&nbsp;&nbsp;{ <span class="code-key">id</span>: <span class="code-value">"ENCRYPTED"</span>, <span class="code-key">status</span>: <span class="code-value">"Classified"</span> },</span><br>
+                    <span class="typewriter-line">]</span><br>
+                    <br>
+                    <span class="typewriter-line"><span class="code-key">storage</span>: [</span><br>
+                    <span class="typewriter-line">&nbsp;&nbsp;{ <span class="code-key">id</span>: <span class="code-value">"COLLECTIONS"</span>, <span class="code-key">status</span>: <span class="code-value">"Classified"</span> },</span><br>
+                    <span class="typewriter-line">&nbsp;&nbsp;{ <span class="code-key">id</span>: <span class="code-value">"TRANSMIT_TOONS"</span>, <span class="code-key">status</span>: <span class="code-value">"Classified"</span> },</span><br>
                     <span class="typewriter-line">]</span><br>
                     <span class="typewriter-line"><span class="code-comment">// Objective: Discover. Engage. Report.</span></span><br>
                     <br>
@@ -994,7 +1053,7 @@
                         </div>
                         <div class="card-body">
                             <h3 class="card-title">Encrypted</h3>
-                            <p class="card-description">Scanning file...<br>Request failed...<br>Data restricted. Clearance required.<br>Field testing to commence in the coming months.<br><br>Signal range frequency 2.4 GHz.</p>
+                            <p class="card-description">Scanning file...<br>Connection severed...<br>Archive sealed. Authorisation pending.<br>Deployment scheduled for a future operation cycle.<br><br>Signal carrier frequency 5.8 GHz.</p>
                             <div class="card-progress">
                                 <div class="card-progress-label">
                                     <span class="card-progress-text">Progression</span>
