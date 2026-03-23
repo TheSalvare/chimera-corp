@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="../images/salvarelogo.png">
-    <title>The Salvare // The Squab HQ</title>
+    <title>Chimera Corp // The Squab HQ</title>
     <style>
         /* ============================================
            FONT FACES — All self-hosted Geist
@@ -421,6 +421,20 @@
         @keyframes blink-cursor { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
         /* ============================================
+           SQUAB IMAGE
+           ============================================ */
+        .squab-section {
+            display: flex;
+            justify-content: center;
+            padding: 25px 0 45px;
+        }
+        .squab-section img {
+            height: 120px;
+            width: auto;
+            display: block;
+        }
+
+        /* ============================================
            END TRANSMISSION
            ============================================ */
         .end-transmission {
@@ -549,10 +563,10 @@
             <div class="hero-eyebrow anim-fade-up anim-delay-1">Project // The Squab HQ</div>
             <h1 class="hero-title anim-fade-up anim-delay-2">The Squab HQ</h1>
             <p class="hero-description anim-fade-up anim-delay-3">Welcome to... well, you know where.<br>
-            I'll assume if you made it this far then you're an operative. which are you, a Pidgey, Rattie or a Taskforce operative? 
+            I'll assume if you made it this far then you're an operative at Chimera Corp. Well, which are you, a Pidgey, Rattie or part of the Taskforce? 
             You probably don't know yet. Not to worry, you can take the aptitude assessment below.<br><br>
             Our operative, The Salvare, is currently writing our narrative.<br>
-            Most of what we do here is confidential, so don't expect to uncover any truths.</p>
+            Most of what we do here is confidential, so don't expect to uncover anything.</p>
             <div class="hero-meta anim-fade-up anim-delay-4">
                 <span class="hero-meta-tag">Comedy_Spy_Thriller</span>
                 <span class="hero-meta-tag">Hidden_Agenda</span>
@@ -587,8 +601,6 @@
             </div>
         </section>
 
-        <div class="section-divider"></div>
-
         <!-- Story Excerpt -->
         <section class="section reveal">
             <div class="section-label">Excerpt // Story Preview</div>
@@ -601,8 +613,6 @@
             </a>
         </section>
 
-        <div class="section-divider"></div>
-
         <!-- Assessment -->
         <section class="section reveal">
             <div class="section-label">Interactive // Aptitude Assessment</div>
@@ -613,7 +623,10 @@
             </div>
         </section>
 
-        <div class="section-divider"></div>
+        <!-- Squab image -->
+        <div class="squab-section reveal">
+            <img src="../images/squab-logo.png" alt="Squab">
+        </div>
 
         <!-- End transmission -->
         <div class="end-transmission">// End of project file. Portal Home.</div>
