@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>The Squab HQ // Aptitude Assessment</title>
+<title>Squab HQ // Aptitude Assessment</title>
 <style>
   /* ── FONTS ──────────────────────────────────────────────── */
   @font-face { font-family:'GeistPixel'; src:url('../../fonts/GeistPixel-Square.woff2') format('woff2'); font-weight:400; font-display:swap; }
@@ -14,7 +14,7 @@
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
   html{-webkit-text-size-adjust:100%}
   body{background:#0F0F1B;color:#FFE7C6;font-family:'GeistMono','Courier New',monospace;overflow-x:hidden;overscroll-behavior:none;-webkit-font-smoothing:antialiased}
-  button{font-family:inherit;border:none;background:none;cursor:pointer;appearance:none;touch-action:manipulation}
+  button{font-family:inherit;border:none;background:none;cursor:pointer;-webkit-appearance:none;touch-action:manipulation}
   img{display:block;max-width:100%}
   ::-webkit-scrollbar{width:5px}
   ::-webkit-scrollbar-track{background:#0F0F1B}
@@ -105,7 +105,6 @@
   }
   .quiz-header-left{display:flex;align-items:center;gap:14px}
   .quiz-header-title{font-family:'GeistPixel',monospace;font-size:18px;color:var(--text-bright)}
-  .quiz-header-title span{color:var(--yellow)}
   .quiz-header-right{display:flex;align-items:center;gap:16px}
   .quiz-header-count{font-family:'GeistMono',monospace;font-size:12px;color:var(--cream);background:var(--bg);padding:4px 12px;border-radius:6px;border:1px solid var(--purple)}
   .quiz-header-form{font-family:'GeistMono',monospace;font-size:9px;color:var(--text-dim);letter-spacing:0.05em}
@@ -276,7 +275,7 @@
     Answer honestly. We'll know if you don't.
   </p>
   <button id="begin-btn" onclick="startQuiz()">Begin</button>
-  <div class="title-form">FORM 7-B // MANDATORY // CHIMERA CORP HR DIVISION</div>
+  <div class="title-form">Confidential Form // Mandatory // Chimera Corp</div>
 </div>
 
 <!-- ══════════════════════════════════════════════════════════════
@@ -285,10 +284,10 @@
 <div id="quiz-screen" class="screen">
   <div class="quiz-header">
     <div class="quiz-header-left">
-      <span class="quiz-header-title">THE SQUAB <span>HQ</span></span>
+      <span class="quiz-header-title">THE SQUAB HQ</span>
     </div>
     <div class="quiz-header-right">
-      <span class="quiz-header-form">Confidential Form</span>
+      <span class="quiz-header-form">Recruitment // Table required</span>
       <span class="quiz-header-count" id="q-count">1 / 8</span>
     </div>
   </div>
@@ -318,8 +317,8 @@
     <div id="current-scene"></div>
   </div>
   <div class="quiz-footer">
-    <span>Aptitude Assessment</span>
-    <span>Chimera Corp</span>
+    <span>All answers are recorded</span>
+    <span>The Salvare // Chimera Corp &copy;</span>
   </div>
 </div>
 
