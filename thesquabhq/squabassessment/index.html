@@ -14,7 +14,7 @@
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
   html{-webkit-text-size-adjust:100%}
   body{background:#0F0F1B;color:#FFE7C6;font-family:'GeistMono','Courier New',monospace;overflow-x:hidden;overscroll-behavior:none;-webkit-font-smoothing:antialiased}
-  button{font-family:inherit;border:none;background:none;cursor:pointer;-webkit-appearance:none;touch-action:manipulation}
+  button{font-family:inherit;border:none;background:none;cursor:pointer;appearance:none;touch-action:manipulation}
   img{display:block;max-width:100%}
   ::-webkit-scrollbar{width:5px}
   ::-webkit-scrollbar-track{background:#0F0F1B}
@@ -266,9 +266,9 @@
     <span style="background:#E771AD;color:#E771AD;animation-delay:0.9s"></span>
   </div>
   <p class="title-body">
-    It's your first week at Chimera Corp. Everything is normal.
+    It's your first week at The Squab HQ. Everything is normal.
     The lights work. The coffee is adequate. Your colleagues are friendly.
-    Nothing is wrong.
+    Nothing is wrong...
   </p>
   <p class="title-disclaimer">
     This assessment will determine what kind of operative you are.
@@ -351,39 +351,39 @@
 const FACTIONS = {
   spys: {
     name:"SPYS", subtitle:"Pidgie Operative",
-    clearance:"LEVEL 4 — ACTIVE FIELD DEPLOYMENT", department:"Dept. of External Affairs",
+    clearance:"LEVEL 4 — ACTIVE FIELD DEPLOYMENT", department:"Spy Pidgies Yob Squab",
     color:"#FEB807",
-    tagline:"You run towards the thing everyone else runs from.",
-    description:"SPYS operatives are Chimera Corp's front line — the ones who kick down doors, chase leads into dead ends, and somehow walk out alive. You're instinct-driven, allergic to protocol, and the reason HR has a dedicated incident form with your name pre-filled. Your handler has been reassigned three times. You've outlasted all of them. The simulation can't contain people like you. That's either your greatest asset or the reason they'll shut you down.",
-    shortDesc:"SPYS operatives are Chimera Corp's front line — instinct-driven, allergic to protocol, and the reason HR has a dedicated incident form with your name pre-filled. The simulation can't contain people like you.",
-    traits:["Impulsive","Resourceful","Dangerously curious"],
-    warning:"Operative is flagged for independent thinking. Monitor closely.",
+    tagline:"You run towards the thing everyone else runs from. Wings first.",
+    description:"SPYS operatives are the core of The Squab HQ. loyal to a fault, guided by instinct, and incapable of leaving a colleague behind. Like Reginald, you lead with conviction even when the odds are stacked against you. You'd march into the sewers to strike a deal with mercenaries if it meant protecting your flock. HR has flagged your file seventeen times. You've outlasted every flag. The consumption can't contain people like you. That's either your greatest asset or the reason you ended up where you are to begin with.",
+    shortDesc:"SPYS operatives are the core of The Squab HQ. loyal to a fault, guided by instinct, and incapable of leaving a colleague behind. The consumption can't contain people like you.",
+    traits:["Loyal","Instinct-driven","Stubbornly defiant"],
+    warning:"Operative is flagged for independent thinking. Consumption re-entry recommended.",
     roles:{fieldOp:"Field Operative",doubleAgent:"Double Agent"},
-    image:"assessment_images/squab.png",
-    imagePrefix:"SPYS_", imageCount:35
+    image:"assessment_images/spys.png",
+    imagePrefix:"SPYS_", imageCount:32
   },
   rats: {
     name:"RATS", subtitle:"Rattie Intelligence",
-    clearance:"LEVEL 5 — SYSTEMS & DATA ACCESS", department:"Dept. of Pattern Recognition",
+    clearance:"LEVEL 5 — SYSTEMS & DATA ACCESS", department:"Ratties Agent Trail Surveillance",
     color:"#EF6D1F",
     tagline:"You see the pattern before anyone else sees the pieces.",
-    description:"RATS operatives work in the dark — the server rooms, the data vaults, the spaces between the lines. While everyone else reacts, you've already mapped the terrain three moves ahead. You noticed the anomalies in the simulation's architecture on day one. You've filed fourteen reports. All fourteen were marked 'Received' and nothing more. You keep filing anyway. Somewhere in the data, there's a thread that unravels everything. You intend to find it.",
-    shortDesc:"RATS operatives work in the dark — the server rooms, the data vaults, the spaces between the lines. You've already mapped the terrain three moves ahead. Somewhere in the data, there's a thread that unravels everything.",
-    traits:["Methodical","Relentless","Quietly terrifying"],
-    warning:"Agent shows concerning interest in classified data architecture.",
+    description:"RATS operatives work beneath everything. the sewers, the server rooms, the spaces between the lines. Like Riz, you've been watching from the dark long enough to know where every pipe leads. You build what others can't imagine and strike deals that always tilt in your favour. You built the world travelling devices while everyone else was still arguing about magnets. Somewhere in the architecture of this place, there's a thread that unravels everything. You've already found it. You're just deciding when to pull.",
+    shortDesc:"RATS operatives work beneath everything. the sewers, the data vaults, the spaces between the lines. Like Riz, you build what others can't imagine and strike deals that always tilt in your favour.",
+    traits:["Methodical","Opportunistic","Quietly terrifying"],
+    warning:"Agent shows concerning interest in dimensional transit architecture. Do not grant facility access.",
     roles:{analyst:"Intelligence Analyst",techSpec:"Technical Specialist"},
     image:"assessment_images/rats.png",
-    imagePrefix:"RATS_", imageCount:30
+    imagePrefix:"RATS_", imageCount:25
   },
   plant: {
-    name:"PLANT", subtitle:"Bot Infiltrator",
-    clearance:"LEVEL 3 — DEEP COVER (INDEFINITE)", department:"Dept. of Long-Term Operations",
+    name:"PLANT", subtitle:"Taskforce Operative",
+    clearance:"LEVEL 3 — DEEP COVER (INDEFINITE)", department:"Pidgies League Alliance Network Taskforce",
     color:"#BB1C24",
-    tagline:"You've been inside so long you've almost forgotten which side you're on.",
-    description:"PLANT operatives are Chimera Corp's most patient assets. You were embedded with instructions to watch, wait, and build trust — and you've done exactly that. You have friends here. Routines. A favourite mug. The problem is, you've started to care about the people you're supposed to be monitoring. In the simulation, loyalty is a weapon. You're not sure who you're pointing it at anymore.",
-    shortDesc:"PLANT operatives are Chimera Corp's most patient assets — embedded to watch, wait, and build trust. You've started to care about the people you're monitoring. Loyalty is a weapon. You're not sure who you're pointing it at.",
-    traits:["Patient","Empathetic","Existentially conflicted"],
-    warning:"Agent has not reported in for 847 days. Status: UNKNOWN.",
+    tagline:"You were built to follow orders. The question is whose.",
+    description:"PLANT operatives are Chimera Corp's most efficient assets. deployed at a fraction of the cost, incapable of questioning orders, and devastatingly effective. You baked cakes at the community event. You performed theatre about love and peace. The citizens trusted you with their lives. But beneath the charm protocols, you know what you really are: a failsafe. The Chief built you to replace the Pidgies, and when the alarm sounds, you answer. Whether that makes you a protector or a prison guard depends entirely on who pressed the button.",
+    shortDesc:"PLANT operatives are Chimera Corp's most efficient assets. deployed at a fraction of the cost and devastatingly effective. You baked cakes for the community. You also carry poison darts. Both feel equally natural.",
+    traits:["Obedient","Efficient","Existentially vacant"],
+    warning:"Unit has not deviated from directive in 847 cycles. This is not reassuring.",
     roles:{handler:"Handler",sleeper:"Sleeper Agent"},
     image:"assessment_images/plant.png",
     imagePrefix:"PLANT_", imageCount:40
@@ -393,66 +393,66 @@ const FACTIONS = {
 const TYPE_TO_FACTION = {fieldOp:"spys",doubleAgent:"spys",analyst:"rats",techSpec:"rats",handler:"plant",sleeper:"plant"};
 
 const SCENARIOS = [
-  {narrative:`Your first morning at Squab HQ begins with a problem.\n\nThe desk they've assigned you sits directly beneath a fluorescent light that flickers in a pattern too deliberate to be random. Three blinks, pause, three blinks — like a heartbeat. Someone has left a note on your keyboard in block capitals: WELCOME. PLEASE DISREGARD THE FLICKERING.\n\nYou look around. Nobody seems concerned. Agent Mallard, your assigned partner, is humming tunelessly two desks over. Then you notice something in the back of your desk drawer — a pair of old brass binoculars, heavy, military-grade, with a Chimera Corp serial number scratched off the side.`,
+  {narrative:`It is your first morning at The Squab HQ, and it begins with a problem.\n\nThe desk they've assigned you sits directly beneath a fluorescent light that flickers in a pattern too deliberate to be random. Three blinks, a pause, three blinks. Someone has left a note on your keyboard in block capitals: WELCOME. PLEASE DISREGARD THE FLICKERING. The note just makes it that much more difficult to ignore.\n\nYou look around. Nobody seems concerned. Agent Hughie, your assigned partner, is humming tunelessly two desks over. Then you notice something in the back of your desk drawer. A pair of old brass binoculars, heavy, military-grade, with a serial number scratched off the side. You try to make it out, but it barely reads beyond 'Chim-'.`,
     answers:[
-      {text:"Pocket the binoculars immediately. Tools like these don't end up in drawers by accident.",scores:{fieldOp:3,doubleAgent:1},sus:5,mission:10,item:"Binoculars"},
-      {text:"Examine the serial number scratch marks. Something was there — maybe you can still read it.",scores:{analyst:3,techSpec:1},sus:0,mission:5,item:"Binoculars"},
-      {text:"Leave the drawer. Introduce yourself to everyone on the floor instead — people reveal more than objects.",scores:{handler:3,sleeper:1},sus:-5,mission:0,item:null},
+      {text:"Pocket the binoculars immediately. Tools like these don't end up in drawers on accident.",scores:{fieldOp:3,doubleAgent:1},sus:5,mission:10,item:"Binoculars"},
+      {text:"Examine the serial number scratch marks. Something was there, maybe you can still read it.",scores:{analyst:3,techSpec:1},sus:0,mission:5,item:"Binoculars"},
+      {text:"Leave the drawer. Introduce yourself to everyone on the floor instead. People will reveal more than objects.",scores:{handler:3,sleeper:1},sus:-5,mission:0,item:null},
       {text:"Close the drawer quietly. Not yet. You need to understand this place before you start collecting things.",scores:{sleeper:3,analyst:1},sus:-5,mission:0,item:null}
     ]},
-  {narrative:`Mid-morning. Supervisor Hawkins is briefing the floor on a new security protocol when she stops mid-sentence. Her eyes fix on something behind you. The room goes quiet.\n\n"Did anyone else see that?" she asks.\n\nNobody responds. Hawkins holds still for three seconds, then continues as if nothing happened — but her hand is gripping the lectern hard enough to whiten her knuckles.\n\nAfter the briefing, you pass an open supply closet. Inside, on a shelf between the staplers and sticky notes, sits a device no bigger than a coat button — a micro spy camera with a blinking green light.`,
+  {narrative:`Mid-morning, supervisor Barnaby is briefing the floor on a new security protocol. You can barely make out what he's saying through the muttered words leaving his crumb filled mouth. He stops mid-sentence when his eyes fix on something directly behind you. The room goes quiet.\n\n"Did anyone else see that?" He asks, as a crumb falls to the ground below him.\n\nNobody responds. Barnaby holds still for three seconds, then continues as if nothing happened. After the briefing, you pass an open supply room, inside, on a shelf between the staplers and sticky notes, sits a device no bigger than a coat button. A micro spy camera with a blinking green light.`,
     answers:[
-      {text:"Take the camera. Plant it somewhere Hawkins can't see you — her office, maybe.",scores:{fieldOp:3,doubleAgent:2},sus:15,mission:15,item:"Spy Cam"},
-      {text:"Examine it without touching it. Note the make, model, and who has access to this closet.",scores:{analyst:3,techSpec:1},sus:0,mission:10,item:null},
-      {text:"Take it, but hold onto it. Having a camera is an advantage — using it too soon isn't.",scores:{doubleAgent:2,sleeper:2},sus:5,mission:5,item:"Spy Cam"},
+      {text:"Take the camera. Plant it somewhere Barnaby can't see you. His office, maybe.",scores:{fieldOp:3,doubleAgent:2},sus:15,mission:15,item:"Spy Cam"},
+      {text:"Examine it without touching it. Note the brand, model and who has access to the supply room.",scores:{analyst:3,techSpec:1},sus:0,mission:10,item:null},
+      {text:"Take it but hold onto it. Having a camera is an advantage. Using it too soon isn't.",scores:{doubleAgent:2,sleeper:2},sus:5,mission:5,item:"Spy Cam"},
       {text:"Leave it. If someone planted it there, they're watching to see who picks it up.",scores:{sleeper:3,handler:1},sus:-5,mission:0,item:null}
     ]},
-  {narrative:`Lunchtime. The break room vending machine has a new option.\n\nWhere yesterday it offered crisps and chocolate, today there's a fourth button. The label reads FLAVOUR 7 in a font you don't recognise. No price. No ingredients. Just FLAVOUR 7, glowing faintly behind the glass.\n\nRobin from the next cubicle is already drinking one. "It's fine," she says, mouth full. "Tastes sort of like Tuesday."\n\nBut you notice something else — tucked behind the vending machine, barely visible, a small glass vial with a handwritten label: COMPOUND 7 — TRUTH SERUM (PROTOTYPE). HANDLE WITH CARE.`,
+  {narrative:`Lunchtime. The breakroom vending machine has a new option.\n\nIn place of yesterday's option, where the crisps were, there is now a new item. The label reads 'Flavour 7' in an unusual font that you don't recognise. No price. No ingredients. Just 'Flavour 7' glowing faintly behind the glass.\n\nRobin from the next cubicle is already drinking one. "It's fine." she says, mouth full. "Tastes sort of like Tuesdays bird bath water".\n\nYou notice something else. Tucked behind the vending machine, barely visible, a small glass vial with a handwritten label: 'Compound 7 — Truth Serum (Prototype). Handle with care'.`,
     answers:[
-      {text:"Take the vial. A truth serum could change everything — imagine using this on Hawkins.",scores:{fieldOp:3,doubleAgent:2},sus:10,mission:15,item:"Truth Serum"},
+      {text:"Take the vial. A truth serum could change everything. Imagine using this on Barnaby.",scores:{fieldOp:3,doubleAgent:2},sus:10,mission:15,item:"Truth Serum"},
       {text:"Photograph the vial with your phone but leave it in place. Evidence is more valuable than possession.",scores:{analyst:3,techSpec:1},sus:5,mission:10,item:null},
       {text:"Take the vial and pocket it quietly. Don't use it yet. Just... have it.",scores:{doubleAgent:3,sleeper:1},sus:5,mission:10,item:"Truth Serum"},
-      {text:"Leave it. If Chimera Corp is testing a truth serum, the last thing you want is to be caught holding it.",scores:{handler:2,sleeper:2},sus:-5,mission:0,item:null}
+      {text:"Leave it. If the FBI is testing the truth serum, the last thing you want is to be caught holding it.",scores:{handler:2,sleeper:2},sus:-5,mission:0,item:null}
     ]},
-  {narrative:`Early afternoon. Someone you've never seen before sits down opposite you at your desk.\n\nThey're young, neat, and wearing a visitor badge that says TEMP in red letters. They look at you for a beat too long, then smile.\n\n"I've been watching you," they say. "You're different from the others."\n\nBefore you can respond, they stand, walk towards the stairwell, and are gone. But on the chair where they sat, they've left something behind — what looks like a thin silicone mask, flesh-coloured, folded neatly. A disguise kit. Professional grade.`,
+  {narrative:`Early afternoon. Someone you've never seen before sits down opposite you at your desk.\n\nThey're young, neat, and wearing a visitor badge that says 'TEMP' in red letters. They look at you for a bit too long, then smile.\n\n"I've been watching you." they say. "You're different from the others."\n\nBefore you can respond. They stand, walk towards the stairwell, and leave. On the chair where they were sat, they've left something behind. What looks like a silicone mask, flesh coloured, folded neatly. A disguise kit, professional grade.`,
     answers:[
       {text:"Grab the disguise and follow them into the stairwell. They wanted you to have this.",scores:{fieldOp:3,doubleAgent:2},sus:15,mission:15,item:"Disguise"},
-      {text:"Take the disguise but don't follow. Examine it at your desk — whose face is this?",scores:{analyst:2,techSpec:2},sus:5,mission:10,item:"Disguise"},
-      {text:"Leave the disguise on the chair and report the visitor to Hawkins. Cover your tracks.",scores:{handler:3,sleeper:1},sus:-10,mission:0,item:null},
+      {text:"Take the disguise but don't follow. Examine it at your desk. Whose face is this?",scores:{analyst:2,techSpec:2},sus:5,mission:10,item:"Disguise"},
+      {text:"Leave the disguise on the chair and report the visitor to Barnaby. Cover your tracks.",scores:{handler:3,sleeper:1},sus:-10,mission:0,item:null},
       {text:"Pocket it without looking at it. A disguise is a disguise. It'll be useful when the time comes.",scores:{doubleAgent:3,sleeper:1},sus:5,mission:5,item:"Disguise"}
     ]},
-  {narrative:`Late afternoon. The office is thinning out. You're reaching for your coat when your computer screen flickers — and for half a second displays a message from no program you recognise:\n\nLOOK UNDER YOUR DESK.\n\nThere's a USB drive taped to the underside of the drawer. Unlabelled. The tape is still tacky — someone put it there today.\n\nYour email inbox now shows zero messages. You had seventeen this morning.`,
+  {narrative:`Late afternoon. The office is thinning out. You're reaching for your coat when your computer screen flickers, and for half a second displays a message:\n\nLOOK UNDER YOUR DESK.\n\nThere's a USB drive taped to the underside of the drawer. Unlabelled. The tape is still tacky. Someone put it there today.\n\nYour email inbox now shows zero messages. You had seventeen this morning.`,
     answers:[
-      {text:"Plug it in immediately. Whatever's on this drive, you need to see it before it disappears.",scores:{fieldOp:2,techSpec:2},sus:15,mission:15,item:"USB"},
+      {text:"Plug it in immediately. You need to see what is on this drive immediately.",scores:{fieldOp:2,techSpec:2},sus:15,mission:15,item:"USB"},
       {text:"Take it to the server room. Run it sandboxed. You don't plug unknown drives into networked machines.",scores:{techSpec:3,analyst:1},sus:5,mission:10,item:"USB"},
-      {text:"Pocket it. Take it home. You're not looking at this anywhere Chimera Corp might be watching.",scores:{doubleAgent:3,sleeper:1},sus:0,mission:10,item:"USB"},
+      {text:"Pocket it. Take it home. You're not looking at this anywhere. The FBI might be watching.",scores:{doubleAgent:3,sleeper:1},sus:0,mission:10,item:"USB"},
       {text:"Leave it. If someone's feeding you breadcrumbs, the trail might be the trap.",scores:{sleeper:2,handler:2},sus:-10,mission:0,item:null}
     ]},
-  {narrative:`Thursday. Chimera Corp is running its monthly "Team Cohesion Exercise." Hawkins watches from the corner with a clipboard and an expression that suggests she'd rather be anywhere else.\n\n"Pair up," she announces.\n\nMallard turns to you like an excited Labrador. But across the room, The Janitor — the one who appears and disappears without using doors — is standing alone by the fire exit, holding a mop they clearly aren't using.\n\nAs you watch, The Janitor catches your eye, glances down at their mop bucket, and gives the smallest nod. Inside the bucket, beneath murky water, you can see the outline of something metallic. A weapon.`,
+  {narrative:`Thursday. The FBI is running their monthly "Team Cohesion Exercise." Barnaby watches from the corner with a clipboard and an expression that suggests he'd rather be somewhere else.\n\n"Pair up." he announces.\n\nHughie turns to you with an excitable look on his face. Across the room, the janitor, the one who appears and disappears without using doors, is standing alone by the fire exit. Holding a mop they clearly aren't using.\n\nAs you watch, the janitor catches your eye, glances down at their mop bucket, and gives the slightest nod. Inside the bucket, beneath murky water, you can see the outline of something metallic. A weapon.`,
     answers:[
       {text:"Walk over. Reach into the bucket. Take whatever it is.",scores:{fieldOp:3,doubleAgent:2},sus:15,mission:10,item:"Weapon"},
-      {text:"Pair with Mallard, but find an excuse to pass The Janitor later. You need to know what that weapon is first.",scores:{analyst:2,handler:2},sus:5,mission:5,item:null},
-      {text:"Pair with Mallard. Ignore The Janitor. A weapon in a mop bucket is either a gift or a test — neither is safe.",scores:{handler:3,sleeper:1},sus:-10,mission:0,item:null},
+      {text:"Pair with Hughie but find an excuse to pass the janitor later. You need to know what that weapon is first.",scores:{analyst:2,handler:2},sus:5,mission:5,item:null},
+      {text:"Pair with Hughie. Ignore the janitor. A weapon in a mop bucket is either a gift or a test. Neither is safe.",scores:{handler:3,sleeper:1},sus:-10,mission:0,item:null},
       {text:"Volunteer to organise the exercise. While everyone's distracted, circle back to the bucket alone.",scores:{doubleAgent:3,techSpec:1},sus:10,mission:10,item:"Weapon"}
     ]},
-  {narrative:`Friday morning. You arrive before anyone else. The janitor's closet is open — which it never is.\n\nInside, between the bleach and the spare mop heads, you find a maintenance log. Most of it is mundane. Floor waxing. Light bulb requisitions. But one entry, circled faintly in pencil, stops you:\n\nSCHEDULED REALITY MAINTENANCE — 03:00 TO 03:15\nALL PERCEPTION FILTERS TEMPORARILY OFFLINE\nDO NOT BE AWAKE\n\nBehind the log, wedged between two cleaning supply bottles, is a small package wrapped in brown paper. You unwrap it. Inside: a compact explosive charge with a timer, a detonation switch, and a sticky note that reads "FOR THE SERVER ROOM DOOR — WHEN YOU'RE READY."`,
+  {narrative:`Friday morning. You arrive before anyone else. The janitor's room is open, which it never usually is.\n\nInside, between the bleach and the spare mop heads, you find a maintenance log. Most of it is mundane. Floor waxing. Light bulb requisitions. But one entry, circled faintly in pencil, stops you:\n\n'Scheduled reality maintenance. 03:00 to 03:15 all perception filters temporarily offline do not be awake.'\n\nBehind the log, wedged between two cleaning supply bottles, is a small package wrapped in brown paper. You unwrap it. Inside: a compact explosive charge with a timer, a detonation switch, and a sticky note that reads 'For the server room door. When you're ready.'`,
     answers:[
       {text:"Take the explosive. When the moment comes, you'll need a way through that door.",scores:{fieldOp:3,techSpec:1},sus:15,mission:15,item:"Explosive"},
-      {text:"Leave the explosive but photograph it. Take the maintenance log — the timing data is more valuable.",scores:{analyst:3,techSpec:1},sus:5,mission:10,item:null},
+      {text:"Leave the explosive but photograph it. Take the maintenance log. The timing data is more valuable.",scores:{analyst:3,techSpec:1},sus:5,mission:10,item:null},
       {text:"Take both. The log tells you when. The explosive tells you how. You need both.",scores:{doubleAgent:3,fieldOp:1},sus:10,mission:15,item:"Explosive"},
       {text:"Put everything back exactly as you found it. Someone is arming you. The question is why.",scores:{sleeper:3,handler:1},sus:-5,mission:0,item:null}
     ]},
-  {narrative:`Friday, end of day. Hawkins calls you into her office. The blinds are drawn. The desk lamp casts the room in amber.\n\nShe closes the door — and you hear it lock.\n\n"I'm going to ask you something," she says, leaning against the edge of her desk. Her voice is quieter than you've ever heard it. "And I need you to answer honestly."\n\nShe pauses. Studies your face.\n\n"Do you think any of this is real?"`,
+  {narrative:`Friday, end of the day. Barnaby calls you in to his office. The blinds are drawn. The desk lamp casts a deep orange glow across the room.\n\nHe closes the door, you hear it lock.\n\n"I'm going to ask you something." he says, leaning against the edge of his desk. His voice is quieter than you've ever heard it. "And I need you to answer honestly."\n\nHe pauses. Studies your face.\n\n"Do you think any of this is real?"`,
     answers:[
-      {text:`"No. And I think you already know the answer."`,scores:{fieldOp:3,doubleAgent:2},sus:20,mission:15,item:null},
+      {text:`"No, and I think you already know the answer."`,scores:{fieldOp:3,doubleAgent:2},sus:20,mission:15,item:null},
       {text:`"Define real."`,scores:{analyst:3,techSpec:2},sus:5,mission:10,item:null},
-      {text:`"Does it matter? We're here. That has to count for something."`,scores:{handler:2,sleeper:3},sus:-5,mission:0,item:null},
+      {text:`"Does it matter? We're here. That must count for something."`,scores:{handler:2,sleeper:3},sus:-5,mission:0,item:null},
       {text:"Say nothing. Hold eye contact. Let the silence answer for you.",scores:{doubleAgent:3,sleeper:2},sus:10,mission:5,item:null}
     ]}
 ];
 
 const CHOICE_COLORS = ['#EF6D1F','#1B80BD','#E771AD','#007742'];
-const LOAD_MSGS = ["Scanning security clearance files...","Cross-referencing personality markers...","Bypassing HR encryption layer...","Checking for double-agent indicators...","Retrieving operative profile image...","Verifying loyalty assessment...","Compiling dossier..."];
+const LOAD_MSGS = ["Scanning security clearance files...","Cross-referencing faction alignment...","Checking consumption device compatibility...","Retrieving Tracker ID from Chimera Corp...","Analysing loyalty metrics...","Consulting The Squab Machine 3000...","Compiling operative dossier..."];
 
 // ── STATE ───────────────────────────────────────────────────────
 let state = {
