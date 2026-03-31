@@ -1408,7 +1408,7 @@
         const terminalEmail = document.getElementById('terminalEmail');
         const terminalResponse = document.getElementById('terminalResponse');
 
-        terminalSubmit.addEventListener('click', async () => {
+        terminalSubmit.addEventListener('click', () => {
             const email = terminalEmail.value.trim();
             if (!email || !email.includes('@')) {
                 terminalResponse.textContent = '// Error: Invalid electronic mail. Please re-enter.';
@@ -1429,22 +1429,49 @@
             terminalResponse.style.color = 'var(--text-tertiary)';
             terminalResponse.classList.add('visible');
 
-            try {
-                const res = await fetch('https://formspree.io/f/xeergjbj', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                    body: JSON.stringify({ email: email })
-                });
+            // Mailchimp JSONP submission
+            const mcUser = 'cce2b2f83b15604bee0318ef4';
+            const mcListId = '0fa6927a11';
+            const mcUrl = `https://xyz.us8.list-manage.com/subscribe/post-json?u=${mcUser}&id=${mcListId}&EMAIL=${encodeURIComponent(email)}&c=mcCallback`;
 
-                if (res.ok) {
+            // Define global callback for JSONP response
+            window.mcCallback = function(response) {
+                if (response.result === 'success') {
                     terminalResponse.textContent = '// Signal received. Electronic mail locked. Stand by for transmissions.';
                     terminalResponse.style.color = 'var(--accent-green)';
                     terminalResponse.classList.add('visible');
                     terminalEmail.value = '';
                 } else {
-                    throw new Error('Submission failed');
+                    // Mailchimp returns HTML in error messages — strip tags for clean display
+                    let msg = response.msg || 'Unknown error';
+                    msg = msg.replace(/<[^>]*>/g, '').trim();
+                    if (msg.toLowerCase().includes('already subscribed')) {
+                        terminalResponse.textContent = '// Operative already registered. No further action required.';
+                        terminalResponse.style.color = 'var(--text-tertiary)';
+                    } else {
+                        terminalResponse.textContent = '// Error: ' + msg;
+                        terminalResponse.style.color = 'var(--accent-red)';
+                    }
+                    terminalResponse.classList.add('visible');
                 }
-            } catch (err) {
+                terminalSubmit.disabled = false;
+                terminalEmail.disabled = false;
+                terminalSubmit.style.opacity = '1';
+
+                // Clean up the script tag
+                const scriptEl = document.getElementById('mcJsonpScript');
+                if (scriptEl) scriptEl.remove();
+            };
+
+            // Remove any previous JSONP script
+            const oldScript = document.getElementById('mcJsonpScript');
+            if (oldScript) oldScript.remove();
+
+            // Inject JSONP script
+            const script = document.createElement('script');
+            script.id = 'mcJsonpScript';
+            script.src = mcUrl;
+            script.onerror = function() {
                 terminalResponse.textContent = '// Error: Transmission failed. Please try again.';
                 terminalResponse.style.color = 'var(--accent-red)';
                 terminalResponse.classList.add('visible');
@@ -1455,7 +1482,8 @@
                     terminalResponse.classList.remove('visible');
                     terminalResponse.style.color = '';
                 }, 3000);
-            }
+            };
+            document.body.appendChild(script);
         });
 
         terminalEmail.addEventListener('keydown', (e) => {
