@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../images/salvarelogo.png">
+    <title>Chimera Corp // Chimera Report</title>
+    <style>
+        @font-face { font-family: 'Geist'; font-style: normal; font-display: swap; font-weight: 400; src: url(../fonts/Geist-Regular.woff2) format('woff2'); }
+        @font-face { font-family: 'Geist Mono'; font-style: normal; font-display: swap; font-weight: 400; src: url(../fonts/GeistMono-Regular.woff2) format('woff2'); }
+        @font-face { font-family: 'Geist Pixel Square'; font-style: normal; font-display: swap; font-weight: 400; src: url(../fonts/GeistPixel-Square.woff2) format('woff2'); }
+        :root {
+            --bg-primary: #FEFEFE; --bg-secondary: #F8F8F8; --bg-tertiary: #F2F2F2; --bg-card: #FAFAFA;
+            --text-primary: #212121; --text-secondary: #6B6B6B; --text-tertiary: #9A9A9A;
+            --border-light: #E8E8E8; --border-medium: #D4D4D4; --dot-color: #DEDEDE;
+            --accent-green: #00793C; --accent-red: #CC0017;
+            --font-sans: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'Geist Mono', 'SF Mono', 'Fira Code', monospace;
+            --font-pixel: 'Geist Pixel Square', 'Courier New', monospace;
+        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { font-size: 16px; scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+        body { font-family: var(--font-sans); background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; }
+        a { color: inherit; text-decoration: none; } button { font-family: inherit; border: none; background: none; cursor: pointer; }
+        .texture-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 9999; opacity: 0.045; mix-blend-mode: multiply; background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(33,33,33,0.15) 2px, rgba(33,33,33,0.15) 3px); background-size: 100% 3px; }
+        .noise-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 9998; opacity: 0.05; }
+        .page-wrapper { position: relative; z-index: 1; min-height: 100vh; }
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; border-bottom: 1px solid var(--border-light); background: rgba(254,254,254,0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 100; }
+        .header-brand { font-family: var(--font-pixel); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+        .header-nav { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-secondary); transition: color 0.2s; }
+        .header-nav:hover { color: var(--text-primary); }
+        .hero { display: grid; grid-template-columns: 1fr auto; min-height: 70vh; }
+        .hero-main { display: flex; flex-direction: column; justify-content: center; padding: 80px 80px; max-width: 960px; margin: 0 auto; }
+        .hero-title { font-family: var(--font-pixel); font-size: clamp(2.4rem, 6vw, 4.5rem); font-weight: 400; line-height: 1.05; letter-spacing: -0.01em; margin-bottom: 32px; }
+        .hero-subtitle { font-family: var(--font-sans); font-size: 1.05rem; font-weight: 350; line-height: 1.75; color: var(--text-secondary); max-width: 520px; }
+        .hero-meta { margin-top: 48px; display: flex; align-items: center; gap: 16px; }
+        .hero-meta-tag { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-tertiary); padding: 6px 12px; border: 1px solid var(--border-light); border-radius: 4px; transition: color 0.3s, border-color 0.3s; cursor: default; }
+        .hero-meta-tag:hover { color: var(--text-primary); border-color: var(--border-medium); }
+        .hero-divider { width: 100%; height: 1px; background: linear-gradient(90deg, transparent 0%, var(--border-light) 20%, var(--border-medium) 50%, var(--border-light) 80%, transparent 100%); }
+        .hero-sidebar { display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 48px 28px; border-left: 1px solid var(--border-light); width: 56px; }
+        .sidebar-text { writing-mode: vertical-rl; text-orientation: mixed; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-tertiary); }
+        .sidebar-cursor { animation: blink-cursor 1s step-end infinite; }
+        .clearance-strip { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 14px 40px; border-bottom: 1px solid var(--border-light); background: var(--bg-secondary); }
+        .clearance-label { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-tertiary); }
+        .clearance-light { width: 8px; height: 8px; border-radius: 50%; animation: blink-light 3s ease-in-out infinite; }
+        @keyframes blink-light { 0%, 40%, 100% { opacity: 1; } 42%, 48% { opacity: 0.3; } 50% { opacity: 1; } 75%, 78% { opacity: 0.15; } }
+        .clearance-value { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 500; }
+        .access-section { padding: 80px 56px; max-width: 600px; margin: 0 auto; text-align: center; }
+        .access-title { font-family: var(--font-pixel); font-size: 1.4rem; font-weight: 400; margin-bottom: 16px; }
+        .access-desc { font-family: var(--font-sans); font-size: 0.88rem; line-height: 1.7; color: var(--text-secondary); margin-bottom: 32px; }
+        .terminal-input-wrapper { display: flex; align-items: center; background: var(--bg-secondary); border: 1px solid var(--border-light); border-radius: 8px; overflow: hidden; transition: border-color 0.2s; }
+        .terminal-input-wrapper:focus-within { border-color: var(--border-medium); }
+        .terminal-prompt { font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-tertiary); padding: 14px 0 14px 18px; user-select: none; flex-shrink: 0; }
+        .terminal-input { flex: 1; font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-primary); background: transparent; border: none; outline: none; padding: 14px 12px; letter-spacing: 0.04em; }
+        .terminal-input::placeholder { color: var(--text-tertiary); opacity: 0.6; }
+        .terminal-submit { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-tertiary); background: transparent; border: none; border-left: 1px solid var(--border-light); padding: 14px 20px; cursor: pointer; transition: color 0.2s, background 0.2s; flex-shrink: 0; }
+        .terminal-submit:hover { color: var(--text-primary); background: var(--bg-tertiary); }
+        .access-response { font-family: var(--font-mono); font-size: 0.68rem; margin-top: 14px; min-height: 20px; letter-spacing: 0.04em; }
+        .access-hint { font-family: var(--font-mono); font-size: 0.6rem; color: var(--text-tertiary); margin-top: 24px; line-height: 1.8; }
+        .access-hint a { color: var(--text-primary); text-decoration: underline; text-underline-offset: 2px; }
+        .reports-section { padding: 80px 56px 40px; max-width: 1100px; margin: 0 auto; display: none; }
+        .reports-section.unlocked { display: block; }
+        .section-label { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 32px; display: flex; align-items: center; gap: 10px; }
+        .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border-light); max-width: 200px; }
+        .report-card { background: var(--bg-card); border: 1px solid var(--border-light); border-radius: 8px; margin-bottom: 12px; overflow: hidden; transition: border-color 0.2s; }
+        .report-card:hover { border-color: var(--border-medium); }
+        .report-card.open { border-color: var(--border-medium); }
+        .report-header { display: flex; align-items: center; gap: 16px; padding: 18px 24px; cursor: pointer; width: 100%; text-align: left; transition: background 0.2s; }
+        .report-header:hover { background: var(--bg-secondary); }
+        .report-arrow { font-size: 9px; color: var(--text-tertiary); transition: transform 0.3s; flex-shrink: 0; }
+        .report-card.open .report-arrow { transform: rotate(90deg); }
+        .report-number { font-family: var(--font-mono); font-size: 0.6rem; font-weight: 600; color: var(--border-medium); min-width: 20px; }
+        .report-meta { flex: 1; min-width: 0; }
+        .report-title { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-primary); font-weight: 500; margin-bottom: 2px; }
+        .report-date { font-family: var(--font-mono); font-size: 0.55rem; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.1em; }
+        .report-status { font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 8px; border: 1px solid; border-radius: 3px; flex-shrink: 0; }
+        .report-status--latest { color: var(--accent-green); border-color: var(--accent-green); }
+        .report-status--archived { color: var(--text-tertiary); border-color: var(--border-light); }
+        .report-body { display: none; border-top: 1px solid var(--border-light); }
+        .report-card.open .report-body { display: block; }
+        .code-block { background: var(--bg-secondary); font-family: var(--font-mono); font-size: 0.78rem; line-height: 2; color: var(--text-primary); overflow-x: auto; display: flex; }
+        .code-line-numbers { padding: 28px 12px 28px 16px; text-align: right; user-select: none; -webkit-user-select: none; color: var(--border-medium); font-size: 0.68rem; line-height: 2; min-width: 40px; border-right: 1px solid var(--border-light); flex-shrink: 0; }
+        .code-content { padding: 28px 24px; flex: 1; white-space: pre-wrap; word-wrap: break-word; }
+        .code-comment { color: var(--text-tertiary); }
+        .code-key { color: var(--text-secondary); }
+        .code-value { color: var(--text-primary); font-weight: 500; }
+        .end-transmission { text-align: center; padding: 48px 40px 24px; font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-tertiary); }
+        .footer { display: flex; flex-direction: column; align-items: center; padding: 24px 40px 20px; border-top: 1px solid var(--border-light); background: rgba(254,254,254,0.85); backdrop-filter: blur(12px); gap: 16px; }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+        .footer-left { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-tertiary); }
+        .footer-right { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-green); }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .anim-fade-up { opacity: 0; animation: fadeUp 0.8s ease-out forwards; }
+        .anim-delay-2 { animation-delay: 0.25s; } .anim-delay-3 { animation-delay: 0.4s; } .anim-delay-4 { animation-delay: 0.55s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .anim-fade { opacity: 0; animation: fadeIn 1s ease-out 0.5s forwards; }
+        @keyframes blink-cursor { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        @media (max-width: 768px) {
+            .hero { grid-template-columns: 1fr; } .hero-main { padding: 56px 24px 72px; } .hero-sidebar { display: none; }
+            .hero-title { font-size: clamp(2rem, 10vw, 3rem); } .header { padding: 16px 20px; }
+            .reports-section { padding: 48px 24px 40px; } .access-section { padding: 60px 24px; }
+            .code-block { font-size: 0.65rem; } .code-line-numbers { font-size: 0.58rem; min-width: 32px; padding: 24px 8px 24px 12px; }
+            .code-content { padding: 24px 16px; } .hero-meta { flex-wrap: wrap; }
+            .hero-meta-tag { font-size: 0.5rem; padding: 5px 8px; } .terminal-submit { padding: 14px 14px; }
+            .footer { padding: 20px 20px 16px; } .footer-bottom { flex-direction: column; gap: 6px; align-items: center; }
+        }
+        @media (max-width: 480px) {
+            .code-block { font-size: 0.55rem; } .code-line-numbers { font-size: 0.5rem; min-width: 28px; }
+            .code-content { padding: 20px 12px; } .hero-meta-tag { font-size: 0.42rem; padding: 4px 6px; }
+            .report-header { padding: 14px 16px; gap: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="dotGrid" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;"></canvas>
+    <div class="texture-overlay"></div>
+    <svg style="position:absolute;width:0;height:0;"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter></svg>
+    <div class="noise-overlay" style="filter: url(#noiseFilter);"></div>
+    <div class="page-wrapper">
+        <header class="header">
+            <div class="header-brand">The Salvare</div>
+            <a href="../index.html" class="header-nav">&larr; Portal Home</a>
+        </header>
+        <section class="hero">
+            <div class="hero-main">
+                <h1 class="hero-title anim-fade-up anim-delay-2">Chimera<br>Report.</h1>
+                <p class="hero-subtitle anim-fade-up anim-delay-3">Weekly classified transmissions from Chimera Corp leadership.<br>Lore, intelligence briefings, operative updates and corporate infastructure.<br><br>Access is granted exclusively to registered operatives.<br>If you're reading this, then you've already completed half of your assigned task.</p>
+                <div class="hero-meta anim-fade-up anim-delay-4">
+                    <span class="hero-meta-tag">Weekly_Dispatch</span>
+                    <span class="hero-meta-tag">Classified_Lore</span>
+                    <span class="hero-meta-tag">Status: Active</span>
+                </div>
+            </div>
+            <div class="hero-sidebar anim-fade">
+                <span class="sidebar-text">Decrypting transmissions<span class="sidebar-cursor">_</span></span>
+            </div>
+        </section>
+        <div class="hero-divider"></div>
+        <div class="clearance-strip">
+            <span class="clearance-label">Report clearance</span>
+            <span class="clearance-light" id="clearanceLight" style="background:var(--accent-red);"></span>
+            <span class="clearance-value" id="clearanceValue" style="color:var(--accent-red);">Restricted</span>
+        </div>
+        <section class="access-section" id="accessGate">
+            <h2 class="access-title anim-fade-up anim-delay-2">Clearance Required</h2>
+            <p class="access-desc anim-fade-up anim-delay-3">Enter your operative access code to view classified reports.<br>Access codes are distributed via weekly transmission to registered operatives.</p>
+            <div class="terminal-input-wrapper anim-fade-up anim-delay-4">
+                <span class="terminal-prompt">&gt;</span>
+                <input type="text" class="terminal-input" id="codeInput" placeholder="Enter access code" autocomplete="off" spellcheck="false">
+                <button class="terminal-submit" id="codeSubmit">Verify</button>
+            </div>
+            <div class="access-response" id="accessResponse"></div>
+            <p class="access-hint anim-fade-up anim-delay-4">// Not a registered operative?<br>// Submit your identity at <a href="https://chimeracorp.xyz/" target="_blank">chimeracorp.xyz</a> to receive transmissions.</p>
+        </section>
+        <section class="reports-section" id="reportsSection">
+            <div class="section-label">Transmissions // Classified Reports</div>
+
+            <!-- ══════ Report 003 — The Squab HQ — Aptitude Results ══════ -->
+            <!--<div class="report-card reveal"><button class="report-header" onclick="toggleReport(this)"><span class="report-arrow">&#9654;</span><span class="report-number">003</span><div class="report-meta"><div class="report-title">The Squab HQ &mdash; Aptitude Results</div><div class="report-date">Transmission &mdash; 14 Apr 2026</div></div><span class="report-status report-status--latest">Latest</span></button><div class="report-body"><div class="code-block"><div class="code-line-numbers"></div><div class="code-content"><span class="code-comment">// CHIMERA CORP &mdash; CLASSIFIED REPORT 003</span>
+<span class="code-comment">// DATE: 2026-04-14</span>
+<span class="code-comment">// FROM: Office of the CEO</span>
+<span class="code-comment">// RE: Aptitude Assessment &mdash; Early Findings</span>
+
+<span class="code-key">report</span>: {
+  <span class="code-key">subject</span>: <span class="code-value">"Operative Classification Results"</span>,
+  <span class="code-key">status</span>: <span class="code-value">"Active"</span>,
+
+  <span class="code-comment">// The aptitude assessment has been live for</span>
+  <span class="code-comment">// approximately two weeks. Early data suggests</span>
+  <span class="code-comment">// a disproportionate number of SPYS classifications.</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// This is... not ideal.</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// We need analysts. We need patience. We need</span>
+  <span class="code-comment">// operatives who read the maintenance logs before</span>
+  <span class="code-comment">// reaching for the explosive.</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// If you're reading this and you got SPYS,</span>
+  <span class="code-comment">// consider retaking the assessment. Slowly.</span>
+
+  <span class="code-key">faction_distribution</span>: {
+    <span class="code-key">SPYS</span>:  <span class="code-value">"58%"</span>,
+    <span class="code-key">RATS</span>:  <span class="code-value">"24%"</span>,
+    <span class="code-key">PLANT</span>: <span class="code-value">"18%"</span>
+  }
+}
+
+<span class="code-comment">// End of report. Stay vigilant.</span>
+<span class="code-comment">// &mdash; CEO, Chimera Corp</span></div></div></div></div>-->
+
+            <!-- ══════ Report 002 — Floragnus — Supply Chain Update ══════ -->
+            <!--<div class="report-card reveal"><button class="report-header" onclick="toggleReport(this)"><span class="report-arrow">&#9654;</span><span class="report-number">002</span><div class="report-meta"><div class="report-title">Floragnus &mdash; Supply Chain Update</div><div class="report-date">Transmission &mdash; 07 Apr 2026</div></div><span class="report-status report-status--archived">Archived</span></button><div class="report-body"><div class="code-block"><div class="code-line-numbers"></div><div class="code-content"><span class="code-comment">// CHIMERA CORP &mdash; CLASSIFIED REPORT 002</span>
+<span class="code-comment">// DATE: 2026-04-07</span>
+<span class="code-comment">// FROM: Office of the CEO</span>
+<span class="code-comment">// RE: Floragnus &mdash; Subsidiary Operations</span>
+
+<span class="code-key">report</span>: {
+  <span class="code-key">subject</span>: <span class="code-value">"Floragnus Store Launch"</span>,
+  <span class="code-key">status</span>: <span class="code-value">"In Development"</span>,
+
+  <span class="code-comment">// The Floragnus subsidiary is preparing for</span>
+  <span class="code-comment">// its first public-facing deployment.</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// Collections are being curated. Supply chains</span>
+  <span class="code-comment">// are being established. The Barometz sigil has</span>
+  <span class="code-comment">// been finalised.</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// Operatives with clearance level 2 or above</span>
+  <span class="code-comment">// will receive early access to the storefront</span>
+  <span class="code-comment">// before public launch.</span>
+
+  <span class="code-key">launch_window</span>: <span class="code-value">"Q2 2026"</span>,
+  <span class="code-key">clearance</span>: <span class="code-value">"Restricted"</span>
+}
+
+<span class="code-comment">// End of report.</span>
+<span class="code-comment">// &mdash; CEO, Chimera Corp</span></div></div></div></div>-->
+
+            <!-- ══════ Report 000 — Welcome to Chimera Corp ══════ -->
+            <div class="report-card reveal"><button class="report-header" onclick="toggleReport(this)"><span class="report-arrow">&#9654;</span><span class="report-number">000</span><div class="report-meta"><div class="report-title">Welcome to Chimera Corp</div><div class="report-date">Transmission &mdash; 01 Apr 2026</div></div><span class="report-status report-status--latest">Latest</span></button><div class="report-body"><div class="code-block"><div class="code-line-numbers"></div><div class="code-content"><span class="code-comment">// CHIMERA CORP &mdash; CLASSIFIED REPORT 000</span>
+<span class="code-comment">// DATE: 2026-04-01</span>
+<span class="code-comment">// FROM: Chimera Corp headquarters</span>
+<span class="code-comment">// RE: Inaugural Transmission</span>
+
+<span class="code-key">report</span>: {
+  <span class="code-key">subject</span>: <span class="code-value">"First Contact"</span>,
+  <span class="code-key">status</span>: <span class="code-value">"Active"</span>,
+
+  <span class="code-comment">// If you're reading this, your clearance has</span>
+  <span class="code-comment">// been verified. Welcome.</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// Chimera Corp operates across three divisions:</span>
+  <span class="code-comment">// visual intelligence, digital infrastructure,</span>
+  <span class="code-comment">// and narrative engineering.</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// Our first project &mdash; The Squab HQ &mdash; is now</span>
+  <span class="code-comment">// in active development. A comedic spy thriller</span>
+  <span class="code-comment">// featuring unlikely agents and hidden agendas.</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// The aptitude assessment is live. Complete it.</span>
+  <span class="code-comment">// Wear your result as your new digital identity (PFP).</span>
+  <span class="code-comment">// Your faction assignment awaits.</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// Remember: your consumption is required.</span>
+
+  <span class="code-key">projects_active</span>: <span class="code-value">"1"</span>,
+  <span class="code-key">projects_classified</span>: <span class="code-value">"2"</span>
+}
+
+<span class="code-comment">// End of report. Make good, things happen.</span>
+<span class="code-comment">// &mdash; CEO, Chimera Corp</span></div></div></div></div>
+        </section>
+        <div class="end-transmission">// End of transmission. Stay connected.</div>
+        <footer class="footer"><div class="footer-bottom"><span class="footer-left">&copy; The Salvare &mdash; Chimera Report</span><span class="footer-right">All systems operational</span></div></footer>
+    </div>
+    <script>
+        const reveals=document.querySelectorAll('.reveal');const observer=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.target.classList.add('visible');});},{threshold:0.15,rootMargin:'0px 0px -40px 0px'});reveals.forEach(el=>observer.observe(el));
+        const ACCESS_CODE='WLCM_000_CC';
+        const codeInput=document.getElementById('codeInput'),codeSubmit=document.getElementById('codeSubmit'),accessResponse=document.getElementById('accessResponse');
+        function checkCode(){const input=codeInput.value.trim().toUpperCase();if(input===ACCESS_CODE.toUpperCase()){document.getElementById('accessGate').style.display='none';document.getElementById('reportsSection').classList.add('unlocked');document.getElementById('clearanceLight').style.background='var(--accent-green)';document.getElementById('clearanceValue').textContent='Operative';document.getElementById('clearanceValue').style.color='var(--accent-green)';generateAllLineNumbers();document.querySelectorAll('.reports-section .reveal').forEach(el=>observer.observe(el));}else if(input===''){accessResponse.textContent='// Access code required.';accessResponse.style.color='var(--accent-red)';}else{accessResponse.textContent='// Access denied. Code not recognised.';accessResponse.style.color='var(--accent-red)';}}
+        codeSubmit.addEventListener('click',checkCode);codeInput.addEventListener('keydown',e=>{if(e.key==='Enter')checkCode();});
+        function toggleReport(header){const card=header.parentElement;const wasOpen=card.classList.contains('open');document.querySelectorAll('.report-card').forEach(c=>c.classList.remove('open'));if(!wasOpen){card.classList.add('open');const ln=card.querySelector('.code-line-numbers');if(ln&&ln.innerHTML===''){const content=card.querySelector('.code-content');const lines=content.textContent.split('\n').length;ln.innerHTML=Array.from({length:lines},(_,i)=>i+1).join('<br>');}}}
+        function generateAllLineNumbers(){document.querySelectorAll('.report-card').forEach(card=>{const ln=card.querySelector('.code-line-numbers');const content=card.querySelector('.code-content');if(ln&&content){const lines=content.textContent.split('\n').length;ln.innerHTML=Array.from({length:lines},(_,i)=>i+1).join('<br>');}});}
+        const canvas=document.getElementById('dotGrid'),ctx=canvas.getContext('2d');const spacing=24,baseRadius=0.8,maxRadius=1.8,influenceRadius=100,dotColor=[222,222,222],baseAlpha=0.6;let mouse={x:-9999,y:-9999},smoothMouse={x:-9999,y:-9999},blooms=[],lastBloomTime=0;const bloomCooldown=600;
+        function resize(){canvas.width=window.innerWidth;canvas.height=document.documentElement.scrollHeight;}
+        function draw(){const scrollY=window.scrollY||window.pageYOffset;ctx.clearRect(0,0,canvas.width,canvas.height);smoothMouse.x+=(mouse.x-smoothMouse.x)*0.15;smoothMouse.y+=(mouse.y-smoothMouse.y)*0.15;const absMx=smoothMouse.x,absMy=smoothMouse.y+scrollY;const now=Date.now();if(mouse.x>0&&now-lastBloomTime>bloomCooldown){blooms.push({x:absMx,y:absMy,radius:60+Math.random()*40,startTime:now,duration:1200+Math.random()*600,intensity:0.5+Math.random()*0.5,progress:0});lastBloomTime=now;}blooms=blooms.filter(b=>{b.progress=(now-b.startTime)/b.duration;return b.progress<1;});const startRow=Math.max(0,Math.floor((scrollY-50)/spacing)),endRow=Math.ceil((scrollY+window.innerHeight+50)/spacing),cols=Math.ceil(canvas.width/spacing);for(let row=startRow;row<=endRow;row++){for(let col=0;col<=cols;col++){const x=col*spacing,y=row*spacing;let radius=baseRadius,alpha=baseAlpha;const dx=x-absMx,dy=y-absMy,dist=Math.sqrt(dx*dx+dy*dy);if(dist<influenceRadius){const s=1-dist/influenceRadius,e=s*s;radius=baseRadius+(maxRadius-baseRadius)*e;alpha=baseAlpha+0.35*e;}for(const bloom of blooms){const bx=x-bloom.x,by=y-bloom.y,bDist=Math.sqrt(bx*bx+by*by);if(bDist<bloom.radius){const life=Math.sin(bloom.progress*Math.PI),falloff=Math.exp(-(bDist*bDist)/(2*(bloom.radius*0.4)*(bloom.radius*0.4))),str=life*falloff*bloom.intensity;radius=Math.max(radius,baseRadius+(maxRadius*1.27-baseRadius)*str);alpha=Math.max(alpha,baseAlpha+0.25*str);}}ctx.beginPath();ctx.arc(x,y,radius,0,Math.PI*2);ctx.fillStyle=`rgba(${dotColor[0]},${dotColor[1]},${dotColor[2]},${alpha})`;ctx.fill();}}requestAnimationFrame(draw);}
+        document.addEventListener('mousemove',e=>{mouse.x=e.clientX;mouse.y=e.clientY;});document.addEventListener('mouseleave',()=>{mouse.x=-9999;mouse.y=-9999;});document.addEventListener('touchmove',e=>{const t=e.touches[0];mouse.x=t.clientX;mouse.y=t.clientY;},{passive:true});document.addEventListener('touchend',()=>{mouse.x=-9999;mouse.y=-9999;});window.addEventListener('resize',resize);resize();draw();
+    </script>
+</body>
+</html>
