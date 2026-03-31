@@ -1432,7 +1432,8 @@
             // Mailchimp JSONP submission
             const mcUser = 'cce2b2f83b15604bee0318ef4';
             const mcListId = '0fa6927a11';
-            const mcUrl = `https://xyz.us8.list-manage.com/subscribe/post-json?u=${mcUser}&id=${mcListId}&EMAIL=${encodeURIComponent(email)}&c=mcCallback`;
+            const mcFid = '0016e0e1f0';
+            const mcUrl = `https://xyz.us8.list-manage.com/subscribe/post-json?u=${mcUser}&id=${mcListId}&f_id=${mcFid}&EMAIL=${encodeURIComponent(email)}&b_${mcUser}_${mcListId}=&c=mcCallback`;
 
             // Define global callback for JSONP response
             window.mcCallback = function(response) {
