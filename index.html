@@ -176,6 +176,50 @@
         .terminal-response.visible {
             opacity: 1;
         }
+        .terminal-consent {
+            display: flex;
+            justify-content: center;
+            margin-top: 14px;
+        }
+        .consent-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+        .consent-checkbox {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            border: 1px solid var(--border-medium);
+            border-radius: 2px;
+            background: var(--bg-secondary);
+            cursor: pointer;
+            flex-shrink: 0;
+            position: relative;
+        }
+        .consent-checkbox:checked {
+            background: var(--text-primary);
+            border-color: var(--text-primary);
+        }
+        .consent-checkbox:checked::after {
+            content: '';
+            position: absolute;
+            left: 4px;
+            top: 1px;
+            width: 4px;
+            height: 8px;
+            border: solid var(--bg-primary);
+            border-width: 0 1.5px 1.5px 0;
+            transform: rotate(45deg);
+        }
+        .consent-text {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.04em;
+            color: var(--text-tertiary);
+        }
 
         /* ============================================
            SOLDIE IMAGE
@@ -1105,6 +1149,12 @@
                 <button class="terminal-submit" id="terminalSubmit">Transmit</button>
             </div>
             <div class="terminal-response" id="terminalResponse">// Signal received. Electronic mail locked. Stand by for transmissions.</div>
+            <div class="terminal-consent">
+                <label class="consent-label">
+                    <input type="checkbox" id="terminalConsent" class="consent-checkbox">
+                    <span class="consent-text">I consent to receiving classified transmissions via electronic mail.</span>
+                </label>
+            </div>
         </section>
 
         <!-- End transmission -->
@@ -1410,8 +1460,21 @@
 
         terminalSubmit.addEventListener('click', () => {
             const email = terminalEmail.value.trim();
+            const consent = document.getElementById('terminalConsent');
+
             if (!email || !email.includes('@')) {
-                terminalResponse.textContent = '// Error: Invalid electronic mail. Please re-enter.';
+                terminalResponse.textContent = '// Error: Identity format not recognised. Please re-submit credentials.';
+                terminalResponse.style.color = 'var(--accent-red)';
+                terminalResponse.classList.add('visible');
+                setTimeout(() => {
+                    terminalResponse.classList.remove('visible');
+                    terminalResponse.style.color = '';
+                }, 2500);
+                return;
+            }
+
+            if (!consent.checked) {
+                terminalResponse.textContent = '// Error: Operative consent required before transmission can proceed.';
                 terminalResponse.style.color = 'var(--accent-red)';
                 terminalResponse.classList.add('visible');
                 setTimeout(() => {
@@ -1429,62 +1492,41 @@
             terminalResponse.style.color = 'var(--text-tertiary)';
             terminalResponse.classList.add('visible');
 
-            // Mailchimp JSONP submission
-            const mcUser = '7dd802f461d720003b8f5c36d';
-            const mcListId = '25ec70ba5c';
-            const mcFid = '00495de0f0';
-            const mcUrl = `https://xyz.us14.list-manage.com/subscribe/post-json?u=${mcUser}&id=${mcListId}&f_id=${mcFid}&EMAIL=${encodeURIComponent(email)}&b_${mcUser}_${mcListId}=&c=mcCallback`;
+            // Brevo form submission
+            const formData = new FormData();
+            formData.append('EMAIL', email);
+            formData.append('email_address_check', '');
+            formData.append('locale', 'en');
 
-            // Define global callback for JSONP response
-            window.mcCallback = function(response) {
-                if (response.result === 'success') {
+            fetch('https://223d86e0.sibforms.com/serve/MUIFAPc-UGa7LoipwOvDFS-wdQ9KYntofBWRg-zDwrHQh8NmieCqHn_a-VzpVBjMr1Uxvq9QX2lNXf3gEVBSCiVleEdsjnFCATIcmcz9g1ELQeZVesTyjT2Apg3noB1UCcDW6hHmq_TOQYHeRoRmscDzA_8jD2NdKshZQb1nkKRd4RoFjTqJuQTKXzyppjRievNWhOHqlz-utDW36A==', {
+                method: 'POST',
+                body: formData
+            })
+            .then(res => {
+                if (res.ok) {
                     terminalResponse.textContent = '// Signal received. Electronic mail locked. Stand by for transmissions.';
                     terminalResponse.style.color = 'var(--accent-green)';
                     terminalResponse.classList.add('visible');
                     terminalEmail.value = '';
+                    consent.checked = false;
                 } else {
-                    // Mailchimp returns HTML in error messages — strip tags for clean display
-                    let msg = response.msg || 'Unknown error';
-                    msg = msg.replace(/<[^>]*>/g, '').trim();
-                    if (msg.toLowerCase().includes('already subscribed')) {
-                        terminalResponse.textContent = '// Operative already registered. No further action required.';
-                        terminalResponse.style.color = 'var(--text-tertiary)';
-                    } else {
-                        terminalResponse.textContent = '// Error: ' + msg;
-                        terminalResponse.style.color = 'var(--accent-red)';
-                    }
-                    terminalResponse.classList.add('visible');
+                    throw new Error('Submission failed');
                 }
-                terminalSubmit.disabled = false;
-                terminalEmail.disabled = false;
-                terminalSubmit.style.opacity = '1';
-
-                // Clean up the script tag
-                const scriptEl = document.getElementById('mcJsonpScript');
-                if (scriptEl) scriptEl.remove();
-            };
-
-            // Remove any previous JSONP script
-            const oldScript = document.getElementById('mcJsonpScript');
-            if (oldScript) oldScript.remove();
-
-            // Inject JSONP script
-            const script = document.createElement('script');
-            script.id = 'mcJsonpScript';
-            script.src = mcUrl;
-            script.onerror = function() {
-                terminalResponse.textContent = '// Error: Transmission failed. Please try again.';
+            })
+            .catch(err => {
+                terminalResponse.textContent = '// Error: Transmission failed. System interference detected. Please try again.';
                 terminalResponse.style.color = 'var(--accent-red)';
                 terminalResponse.classList.add('visible');
-                terminalSubmit.disabled = false;
-                terminalEmail.disabled = false;
-                terminalSubmit.style.opacity = '1';
                 setTimeout(() => {
                     terminalResponse.classList.remove('visible');
                     terminalResponse.style.color = '';
                 }, 3000);
-            };
-            document.body.appendChild(script);
+            })
+            .finally(() => {
+                terminalSubmit.disabled = false;
+                terminalEmail.disabled = false;
+                terminalSubmit.style.opacity = '1';
+            });
         });
 
         terminalEmail.addEventListener('keydown', (e) => {
