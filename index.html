@@ -1492,41 +1492,53 @@
             terminalResponse.style.color = 'var(--text-tertiary)';
             terminalResponse.classList.add('visible');
 
-            // Brevo form submission
-            const formData = new FormData();
-            formData.append('EMAIL', email);
-            formData.append('email_address_check', '');
-            formData.append('locale', 'en');
+            // Brevo submission via hidden iframe to avoid CORS
+            const iframeName = 'brevo-iframe-' + Date.now();
+            const iframe = document.createElement('iframe');
+            iframe.name = iframeName;
+            iframe.style.display = 'none';
+            document.body.appendChild(iframe);
 
-            fetch('https://223d86e0.sibforms.com/serve/MUIFAPc-UGa7LoipwOvDFS-wdQ9KYntofBWRg-zDwrHQh8NmieCqHn_a-VzpVBjMr1Uxvq9QX2lNXf3gEVBSCiVleEdsjnFCATIcmcz9g1ELQeZVesTyjT2Apg3noB1UCcDW6hHmq_TOQYHeRoRmscDzA_8jD2NdKshZQb1nkKRd4RoFjTqJuQTKXzyppjRievNWhOHqlz-utDW36A==', {
-                method: 'POST',
-                body: formData
-            })
-            .then(res => {
-                if (res.ok) {
-                    terminalResponse.textContent = '// Signal received. Electronic mail locked. Stand by for transmissions.';
-                    terminalResponse.style.color = 'var(--accent-green)';
-                    terminalResponse.classList.add('visible');
-                    terminalEmail.value = '';
-                    consent.checked = false;
-                } else {
-                    throw new Error('Submission failed');
-                }
-            })
-            .catch(err => {
-                terminalResponse.textContent = '// Error: Transmission failed. System interference detected. Please try again.';
-                terminalResponse.style.color = 'var(--accent-red)';
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = 'https://223d86e0.sibforms.com/serve/MUIFAPc-UGa7LoipwOvDFS-wdQ9KYntofBWRg-zDwrHQh8NmieCqHn_a-VzpVBjMr1Uxvq9QX2lNXf3gEVBSCiVleEdsjnFCATIcmcz9g1ELQeZVesTyjT2Apg3noB1UCcDW6hHmq_TOQYHeRoRmscDzA_8jD2NdKshZQb1nkKRd4RoFjTqJuQTKXzyppjRievNWhOHqlz-utDW36A==';
+            form.target = iframeName;
+            form.style.display = 'none';
+
+            const emailField = document.createElement('input');
+            emailField.name = 'EMAIL';
+            emailField.value = email;
+            form.appendChild(emailField);
+
+            const honeypot = document.createElement('input');
+            honeypot.name = 'email_address_check';
+            honeypot.value = '';
+            form.appendChild(honeypot);
+
+            const locale = document.createElement('input');
+            locale.name = 'locale';
+            locale.value = 'en';
+            form.appendChild(locale);
+
+            document.body.appendChild(form);
+            form.submit();
+
+            // Since the iframe response is cross-origin and unreadable,
+            // we assume success after a short delay
+            setTimeout(() => {
+                terminalResponse.textContent = '// Signal received. Electronic mail locked. Stand by for transmissions.';
+                terminalResponse.style.color = 'var(--accent-green)';
                 terminalResponse.classList.add('visible');
-                setTimeout(() => {
-                    terminalResponse.classList.remove('visible');
-                    terminalResponse.style.color = '';
-                }, 3000);
-            })
-            .finally(() => {
+                terminalEmail.value = '';
+                consent.checked = false;
                 terminalSubmit.disabled = false;
                 terminalEmail.disabled = false;
                 terminalSubmit.style.opacity = '1';
-            });
+
+                // Clean up
+                iframe.remove();
+                form.remove();
+            }, 2000);
         });
 
         terminalEmail.addEventListener('keydown', (e) => {
