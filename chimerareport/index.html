@@ -162,8 +162,47 @@
             WEEKLY CHIMERA REPORTS - CHANGE ACTIVE/LATEST STATUS WEEKLY
 ================================================================================= -->
 
+<!-- ══════ Report 003 // Reginald Dossier // RGND-003-SP ══════ -->
+<div class="report-card reveal"><button class="report-header" onclick="toggleReport(this)"><span class="report-arrow">&#9654;</span><span class="report-number">003</span><div class="report-meta"><div class="report-title">The Squab HQ &mdash; Personnel File: Reginald</div><div class="report-date">Transmission &mdash; 22 Apr 2026</div></div><span class="report-status report-status--latest">Latest</span></button><div class="report-body"><div class="code-block"><div class="code-line-numbers"></div><div class="code-content"><span class="code-comment">// CHIMERA CORP &mdash; CLASSIFIED REPORT 003</span>
+<span class="code-comment">// DATE: 2026-04-22</span>
+<span class="code-comment">// FROM: FBI</span>
+<span class="code-comment">// RE: Personnel File &mdash; Reginald</span>
+
+<span class="code-key">report</span>: {
+  <span class="code-key">subject</span>: <span class="code-value">"Character Dossier &mdash; Reginald"</span>,
+  <span class="code-key">status</span>: <span class="code-value">"Declassified"</span>,
+
+  <span class="code-comment">// The following file has been cleared for</span>
+  <span class="code-comment">// operative-level access.</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// Subject: Reginald.</span>
+  <span class="code-comment">// Role: Pidgie faction leader.</span>
+  <span class="code-comment">// Temperament: Nervous. Principled. Reluctant.</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// Reginald did not ask to lead. Leadership</span>
+  <span class="code-comment">// was assigned to him after an incident that</span>
+  <span class="code-comment">// remains [REDACTED] at this clearance level.</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// He stutters when he lies. Unfortunately for</span>
+  <span class="code-comment">// the agency, he is asked to lie often.</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// Despite this, his loyalty rating remains</span>
+  <span class="code-comment">// the highest on record. Make of that what</span>
+  <span class="code-comment">// you will.</span>
+
+  <span class="code-key">personnel</span>: {
+    <span class="code-key">codename</span>: <span class="code-value">"Reginald"</span>,
+    <span class="code-key">faction</span>: <span class="code-value">"Pidgie"</span>,
+    <span class="code-key">clearance</span>: <span class="code-value">"Level 3"</span>,
+    <span class="code-key">loyalty_rating</span>: <span class="code-value">"98.7%"</span>
+  }
+}
+
+<span class="code-comment">// End of report. Compliance is cooperation.</span>
+<span class="code-comment">// &mdash; Chief of police</span></div></div></div></div>
+
 <!-- ══════ Report 002 // Floragnus Launch // FLGN-002-CC ══════ -->
- <div class="report-card reveal"><button class="report-header" onclick="toggleReport(this)"><span class="report-arrow">&#9654;</span><span class="report-number">002</span><div class="report-meta"><div class="report-title">Floragnus &mdash; Subsidiary Activated</div><div class="report-date">Transmission &mdash; 15 Apr 2026</div></div><span class="report-status report-status--latest">Latest</span></button><div class="report-body"><div class="code-block"><div class="code-line-numbers"></div><div class="code-content"><span class="code-comment">// CHIMERA CORP &mdash; CLASSIFIED REPORT 002</span>
+ <div class="report-card reveal"><button class="report-header" onclick="toggleReport(this)"><span class="report-arrow">&#9654;</span><span class="report-number">002</span><div class="report-meta"><div class="report-title">Floragnus &mdash; Subsidiary Activated</div><div class="report-date">Transmission &mdash; 15 Apr 2026</div></div><span class="report-status report-status--archived">Archived</span></button><div class="report-body"><div class="code-block"><div class="code-line-numbers"></div><div class="code-content"><span class="code-comment">// CHIMERA CORP &mdash; CLASSIFIED REPORT 002</span>
 <span class="code-comment">// DATE: 2026-04-15</span>
 <span class="code-comment">// FROM: Chimera Corp headquarters</span>
 <span class="code-comment">// RE: Floragnus &mdash; Subsidiary Launch</span>
@@ -276,7 +315,7 @@
         ACCESS CODE - CHANGE WEEKLY
 =========================================== */
         
-        const ACCESS_CODE='FLGN-002-CC';
+        const ACCESS_CODE='RGND-003-SP';
         const codeInput=document.getElementById('codeInput'),codeSubmit=document.getElementById('codeSubmit'),accessResponse=document.getElementById('accessResponse');
         function checkCode(){const input=codeInput.value.trim().toUpperCase();if(input===ACCESS_CODE.toUpperCase()){document.getElementById('accessGate').style.display='none';document.getElementById('reportsSection').classList.add('unlocked');document.getElementById('clearanceLight').style.background='var(--accent-green)';document.getElementById('clearanceValue').textContent='Operative';document.getElementById('clearanceValue').style.color='var(--accent-green)';generateAllLineNumbers();document.querySelectorAll('.reports-section .reveal').forEach(el=>observer.observe(el));}else if(input===''){accessResponse.textContent='// Access code required.';accessResponse.style.color='var(--accent-red)';}else{accessResponse.textContent='// Access denied. Code not recognised.';accessResponse.style.color='var(--accent-red)';}}
         codeSubmit.addEventListener('click',checkCode);codeInput.addEventListener('keydown',e=>{if(e.key==='Enter')checkCode();});
