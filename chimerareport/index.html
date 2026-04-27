@@ -162,8 +162,49 @@
             WEEKLY CHIMERA REPORTS - CHANGE ACTIVE/LATEST STATUS WEEKLY
 ================================================================================= -->
 
+<!-- ══════ Report 004 // Field Report // SQHQ-004-CC ══════ -->
+ <div class="report-card reveal"><button class="report-header" onclick="toggleReport(this)"><span class="report-arrow">&#9654;</span><span class="report-number">004</span><div class="report-meta"><div class="report-title">The Squab HQ &mdash; Intercepted Field Report</div><div class="report-date">Transmission &mdash; 29 Apr 2026</div></div><span class="report-status report-status--latest">Latest</span></button><div class="report-body"><div class="code-block"><div class="code-line-numbers"></div><div class="code-content"><span class="code-comment">// CHIMERA CORP &mdash; CLASSIFIED REPORT 004</span>
+<span class="code-comment">// DATE: 2026-04-29</span>
+<span class="code-comment">// FROM: [SIGNAL ORIGIN UNKNOWN]</span>
+<span class="code-comment">// RE: Intercepted Field Report</span>
+
+<span class="code-key">report</span>: {
+  <span class="code-key">subject</span>: <span class="code-value">"Field Log &mdash; Operative Unknown"</span>,
+  <span class="code-key">status</span>: <span class="code-value">"Unverified"</span>,
+
+  <span class="code-comment">// The following was recovered from a dead drop</span>
+  <span class="code-comment">// near the east corridor. Handwriting matches</span>
+  <span class="code-comment">// no current operative on file.</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// --- BEGIN TRANSCRIPT ---</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// Day 4. Something is wrong with the vending</span>
+  <span class="code-comment">// machine on floor 3. It dispenses the correct</span>
+  <span class="code-comment">// item but the receipt always prints a different</span>
+  <span class="code-comment">// product. Nobody else has noticed.</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// Day 7. The receipts are coordinates.</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// Day 9. I followed one. It led to a supply</span>
+  <span class="code-comment">// closet on a floor that isn't on the building</span>
+  <span class="code-comment">// plans. The door was open. Inside: a chair,</span>
+  <span class="code-comment">// a desk, and a monitor showing live footage</span>
+  <span class="code-comment">// of the lobby. My name was on the desk.</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// --- END TRANSCRIPT ---</span>
+
+  <span class="code-key">verification</span>: {
+    <span class="code-key">source</span>: <span class="code-value">"Unconfirmed"</span>,
+    <span class="code-key">threat_level</span>: <span class="code-value">"Moderate"</span>,
+    <span class="code-key">action_required</span>: <span class="code-value">"Monitor"</span>
+  }
+}
+
+<span class="code-comment">// End of interception.</span>
+<span class="code-comment">// &mdash; Unknown</span></div></div></div></div>
+
 <!-- ══════ Report 003 // Reginald Dossier // RGND-003-SP ══════ -->
-<div class="report-card reveal"><button class="report-header" onclick="toggleReport(this)"><span class="report-arrow">&#9654;</span><span class="report-number">003</span><div class="report-meta"><div class="report-title">The Squab HQ &mdash; Personnel File: Reginald</div><div class="report-date">Transmission &mdash; 22 Apr 2026</div></div><span class="report-status report-status--latest">Latest</span></button><div class="report-body"><div class="code-block"><div class="code-line-numbers"></div><div class="code-content"><span class="code-comment">// CHIMERA CORP &mdash; CLASSIFIED REPORT 003</span>
+<div class="report-card reveal"><button class="report-header" onclick="toggleReport(this)"><span class="report-arrow">&#9654;</span><span class="report-number">003</span><div class="report-meta"><div class="report-title">The Squab HQ &mdash; Personnel File: Reginald</div><div class="report-date">Transmission &mdash; 22 Apr 2026</div></div><span class="report-status report-status--archived">Archived</span></button><div class="report-body"><div class="code-block"><div class="code-line-numbers"></div><div class="code-content"><span class="code-comment">// CHIMERA CORP &mdash; CLASSIFIED REPORT 003</span>
 <span class="code-comment">// DATE: 2026-04-22</span>
 <span class="code-comment">// FROM: FBI</span>
 <span class="code-comment">// RE: Personnel File &mdash; Reginald</span>
@@ -315,7 +356,7 @@
         ACCESS CODE - CHANGE WEEKLY
 =========================================== */
         
-        const ACCESS_CODE='RGND-003-SP';
+        const ACCESS_CODE='SQHQ-004-CC';
         const codeInput=document.getElementById('codeInput'),codeSubmit=document.getElementById('codeSubmit'),accessResponse=document.getElementById('accessResponse');
         function checkCode(){const input=codeInput.value.trim().toUpperCase();if(input===ACCESS_CODE.toUpperCase()){document.getElementById('accessGate').style.display='none';document.getElementById('reportsSection').classList.add('unlocked');document.getElementById('clearanceLight').style.background='var(--accent-green)';document.getElementById('clearanceValue').textContent='Operative';document.getElementById('clearanceValue').style.color='var(--accent-green)';generateAllLineNumbers();document.querySelectorAll('.reports-section .reveal').forEach(el=>observer.observe(el));}else if(input===''){accessResponse.textContent='// Access code required.';accessResponse.style.color='var(--accent-red)';}else{accessResponse.textContent='// Access denied. Code not recognised.';accessResponse.style.color='var(--accent-red)';}}
         codeSubmit.addEventListener('click',checkCode);codeInput.addEventListener('keydown',e=>{if(e.key==='Enter')checkCode();});
