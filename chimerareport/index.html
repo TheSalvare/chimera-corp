@@ -127,7 +127,7 @@
             <div class="hero-main">
                 <img src="../images/cc-logo.png" class="hero-logo anim-fade-up anim-delay-1" style="width: 120px; height: auto; margin-bottom: 32px; display: block;">
                 <h1 class="hero-title anim-fade-up anim-delay-2">Chimera Report.</h1>
-                <p class="hero-subtitle anim-fade-up anim-delay-3">Weekly classified transmissions from Chimera Corp leadership.<br>Lore, intelligence briefings, operative updates and corporate infrastructure.<br><br>Access is granted exclusively to registered operatives.<br>If you're reading this, then you've already completed half of your assigned task.</p>
+                <p class="hero-subtitle anim-fade-up anim-delay-3">Weekly classified transmissions from Chimera Corp leadership.<br>Lore, intelligence briefings, operative updates and corporate infastructure.<br><br>Access is granted exclusively to registered operatives.<br>If you're reading this, then you've already completed half of your assigned task.</p>
                 <div class="hero-meta anim-fade-up anim-delay-4">
                     <span class="hero-meta-tag">Weekly_Dispatch</span>
                     <span class="hero-meta-tag">Classified_Lore</span>
@@ -162,10 +162,47 @@
             WEEKLY CHIMERA REPORTS - CHANGE ACTIVE/LATEST STATUS WEEKLY
 ================================================================================= -->
 
+<!-- ══════ Report 005 // Faction Deep-Dive: SPYS // SPYS-005-CC ══════ -->
+ <div class="report-card reveal"><button class="report-header" onclick="toggleReport(this)"><span class="report-arrow">&#9654;</span><span class="report-number">005</span><div class="report-meta"><div class="report-title">The Squab HQ - Faction Briefing: SPYS</div><div class="report-date">Transmission - 06 May 2026</div></div><span class="report-status report-status--latest">Latest</span></button><div class="report-body"><div class="code-block"><div class="code-line-numbers"></div><div class="code-content"><span class="code-comment">// CHIMERA CORP - CLASSIFIED REPORT 005</span>
+<span class="code-comment">// DATE: 2026-05-06</span>
+<span class="code-comment">// FROM: FBI</span>
+<span class="code-comment">// RE: Faction Briefing - SPYS</span>
 
+<span class="code-key">report</span>: {
+  <span class="code-key">subject</span>: <span class="code-value">"Faction Intelligence - SPYS"</span>,
+  <span class="code-key">status</span>: <span class="code-value">"Active"</span>,
+
+  <span class="code-comment">// SPYS are the front line. They act first,</span>
+  <span class="code-comment">// ask questions later, and file paperwork never.</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// They are the ones who kick down the door</span>
+  <span class="code-comment">// before confirming it was the right door.</span>
+  <span class="code-comment">// They are also the ones who somehow survive</span>
+  <span class="code-comment">// the consequences of it being the wrong one.</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// Strengths: instinct, improvisation, speed.</span>
+  <span class="code-comment">// Weaknesses: patience, reading, listening.</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// 58% of assessed operatives landed here.</span>
+  <span class="code-comment">// This is either a recruitment problem or</span>
+  <span class="code-comment">// a society problem. We suspect both.</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// If you are SPYS, wear it with pride.</span>
+  <span class="code-comment">// Just maybe read the briefing before the</span>
+  <span class="code-comment">// next mission. Please.</span>
+
+  <span class="code-key">faction</span>: {
+    <span class="code-key">designation</span>: <span class="code-value">"SPYS"</span>,
+    <span class="code-key">operatives_assigned</span>: <span class="code-value">"58%"</span>,
+    <span class="code-key">motto</span>: <span class="code-value">"Act now. Apologise if alive."</span>
+  }
+}
+
+<span class="code-comment">// End of report. Compliance is cooperation.</span>
+<span class="code-comment">// - Chief of police</span></div></div></div></div>
 
 <!-- ══════ Report 004 // Field Report // SQHQ-004-CC ══════ -->
- <div class="report-card reveal"><button class="report-header" onclick="toggleReport(this)"><span class="report-arrow">&#9654;</span><span class="report-number">004</span><div class="report-meta"><div class="report-title">The Squab HQ - Intercepted Field Report</div><div class="report-date">Transmission - 29 Apr 2026</div></div><span class="report-status report-status--latest">Latest</span></button><div class="report-body"><div class="code-block"><div class="code-line-numbers"></div><div class="code-content"><span class="code-comment">// CHIMERA CORP - CLASSIFIED REPORT 004</span>
+ <div class="report-card reveal"><button class="report-header" onclick="toggleReport(this)"><span class="report-arrow">&#9654;</span><span class="report-number">004</span><div class="report-meta"><div class="report-title">The Squab HQ - Intercepted Field Report</div><div class="report-date">Transmission - 29 Apr 2026</div></div><span class="report-status report-status--archived">Archived</span></button><div class="report-body"><div class="code-block"><div class="code-line-numbers"></div><div class="code-content"><span class="code-comment">// CHIMERA CORP - CLASSIFIED REPORT 004</span>
 <span class="code-comment">// DATE: 2026-04-29</span>
 <span class="code-comment">// FROM: [SIGNAL ORIGIN UNKNOWN]</span>
 <span class="code-comment">// RE: Intercepted Field Report</span>
@@ -358,7 +395,7 @@
         ACCESS CODE - CHANGE WEEKLY
 =========================================== */
         
-        const ACCESS_CODE='SQHQ-004-CC';
+        const ACCESS_CODE='SPYS-005-CC';
         const codeInput=document.getElementById('codeInput'),codeSubmit=document.getElementById('codeSubmit'),accessResponse=document.getElementById('accessResponse');
         function checkCode(){const input=codeInput.value.trim().toUpperCase();if(input===ACCESS_CODE.toUpperCase()){document.getElementById('accessGate').style.display='none';document.getElementById('reportsSection').classList.add('unlocked');document.getElementById('clearanceLight').style.background='var(--accent-green)';document.getElementById('clearanceValue').textContent='Operative';document.getElementById('clearanceValue').style.color='var(--accent-green)';generateAllLineNumbers();document.querySelectorAll('.reports-section .reveal').forEach(el=>observer.observe(el));}else if(input===''){accessResponse.textContent='// Access code required.';accessResponse.style.color='var(--accent-red)';}else{accessResponse.textContent='// Access denied. Code not recognised.';accessResponse.style.color='var(--accent-red)';}}
         codeSubmit.addEventListener('click',checkCode);codeInput.addEventListener('keydown',e=>{if(e.key==='Enter')checkCode();});
