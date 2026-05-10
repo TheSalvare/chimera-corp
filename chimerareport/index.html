@@ -167,7 +167,7 @@
         .clearance-light { width: 8px; height: 8px; border-radius: 50%; animation: blink-light 3s ease-in-out infinite; }
         @keyframes blink-light { 0%, 40%, 100% { opacity: 1; } 42%, 48% { opacity: 0.3; } 50% { opacity: 1; } 75%, 78% { opacity: 0.15; } }
         .clearance-value { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 500; }
-        .access-section { padding: 80px 56px; max-width: 600px; margin: 0 auto; text-align: center; }
+        .access-section { padding: 80px 56px 60px; max-width: 600px; margin: 0 auto; text-align: center; }
         .access-title { font-family: var(--font-pixel); font-size: 1.4rem; font-weight: 400; margin-bottom: 16px; }
         .access-desc { font-family: var(--font-sans); font-size: 0.88rem; line-height: 1.7; color: var(--text-secondary); margin-bottom: 32px; }
         .terminal-input-wrapper { display: flex; align-items: center; background: var(--bg-secondary); border: 1px solid var(--border-light); border-radius: 8px; overflow: hidden; transition: border-color 0.2s; }
@@ -199,7 +199,7 @@
         .report-status--latest { color: var(--accent-green); border-color: var(--accent-green); }
         .report-status--archived { color: var(--text-tertiary); border-color: var(--border-light); }
         .report-status--sample { color: var(--text-secondary); border-color: var(--border-medium); }
-        .sample-section { padding: 60px 56px 0; max-width: 1100px; margin: 0 auto; }
+        .sample-section { padding: 0 56px 0; max-width: 1100px; margin: 0 auto; }
         .sample-label { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
         .sample-label::after { content: ''; flex: 1; height: 1px; background: var(--border-light); max-width: 200px; }
         .sample-intro { font-family: var(--font-mono); font-size: 0.7rem; line-height: 1.7; color: var(--text-secondary); margin-bottom: 24px; max-width: 640px; }
@@ -315,6 +315,16 @@
             <span class="clearance-light" id="clearanceLight" style="background:var(--accent-red);"></span>
             <span class="clearance-value" id="clearanceValue" style="color:var(--accent-red);">Restricted</span>
         </div>
+        <section class="access-section" id="accessGate">
+            <h2 class="access-title anim-fade-up anim-delay-2">Clearance Required</h2>
+            <p class="access-desc anim-fade-up anim-delay-3">Enter your operative access code to view classified reports.<br>Access codes are distributed via weekly transmission to registered operatives.</p>
+            <div class="terminal-input-wrapper anim-fade-up anim-delay-4">
+                <span class="terminal-prompt">&gt;</span>
+                <input type="text" class="terminal-input" id="codeInput" placeholder="Enter access code" autocomplete="off" spellcheck="false">
+                <button class="terminal-submit" id="codeSubmit">Verify</button>
+            </div>
+            <div class="access-response" id="accessResponse"></div>
+        </section>
         <section class="sample-section" id="sampleSection">
             <div class="sample-label">Preview // Sample Transmission</div>
             <p class="sample-intro">// Below is a redacted public sample. Know what you're signing up for.</p>
@@ -362,17 +372,6 @@
                     </div>
                 </div>
             </div>
-        </section>
-        <section class="access-section" id="accessGate">
-            <h2 class="access-title anim-fade-up anim-delay-2">Clearance Required</h2>
-            <p class="access-desc anim-fade-up anim-delay-3">Enter your operative access code to view classified reports.<br>Access codes are distributed via weekly transmission to registered operatives.</p>
-            <div class="terminal-input-wrapper anim-fade-up anim-delay-4">
-                <span class="terminal-prompt">&gt;</span>
-                <input type="text" class="terminal-input" id="codeInput" placeholder="Enter access code" autocomplete="off" spellcheck="false">
-                <button class="terminal-submit" id="codeSubmit">Verify</button>
-            </div>
-            <div class="access-response" id="accessResponse"></div>
-            <p class="access-hint anim-fade-up anim-delay-4">// Not a registered operative?<br>// Submit your identity at <a href="https://chimeracorp.xyz/#transmissions" target="_blank">chimeracorp.xyz</a> to receive transmissions.</p>
         </section>
         <section class="reports-section" id="reportsSection">
             <div class="section-label">Transmissions // Classified Reports</div>
@@ -646,6 +645,7 @@
 =========================================== -->
 
         </section>
+        <div style="text-align: center; padding: 50px 40px 0;"><p class="access-hint">// Not a registered operative?<br>// Submit your identity at <a href="https://chimeracorp.xyz/#transmissions" target="_blank">chimeracorp.xyz</a> to receive transmissions.</p></div>
         <div class="end-transmission">// End of transmission. Stay connected.</div>
         <footer class="footer"><div class="footer-bottom"><span class="footer-left">&copy; The Salvare - Chimera Report</span><span class="footer-right">All systems operational</span></div></footer>
     </div>
