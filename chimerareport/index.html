@@ -198,6 +198,11 @@
         .report-status { font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 8px; border: 1px solid; border-radius: 3px; flex-shrink: 0; }
         .report-status--latest { color: var(--accent-green); border-color: var(--accent-green); }
         .report-status--archived { color: var(--text-tertiary); border-color: var(--border-light); }
+        .report-status--sample { color: var(--text-secondary); border-color: var(--border-medium); background: var(--bg-secondary); }
+        .sample-section { padding: 60px 56px 0; max-width: 1100px; margin: 0 auto; }
+        .sample-label { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .sample-label::after { content: ''; flex: 1; height: 1px; background: var(--border-light); max-width: 200px; }
+        .sample-intro { font-family: var(--font-mono); font-size: 0.7rem; line-height: 1.7; color: var(--text-secondary); margin-bottom: 24px; max-width: 640px; }
         .report-body { display: none; border-top: 1px solid var(--border-light); }
         .report-card.open .report-body { display: block; }
         .code-block { background: var(--bg-secondary); font-family: var(--font-mono); font-size: 0.78rem; line-height: 2; color: var(--text-primary); overflow-x: auto; display: flex; }
@@ -223,6 +228,7 @@
             .hero { grid-template-columns: 1fr; } .hero-main { padding: 56px 24px 72px; } .hero-sidebar { display: none; }
             .hero-title { font-size: clamp(2rem, 10vw, 3rem); } .header { padding: 16px 20px; }
             .reports-section { padding: 48px 24px 40px; } .access-section { padding: 60px 24px; }
+            .sample-section { padding: 48px 24px 0; }
             .code-block { font-size: 0.65rem; } .code-line-numbers { font-size: 0.58rem; min-width: 32px; padding: 24px 8px 24px 12px; }
             .code-content { padding: 24px 16px; } .hero-meta { flex-wrap: wrap; }
             .hero-meta-tag { font-size: 0.5rem; padding: 5px 8px; } .terminal-submit { padding: 14px 14px; }
@@ -308,6 +314,54 @@
             <span class="clearance-light" id="clearanceLight" style="background:var(--accent-red);"></span>
             <span class="clearance-value" id="clearanceValue" style="color:var(--accent-red);">Restricted</span>
         </div>
+        <section class="sample-section">
+            <div class="sample-label">Preview // Sample Transmission</div>
+            <p class="sample-intro">// Below is a redacted public sample. Operatives receive the full weekly transmission via clearance email. Submit your identity to subscribe.</p>
+            <div class="report-card open reveal">
+                <button class="report-header" onclick="toggleReport(this)">
+                    <span class="report-arrow">&#9654;</span>
+                    <span class="report-number">000</span>
+                    <div class="report-meta">
+                        <div class="report-title">Chimera Corp - Public Sample Transmission</div>
+                        <div class="report-date">Preview - For Unregistered Visitors</div>
+                    </div>
+                    <span class="report-status report-status--sample">Sample</span>
+                </button>
+                <div class="report-body">
+                    <div class="code-block">
+                        <div class="code-line-numbers"></div>
+                        <div class="code-content"><span class="code-comment">// CHIMERA CORP - PUBLIC SAMPLE</span>
+<span class="code-comment">// CLASSIFICATION: Open Tier // No clearance required</span>
+<span class="code-comment">// FROM: The Salvare's Office</span>
+<span class="code-comment">// RE: What you are about to receive</span>
+
+<span class="code-key">transmission</span>: {
+  <span class="code-key">format</span>: <span class="code-value">"Weekly classified report"</span>,
+  <span class="code-key">delivery</span>: <span class="code-value">"Via secure electronic mail"</span>,
+  <span class="code-key">access_protocol</span>: <span class="code-value">"Operative code rotates each cycle"</span>,
+
+  <span class="code-comment">// Each transmission contains lore drops,</span>
+  <span class="code-comment">// intelligence briefings, operative profiles,</span>
+  <span class="code-comment">// and intercepted communications.</span>
+  <span class="code-comment">// Some are useful. Some are warnings.</span>
+  <span class="code-comment">// All are classified.</span>
+
+  <span class="code-key">recent_subjects</span>: [
+    <span class="code-value">"Faction briefings // The Squab HQ"</span>,
+    <span class="code-value">"Subsidiary activations // Floragnus"</span>,
+    <span class="code-value">"Personnel files // Reginald, The Salvare"</span>,
+    <span class="code-value">"Intercepted field reports"</span>
+  ],
+
+  <span class="code-key">operative_status</span>: <span class="code-value">"Pending"</span>
+}
+
+<span class="code-comment">// To proceed: submit your identity.</span>
+<span class="code-comment">// Compliance is cooperation.</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
         <section class="access-section" id="accessGate">
             <h2 class="access-title anim-fade-up anim-delay-2">Clearance Required</h2>
             <p class="access-desc anim-fade-up anim-delay-3">Enter your operative access code to view classified reports.<br>Access codes are distributed via weekly transmission to registered operatives.</p>
@@ -317,7 +371,7 @@
                 <button class="terminal-submit" id="codeSubmit">Verify</button>
             </div>
             <div class="access-response" id="accessResponse"></div>
-            <p class="access-hint anim-fade-up anim-delay-4">// Not a registered operative?<br>// Submit your identity at <a href="https://chimeracorp.xyz/" target="_blank">chimeracorp.xyz</a> to receive transmissions.</p>
+            <p class="access-hint anim-fade-up anim-delay-4">// Not a registered operative?<br>// Submit your identity at <a href="https://chimeracorp.xyz/#transmissions" target="_blank">chimeracorp.xyz</a> to receive transmissions.</p>
         </section>
         <section class="reports-section" id="reportsSection">
             <div class="section-label">Transmissions // Classified Reports</div>
@@ -621,6 +675,8 @@
         codeSubmit.addEventListener('click',checkCode);codeInput.addEventListener('keydown',e=>{if(e.key==='Enter')checkCode();});
         function toggleReport(header){const card=header.parentElement;const wasOpen=card.classList.contains('open');document.querySelectorAll('.report-card').forEach(c=>c.classList.remove('open'));if(!wasOpen){card.classList.add('open');const ln=card.querySelector('.code-line-numbers');if(ln&&ln.innerHTML===''){const content=card.querySelector('.code-content');const lines=content.textContent.split('\n').length;ln.innerHTML=Array.from({length:lines},(_,i)=>i+1).join('<br>');}}}
         function generateAllLineNumbers(){document.querySelectorAll('.report-card').forEach(card=>{const ln=card.querySelector('.code-line-numbers');const content=card.querySelector('.code-content');if(ln&&content){const lines=content.textContent.split('\n').length;ln.innerHTML=Array.from({length:lines},(_,i)=>i+1).join('<br>');}});}
+        // Populate line numbers for any pre-opened sample cards
+        generateAllLineNumbers();
         const canvas=document.getElementById('dotGrid'),ctx=canvas.getContext('2d');const spacing=24,baseRadius=0.8,maxRadius=1.8,influenceRadius=100,dotColor=[222,222,222],baseAlpha=0.6;let mouse={x:-9999,y:-9999},smoothMouse={x:-9999,y:-9999},blooms=[],lastBloomTime=0;const bloomCooldown=600;
         function resize(){canvas.width=window.innerWidth;canvas.height=document.documentElement.scrollHeight;}
         function draw(){const scrollY=window.scrollY||window.pageYOffset;ctx.clearRect(0,0,canvas.width,canvas.height);smoothMouse.x+=(mouse.x-smoothMouse.x)*0.15;smoothMouse.y+=(mouse.y-smoothMouse.y)*0.15;const absMx=smoothMouse.x,absMy=smoothMouse.y+scrollY;const now=Date.now();if(mouse.x>0&&now-lastBloomTime>bloomCooldown){blooms.push({x:absMx,y:absMy,radius:60+Math.random()*40,startTime:now,duration:1200+Math.random()*600,intensity:0.5+Math.random()*0.5,progress:0});lastBloomTime=now;}blooms=blooms.filter(b=>{b.progress=(now-b.startTime)/b.duration;return b.progress<1;});const startRow=Math.max(0,Math.floor((scrollY-50)/spacing)),endRow=Math.ceil((scrollY+window.innerHeight+50)/spacing),cols=Math.ceil(canvas.width/spacing);for(let row=startRow;row<=endRow;row++){for(let col=0;col<=cols;col++){const x=col*spacing,y=row*spacing;let radius=baseRadius,alpha=baseAlpha;const dx=x-absMx,dy=y-absMy,dist=Math.sqrt(dx*dx+dy*dy);if(dist<influenceRadius){const s=1-dist/influenceRadius,e=s*s;radius=baseRadius+(maxRadius-baseRadius)*e;alpha=baseAlpha+0.35*e;}for(const bloom of blooms){const bx=x-bloom.x,by=y-bloom.y,bDist=Math.sqrt(bx*bx+by*by);if(bDist<bloom.radius){const life=Math.sin(bloom.progress*Math.PI),falloff=Math.exp(-(bDist*bDist)/(2*(bloom.radius*0.4)*(bloom.radius*0.4))),str=life*falloff*bloom.intensity;radius=Math.max(radius,baseRadius+(maxRadius*1.27-baseRadius)*str);alpha=Math.max(alpha,baseAlpha+0.25*str);}}ctx.beginPath();ctx.arc(x,y,radius,0,Math.PI*2);ctx.fillStyle=`rgba(${dotColor[0]},${dotColor[1]},${dotColor[2]},${alpha})`;ctx.fill();}}requestAnimationFrame(draw);}
