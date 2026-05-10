@@ -26,9 +26,131 @@
         .noise-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 9998; opacity: 0.05; }
         .page-wrapper { position: relative; z-index: 1; min-height: 100vh; }
         .header { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; border-bottom: 1px solid var(--border-light); background: rgba(254,254,254,0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 100; }
-        .header-brand { font-family: var(--font-pixel); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
-        .header-nav { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-secondary); transition: color 0.2s; }
-        .header-nav:hover { color: var(--text-primary); }
+        .header-brand { font-family: var(--font-pixel); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-primary); text-decoration: none; transition: color 0.2s; }
+        .header-brand:hover { color: var(--text-secondary); }
+        .header-nav { display: flex; align-items: center; gap: 24px; }
+        .header-nav-links { display: flex; align-items: center; gap: 20px; }
+        .header-nav-link {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+            white-space: nowrap;
+        }
+        .header-nav-link:hover { color: var(--text-primary); }
+        .header-nav-separator {
+            width: 1px;
+            height: 14px;
+            background: var(--border-light);
+            flex-shrink: 0;
+        }
+        .header-back {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .header-back:hover { color: var(--text-primary); }
+        .header-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--accent-green);
+        }
+        .status-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            animation: pulse-dot 2.5s ease-in-out infinite;
+        }
+        @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+        /* HAMBURGER MENU (MOBILE ONLY) */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            gap: 5px;
+            background: none;
+            border: none;
+            padding: 0;
+            padding-bottom: 10px;
+            position: fixed;
+            top: 16px;
+            right: 20px;
+            z-index: 200;
+        }
+        .hamburger-line {
+            width: 18px;
+            height: 1.5px;
+            background: var(--text-primary);
+            border-radius: 1px;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            transform-origin: center;
+        }
+        .hamburger.open .hamburger-line:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+        .hamburger.open .hamburger-line:nth-child(2) { opacity: 0; }
+        .hamburger.open .hamburger-line:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(254, 254, 254, 0.97);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 150;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .mobile-menu.open { opacity: 1; pointer-events: auto; }
+        .mobile-menu-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 32px;
+        }
+        .mobile-menu-link {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+            padding: 8px 0;
+        }
+        .mobile-menu-link:hover { color: var(--text-primary); }
+        .mobile-menu-divider { width: 40px; height: 1px; background: var(--border-light); }
+        .mobile-menu-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent-green);
+            margin-top: 8px;
+        }
         .hero { display: grid; grid-template-columns: 1fr auto; min-height: 70vh; }
         .hero-main { display: flex; flex-direction: column; justify-content: center; padding: 80px 80px; max-width: 960px; margin: 0 auto; }
         .hero-title { font-family: var(--font-pixel); font-size: clamp(2.4rem, 6vw, 4.5rem); font-weight: 400; line-height: 1.05; letter-spacing: -0.01em; margin-bottom: 32px; }
@@ -105,6 +227,12 @@
             .code-content { padding: 24px 16px; } .hero-meta { flex-wrap: wrap; }
             .hero-meta-tag { font-size: 0.5rem; padding: 5px 8px; } .terminal-submit { padding: 14px 14px; }
             .footer { padding: 20px 20px 16px; } .footer-bottom { flex-direction: column; gap: 6px; align-items: center; }
+            .header-nav-links { display: none; }
+            .header-nav-separator { display: none; }
+            .header-back { display: none; }
+            .header-status { display: none; }
+            .hamburger { display: flex; }
+            .mobile-menu { display: flex; }
         }
         @media (max-width: 480px) {
             .code-block { font-size: 0.55rem; } .code-line-numbers { font-size: 0.5rem; min-width: 28px; }
@@ -120,9 +248,45 @@
     <div class="noise-overlay" style="filter: url(#noiseFilter);"></div>
     <div class="page-wrapper">
         <header class="header">
-            <div class="header-brand">The Salvare</div>
-            <a href="../index.html" class="header-nav">&larr; Portal Home</a>
+            <a href="../index.html" class="header-brand">The Salvare</a>
+            <div class="header-nav">
+                <nav class="header-nav-links">
+                    <a href="./index.html" class="header-nav-link">> The Chimera Report</a>
+                    <a href="../thesquabhq/index.html" class="header-nav-link">> The Squab HQ</a>
+                    <a href="https://www.floragnus.xyz" class="header-nav-link" target="_blank" rel="noopener noreferrer">> Access Floragnus</a>
+                </nav>
+                <div class="header-nav-separator"></div>
+                <a href="../index.html" class="header-back">&larr; Portal Home</a>
+                <div class="header-status">
+                    <span class="status-dot"></span>
+                    Status: Active
+                </div>
+            </div>
         </header>
+
+        <!-- Mobile Hamburger (outside header for z-index independence) -->
+        <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-menu-inner">
+                <a href="./index.html" class="mobile-menu-link">> The Chimera Report</a>
+                <div class="mobile-menu-divider"></div>
+                <a href="../thesquabhq/index.html" class="mobile-menu-link">> The Squab HQ</a>
+                <div class="mobile-menu-divider"></div>
+                <a href="https://www.floragnus.xyz" class="mobile-menu-link" target="_blank" rel="noopener noreferrer">> Access Floragnus</a>
+                <div class="mobile-menu-divider"></div>
+                <a href="../index.html" class="mobile-menu-link">&larr; Portal Home</a>
+                <div class="mobile-menu-divider"></div>
+                <div class="mobile-menu-status">
+                    <span class="status-dot"></span>
+                    Status: Active
+                </div>
+            </div>
+        </div>
         <section class="hero">
             <div class="hero-main">
                 <img src="../images/cc-logo.png" class="hero-logo anim-fade-up anim-delay-1" style="width: 120px; height: auto; margin-bottom: 32px; display: block;">
@@ -161,9 +325,49 @@
 <!-- ================================================================================
             WEEKLY CHIMERA REPORTS - CHANGE ACTIVE/LATEST STATUS WEEKLY
 ================================================================================= -->
+<!-- ══════ Report 006 // The Salvare Profile // SLVR-006-TS ══════ -->
+ <div class="report-card reveal"><button class="report-header" onclick="toggleReport(this)"><span class="report-arrow">&#9654;</span><span class="report-number">006</span><div class="report-meta"><div class="report-title">Chimera Corp - Operative Profile: The Salvare</div><div class="report-date">Transmission - 13 May 2026</div></div><span class="report-status report-status--latest">Latest</span></button><div class="report-body"><div class="code-block"><div class="code-line-numbers"></div><div class="code-content"><span class="code-comment">// CHIMERA CORP - CLASSIFIED REPORT 006</span>
+<span class="code-comment">// DATE: 2026-05-13</span>
+<span class="code-comment">// FROM: Chimera Corp headquarters</span>
+<span class="code-comment">// RE: Operative Profile - The Salvare</span>
+
+<span class="code-key">report</span>: {
+  <span class="code-key">subject</span>: <span class="code-value">"Personnel Dossier - The Salvare"</span>,
+  <span class="code-key">status</span>: <span class="code-value">"Filed"</span>,
+
+  <span class="code-comment">// Designation: The Salvare.</span>
+  <span class="code-comment">// Role: Primary operative. Narrative engineer.</span>
+  <span class="code-comment">// Visual intelligence specialist.</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// Recruited under non-standard circumstances.</span>
+  <span class="code-comment">// No prior agency affiliation. No formal</span>
+  <span class="code-comment">// credentials in the traditional sense.</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// Skill set includes illustration, digital</span>
+  <span class="code-comment">// infrastructure, brand architecture, and</span>
+  <span class="code-comment">// an unusual tolerance for building things</span>
+  <span class="code-comment">// nobody asked for.</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// Currently assigned to three concurrent</span>
+  <span class="code-comment">// operations. Two remain classified.</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// Supervisor notes: "Works best when left</span>
+  <span class="code-comment">// alone. Do not interrupt during illustration</span>
+  <span class="code-comment">// hours. Will not respond to emails before noon."</span>
+
+  <span class="code-key">operative</span>: {
+    <span class="code-key">codename</span>: <span class="code-value">"The Salvare"</span>,
+    <span class="code-key">division</span>: <span class="code-value">"Visual Intelligence"</span>,
+    <span class="code-key">projects_active</span>: <span class="code-value">"3"</span>,
+    <span class="code-key">clearance</span>: <span class="code-value">"Level 5"</span>
+  }
+}
+
+<span class="code-comment">// End of report. Make good, things happen.</span>
+<span class="code-comment">// - CEO, Chimera Corp</span></div></div></div></div>
 
 <!-- ══════ Report 005 // Faction Deep-Dive: SPYS // SPYS-005-CC ══════ -->
- <div class="report-card reveal"><button class="report-header" onclick="toggleReport(this)"><span class="report-arrow">&#9654;</span><span class="report-number">005</span><div class="report-meta"><div class="report-title">The Squab HQ - Faction Briefing: SPYS</div><div class="report-date">Transmission - 06 May 2026</div></div><span class="report-status report-status--latest">Latest</span></button><div class="report-body"><div class="code-block"><div class="code-line-numbers"></div><div class="code-content"><span class="code-comment">// CHIMERA CORP - CLASSIFIED REPORT 005</span>
+ <div class="report-card reveal"><button class="report-header" onclick="toggleReport(this)"><span class="report-arrow">&#9654;</span><span class="report-number">005</span><div class="report-meta"><div class="report-title">The Squab HQ - Faction Briefing: SPYS</div><div class="report-date">Transmission - 06 May 2026</div></div><span class="report-status report-status--archived">Archived</span></button><div class="report-body"><div class="code-block"><div class="code-line-numbers"></div><div class="code-content"><span class="code-comment">// CHIMERA CORP - CLASSIFIED REPORT 005</span>
 <span class="code-comment">// DATE: 2026-05-06</span>
 <span class="code-comment">// FROM: FBI</span>
 <span class="code-comment">// RE: Faction Briefing - SPYS</span>
@@ -389,13 +593,29 @@
         <footer class="footer"><div class="footer-bottom"><span class="footer-left">&copy; The Salvare - Chimera Report</span><span class="footer-right">All systems operational</span></div></footer>
     </div>
     <script>
+        // Mobile menu toggle
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        hamburgerBtn.addEventListener('click', () => {
+            hamburgerBtn.classList.toggle('open');
+            mobileMenu.classList.toggle('open');
+            document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+        });
+        mobileMenu.querySelectorAll('.mobile-menu-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburgerBtn.classList.remove('open');
+                mobileMenu.classList.remove('open');
+                document.body.style.overflow = '';
+            });
+        });
+
         const reveals=document.querySelectorAll('.reveal');const observer=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.target.classList.add('visible');});},{threshold:0.15,rootMargin:'0px 0px -40px 0px'});reveals.forEach(el=>observer.observe(el));
         
 /* ==========================================
         ACCESS CODE - CHANGE WEEKLY
 =========================================== */
         
-        const ACCESS_CODE='SPYS-005-CC';
+        const ACCESS_CODE='SLVR-006-TS';
         const codeInput=document.getElementById('codeInput'),codeSubmit=document.getElementById('codeSubmit'),accessResponse=document.getElementById('accessResponse');
         function checkCode(){const input=codeInput.value.trim().toUpperCase();if(input===ACCESS_CODE.toUpperCase()){document.getElementById('accessGate').style.display='none';document.getElementById('reportsSection').classList.add('unlocked');document.getElementById('clearanceLight').style.background='var(--accent-green)';document.getElementById('clearanceValue').textContent='Operative';document.getElementById('clearanceValue').style.color='var(--accent-green)';generateAllLineNumbers();document.querySelectorAll('.reports-section .reveal').forEach(el=>observer.observe(el));}else if(input===''){accessResponse.textContent='// Access code required.';accessResponse.style.color='var(--accent-red)';}else{accessResponse.textContent='// Access denied. Code not recognised.';accessResponse.style.color='var(--accent-red)';}}
         codeSubmit.addEventListener('click',checkCode);codeInput.addEventListener('keydown',e=>{if(e.key==='Enter')checkCode();});
