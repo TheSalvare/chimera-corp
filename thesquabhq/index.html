@@ -119,7 +119,25 @@
         .header-nav {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 24px;
+        }
+        .header-nav-links { display: flex; align-items: center; gap: 20px; }
+        .header-nav-link {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+            white-space: nowrap;
+        }
+        .header-nav-link:hover { color: var(--text-primary); }
+        .header-nav-separator {
+            width: 1px;
+            height: 14px;
+            background: var(--border-light);
+            flex-shrink: 0;
         }
         .header-back {
             font-family: var(--font-mono);
@@ -148,6 +166,85 @@
             animation: pulse-dot 2.5s ease-in-out infinite;
         }
         @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+        /* ============================================
+           HAMBURGER MENU (MOBILE ONLY)
+           ============================================ */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            gap: 5px;
+            background: none;
+            border: none;
+            padding: 0;
+            padding-bottom: 10px;
+            position: fixed;
+            top: 16px;
+            right: 20px;
+            z-index: 200;
+        }
+        .hamburger-line {
+            width: 18px;
+            height: 1.5px;
+            background: var(--text-primary);
+            border-radius: 1px;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            transform-origin: center;
+        }
+        .hamburger.open .hamburger-line:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+        .hamburger.open .hamburger-line:nth-child(2) { opacity: 0; }
+        .hamburger.open .hamburger-line:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(254, 254, 254, 0.97);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 150;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .mobile-menu.open { opacity: 1; pointer-events: auto; }
+        .mobile-menu-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 32px;
+        }
+        .mobile-menu-link {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+            padding: 8px 0;
+        }
+        .mobile-menu-link:hover { color: var(--text-primary); }
+        .mobile-menu-divider { width: 40px; height: 1px; background: var(--border-light); }
+        .mobile-menu-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent-green);
+            margin-top: 8px;
+        }
 
         /* ============================================
            CLEARANCE STRIP
@@ -516,6 +613,12 @@
             .assessment-card { padding: 36px 24px; }
             .footer { padding: 20px 20px 16px; }
             .footer-bottom { flex-direction: column; gap: 6px; align-items: center; }
+            .header-nav-links { display: none; }
+            .header-nav-separator { display: none; }
+            .header-back { display: none; }
+            .header-status { display: none; }
+            .hamburger { display: flex; }
+            .mobile-menu { display: flex; }
         }
         @media (max-width: 480px) {
             .gallery-grid { grid-template-columns: 1fr; }
@@ -543,6 +646,12 @@
         <header class="header">
             <a href="../index.html" class="header-brand">The Salvare</a>
             <div class="header-nav">
+                <nav class="header-nav-links">
+                    <a href="../chimerareport/index.html" class="header-nav-link">> The Chimera Report</a>
+                    <a href="./index.html" class="header-nav-link">> The Squab HQ</a>
+                    <a href="https://www.floragnus.xyz" class="header-nav-link" target="_blank" rel="noopener noreferrer">> Access Floragnus</a>
+                </nav>
+                <div class="header-nav-separator"></div>
                 <a href="../index.html" class="header-back">&larr; Portal Home</a>
                 <div class="header-status">
                     <span class="status-dot"></span>
@@ -550,6 +659,30 @@
                 </div>
             </div>
         </header>
+
+        <!-- Mobile Hamburger (outside header for z-index independence) -->
+        <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-menu-inner">
+                <a href="../chimerareport/index.html" class="mobile-menu-link">> The Chimera Report</a>
+                <div class="mobile-menu-divider"></div>
+                <a href="./index.html" class="mobile-menu-link">> The Squab HQ</a>
+                <div class="mobile-menu-divider"></div>
+                <a href="https://www.floragnus.xyz" class="mobile-menu-link" target="_blank" rel="noopener noreferrer">> Access Floragnus</a>
+                <div class="mobile-menu-divider"></div>
+                <a href="../index.html" class="mobile-menu-link">&larr; Portal Home</a>
+                <div class="mobile-menu-divider"></div>
+                <div class="mobile-menu-status">
+                    <span class="status-dot"></span>
+                    Power
+                </div>
+            </div>
+        </div>
 
         <!-- Clearance Strip -->
         <div class="clearance-strip">
@@ -563,7 +696,7 @@
             <div class="hero-eyebrow anim-fade-up anim-delay-1">Project // The Squab HQ</div>
             <h1 class="hero-title anim-fade-up anim-delay-2">The Squab HQ</h1>
             <p class="hero-description anim-fade-up anim-delay-3">Welcome to... well, you know where.<br>
-            I'll assume if you made it this far then you're an operative at Chimera Corp. Well, which are you, a SPYS, RATS or PLANT? 
+            I'll assume if you made it this far then you're an operative at Chimera Corp. Well, which are you, a Pidgie, Rattie or part of the Taskforce? 
             You probably don't know yet. Not to worry, you can take the aptitude assessment below.<br><br>
             Our operative, The Salvare, is currently writing our narrative.<br>
             Most of what we do here is confidential, so don't expect to uncover anything.</p>
@@ -641,6 +774,24 @@
     </div>
 
     <script>
+        // Mobile menu toggle
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        hamburgerBtn.addEventListener('click', () => {
+            hamburgerBtn.classList.toggle('open');
+            mobileMenu.classList.toggle('open');
+            document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+        });
+
+        mobileMenu.querySelectorAll('.mobile-menu-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburgerBtn.classList.remove('open');
+                mobileMenu.classList.remove('open');
+                document.body.style.overflow = '';
+            });
+        });
+
         // Scroll reveal
         const reveals = document.querySelectorAll('.reveal');
         const observer = new IntersectionObserver((entries) => {
