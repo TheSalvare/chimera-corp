@@ -198,19 +198,20 @@
         .report-status { font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 8px; border: 1px solid; border-radius: 3px; flex-shrink: 0; }
         .report-status--latest { color: var(--accent-green); border-color: var(--accent-green); }
         .report-status--archived { color: var(--text-tertiary); border-color: var(--border-light); }
-        .report-status--sample { color: var(--text-secondary); border-color: var(--border-medium); background: var(--bg-secondary); }
+        .report-status--sample { color: var(--text-secondary); border-color: var(--border-medium); }
         .sample-section { padding: 60px 56px 0; max-width: 1100px; margin: 0 auto; }
         .sample-label { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
         .sample-label::after { content: ''; flex: 1; height: 1px; background: var(--border-light); max-width: 200px; }
         .sample-intro { font-family: var(--font-mono); font-size: 0.7rem; line-height: 1.7; color: var(--text-secondary); margin-bottom: 24px; max-width: 640px; }
         .report-body { display: none; border-top: 1px solid var(--border-light); }
         .report-card.open .report-body { display: block; }
-        .code-block { background: var(--bg-secondary); font-family: var(--font-mono); font-size: 0.78rem; line-height: 2; color: var(--text-primary); overflow-x: auto; display: flex; }
-        .code-line-numbers { padding: 28px 12px 28px 16px; text-align: right; user-select: none; -webkit-user-select: none; color: var(--border-medium); font-size: 0.68rem; line-height: 2; min-width: 40px; border-right: 1px solid var(--border-light); flex-shrink: 0; }
+        .code-block { background: var(--bg-secondary); font-family: var(--font-mono); font-size: 0.78rem; line-height: 1.85; color: var(--text-primary); overflow-x: auto; display: flex; }
+        .code-line-numbers { padding: 28px 12px 28px 16px; text-align: right; user-select: none; -webkit-user-select: none; color: var(--border-medium); font-size: 0.68rem; line-height: 1.85; min-width: 40px; border-right: 1px solid var(--border-light); flex-shrink: 0; }
         .code-content { padding: 28px 24px; flex: 1; white-space: pre-wrap; word-wrap: break-word; }
         .code-comment { color: var(--text-tertiary); }
-        .code-key { color: var(--text-secondary); }
+        .code-key { color: var(--text-secondary); font-weight: 500; }
         .code-value { color: var(--text-primary); font-weight: 500; }
+        .code-divider { display: block; width: 60%; margin: 12px auto; border: 0; border-top: 1px dashed var(--border-light); }
         .end-transmission { text-align: center; padding: 48px 40px 24px; font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-tertiary); }
         .footer { display: flex; flex-direction: column; align-items: center; padding: 24px 40px 20px; border-top: 1px solid var(--border-light); background: rgba(254,254,254,0.85); backdrop-filter: blur(12px); gap: 16px; }
         .footer-bottom { display: flex; justify-content: space-between; align-items: center; width: 100%; }
@@ -256,16 +257,16 @@
         <header class="header">
             <a href="../index.html" class="header-brand">The Salvare</a>
             <div class="header-nav">
+              <div class="header-nav-separator"></div>
+                <a href="../index.html" class="header-back">&larr; Portal Home</a>
                 <nav class="header-nav-links">
-                    <a href="./index.html" class="header-nav-link">> The Chimera Report</a>
                     <a href="../thesquabhq/index.html" class="header-nav-link">> The Squab HQ</a>
+                    <a href="./index.html" class="header-nav-link">> Chimera Report</a>
                     <a href="https://www.floragnus.xyz" class="header-nav-link" target="_blank" rel="noopener noreferrer">> Access Floragnus</a>
                 </nav>
-                <div class="header-nav-separator"></div>
-                <a href="../index.html" class="header-back">&larr; Portal Home</a>
                 <div class="header-status">
                     <span class="status-dot"></span>
-                    Status: Active
+                    Latest: Report 006
                 </div>
             </div>
         </header>
@@ -279,13 +280,13 @@
 
         <div class="mobile-menu" id="mobileMenu">
             <div class="mobile-menu-inner">
-                <a href="./index.html" class="mobile-menu-link">> The Chimera Report</a>
+                <a href="../index.html" class="mobile-menu-link">&larr; Portal Home</a>
                 <div class="mobile-menu-divider"></div>
                 <a href="../thesquabhq/index.html" class="mobile-menu-link">> The Squab HQ</a>
                 <div class="mobile-menu-divider"></div>
-                <a href="https://www.floragnus.xyz" class="mobile-menu-link" target="_blank" rel="noopener noreferrer">> Access Floragnus</a>
+                <a href="./index.html" class="mobile-menu-link">> Chimera Report</a>
                 <div class="mobile-menu-divider"></div>
-                <a href="../index.html" class="mobile-menu-link">&larr; Portal Home</a>
+                <a href="https://www.floragnus.xyz" class="mobile-menu-link" target="_blank" rel="noopener noreferrer">> Access Floragnus</a>
                 <div class="mobile-menu-divider"></div>
                 <div class="mobile-menu-status">
                     <span class="status-dot"></span>
@@ -297,7 +298,7 @@
             <div class="hero-main">
                 <img src="../images/cc-logo.png" class="hero-logo anim-fade-up anim-delay-1" style="width: 120px; height: auto; margin-bottom: 32px; display: block;">
                 <h1 class="hero-title anim-fade-up anim-delay-2">Chimera Report.</h1>
-                <p class="hero-subtitle anim-fade-up anim-delay-3">Weekly classified transmissions from Chimera Corp leadership.<br>Lore, intelligence briefings, operative updates and corporate infastructure.<br><br>Access is granted exclusively to registered operatives.<br>If you're reading this, then you've already completed half of your assigned task.</p>
+                <p class="hero-subtitle anim-fade-up anim-delay-3">Weekly classified transmissions from Chimera Corp leadership.<br>Lore, intelligence briefings, operative updates and corporate infrastructure.<br><br>Access is granted exclusively to registered operatives.<br>If you're reading this, then you've already completed half of your assigned task.</p>
                 <div class="hero-meta anim-fade-up anim-delay-4">
                     <span class="hero-meta-tag">Weekly_Dispatch</span>
                     <span class="hero-meta-tag">Classified_Lore</span>
@@ -607,7 +608,7 @@
 <!-- ══════ Report 000 // Inaugural // NO-CODE ══════ -->
 <div class="report-card reveal"><button class="report-header" onclick="toggleReport(this)"><span class="report-arrow">&#9654;</span><span class="report-number">000</span><div class="report-meta"><div class="report-title">Welcome to Chimera Corp</div><div class="report-date">Transmission - 01 Apr 2026</div></div><span class="report-status report-status--archived">Archived</span></button><div class="report-body"><div class="code-block"><div class="code-line-numbers"></div><div class="code-content"><span class="code-comment">// CHIMERA CORP - CLASSIFIED REPORT 000</span>
 <span class="code-comment">// DATE: 2026-04-01</span>
-<span class="code-comment">// FROM: The Salvare's office'</span>
+<span class="code-comment">// FROM: The Salvare's office</span>
 <span class="code-comment">// RE: Inaugural Transmission</span>
 
 <span class="code-key">report</span>: {
@@ -671,9 +672,9 @@
         
         const ACCESS_CODE='SLVR-006-TS';
         const codeInput=document.getElementById('codeInput'),codeSubmit=document.getElementById('codeSubmit'),accessResponse=document.getElementById('accessResponse');
-        function checkCode(){const input=codeInput.value.trim().toUpperCase();if(input===ACCESS_CODE.toUpperCase()){document.getElementById('accessGate').style.display='none';document.getElementById('sampleSection').style.display='none';document.getElementById('reportsSection').classList.add('unlocked');document.getElementById('clearanceLight').style.background='var(--accent-green)';document.getElementById('clearanceValue').textContent='Operative';document.getElementById('clearanceValue').style.color='var(--accent-green)';generateAllLineNumbers();document.querySelectorAll('.reports-section .reveal').forEach(el=>observer.observe(el));}else if(input===''){accessResponse.textContent='// Access code required.';accessResponse.style.color='var(--accent-red)';}else{accessResponse.textContent='// Access denied. Code not recognised.';accessResponse.style.color='var(--accent-red)';}}
+        function checkCode(){const input=codeInput.value.trim().toUpperCase();if(input===ACCESS_CODE.toUpperCase()){document.getElementById('accessGate').style.display='none';const sampleSec=document.getElementById('sampleSection');const reportsSec=document.getElementById('reportsSection');reportsSec.parentNode.insertBefore(sampleSec,reportsSec.nextSibling);reportsSec.classList.add('unlocked');document.getElementById('clearanceLight').style.background='var(--accent-green)';document.getElementById('clearanceValue').textContent='Operative';document.getElementById('clearanceValue').style.color='var(--accent-green)';generateAllLineNumbers();document.querySelectorAll('.reports-section .reveal').forEach(el=>observer.observe(el));}else if(input===''){accessResponse.textContent='// Access code required.';accessResponse.style.color='var(--accent-red)';}else{accessResponse.textContent='// Access denied. Code not recognised.';accessResponse.style.color='var(--accent-red)';}}
         codeSubmit.addEventListener('click',checkCode);codeInput.addEventListener('keydown',e=>{if(e.key==='Enter')checkCode();});
-        function toggleReport(header){const card=header.parentElement;const wasOpen=card.classList.contains('open');document.querySelectorAll('.report-card').forEach(c=>c.classList.remove('open'));if(!wasOpen){card.classList.add('open');const ln=card.querySelector('.code-line-numbers');if(ln&&ln.innerHTML===''){const content=card.querySelector('.code-content');const lines=content.textContent.split('\n').length;ln.innerHTML=Array.from({length:lines},(_,i)=>i+1).join('<br>');}}}
+        function toggleReport(header){const card=header.parentElement;const isOpen=card.classList.toggle('open');if(isOpen){const ln=card.querySelector('.code-line-numbers');if(ln&&ln.innerHTML===''){const content=card.querySelector('.code-content');const lines=content.textContent.split('\n').length;ln.innerHTML=Array.from({length:lines},(_,i)=>i+1).join('<br>');}}}
         function generateAllLineNumbers(){document.querySelectorAll('.report-card').forEach(card=>{const ln=card.querySelector('.code-line-numbers');const content=card.querySelector('.code-content');if(ln&&content){const lines=content.textContent.split('\n').length;ln.innerHTML=Array.from({length:lines},(_,i)=>i+1).join('<br>');}});}
         const canvas=document.getElementById('dotGrid'),ctx=canvas.getContext('2d');const spacing=24,baseRadius=0.8,maxRadius=1.8,influenceRadius=100,dotColor=[222,222,222],baseAlpha=0.6;let mouse={x:-9999,y:-9999},smoothMouse={x:-9999,y:-9999},blooms=[],lastBloomTime=0;const bloomCooldown=600;
         function resize(){canvas.width=window.innerWidth;canvas.height=document.documentElement.scrollHeight;}
