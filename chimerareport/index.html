@@ -266,7 +266,7 @@
                 </nav>
                 <div class="header-status">
                     <span class="status-dot"></span>
-                    Latest: Report 006
+                    Latest: Report 007
                 </div>
             </div>
         </header>
@@ -290,7 +290,7 @@
                 <div class="mobile-menu-divider"></div>
                 <div class="mobile-menu-status">
                     <span class="status-dot"></span>
-                    Latest: Report 006
+                    Latest: Report 007
                 </div>
             </div>
         </div>
@@ -379,6 +379,45 @@
 <!-- ================================================================================
             WEEKLY CHIMERA REPORTS - CHANGE ACTIVE/LATEST STATUS WEEKLY
 ================================================================================= -->
+<!-- ══════ Report 007 // Writing Progress // SQHQ-007-CC ══════ -->
+<div class="report-card reveal"><button class="report-header" onclick="toggleReport(this)"><span class="report-arrow">&#9654;</span><span class="report-number">007</span><div class="report-meta"><div class="report-title">The Squab HQ - Project Status Update</div><div class="report-date">Transmission - 20 May 2026</div></div><span class="report-status report-status--latest">Latest</span></button><div class="report-body"><div class="code-block"><div class="code-line-numbers"></div><div class="code-content"><span class="code-comment">// CHIMERA CORP - CLASSIFIED REPORT 007</span>
+<span class="code-comment">// DATE: 2026-05-20</span>
+<span class="code-comment">// FROM: Chimera Corp headquarters</span>
+<span class="code-comment">// RE: Project Status - The Squab HQ</span>
+
+<span class="code-key">report</span>: {
+  <span class="code-key">subject</span>: <span class="code-value">"Narrative Development Update"</span>,
+  <span class="code-key">status</span>: <span class="code-value">"In Progress"</span>,
+
+  <span class="code-comment">// The Salvare has submitted a progress report</span>
+  <span class="code-comment">// on The Squab HQ narrative.</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// Chapters drafted: [REDACTED].</span>
+  <span class="code-comment">// Chapters remaining: more than we'd like.</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// The operative insists the story "needs room</span>
+  <span class="code-comment">// to breathe." Management would prefer it</span>
+  <span class="code-comment">// breathed a little faster.</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// World building is progressing in parallel.</span>
+  <span class="code-comment">// Character designs are finalised for the</span>
+  <span class="code-comment">// core cast. Background environments are</span>
+  <span class="code-comment">// approximately 40% complete.</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// We have been advised not to set a publication</span>
+  <span class="code-comment">// date. We are setting one anyway.</span>
+  <span class="code-comment">// Internally. Where the operative can't see it.</span>
+
+  <span class="code-key">progress</span>: {
+    <span class="code-key">writing</span>: <span class="code-value">"30%"</span>,
+    <span class="code-key">world</span>: <span class="code-value">"40%"</span>,
+    <span class="code-key">publication_date</span>: <span class="code-value">"[CLASSIFIED]"</span>
+  }
+}
+
+<span class="code-comment">// End of report. Make good, things happen.</span>
+<span class="code-comment">// - CEO, Chimera Corp</span></div></div></div></div>
+
 <!-- ══════ Report 006 // The Salvare Profile // SLVR-006-TS ══════ -->
  <div class="report-card reveal"><button class="report-header" onclick="toggleReport(this)"><span class="report-arrow">&#9654;</span><span class="report-number">006</span><div class="report-meta"><div class="report-title">Chimera Corp - Operative Profile: The Salvare</div><div class="report-date">Transmission - 13 May 2026</div></div><span class="report-status report-status--latest">Latest</span></button><div class="report-body"><div class="code-block"><div class="code-line-numbers"></div><div class="code-content"><span class="code-comment">// CHIMERA CORP - CLASSIFIED REPORT 006</span>
 <span class="code-comment">// DATE: 2026-05-13</span>
@@ -672,7 +711,7 @@
         ACCESS CODE - CHANGE WEEKLY
 =========================================== */
         
-        const ACCESS_CODE='SLVR-006-TS';
+        const ACCESS_CODE='SQHQ-007-CC';
         const codeInput=document.getElementById('codeInput'),codeSubmit=document.getElementById('codeSubmit'),accessResponse=document.getElementById('accessResponse');
         function checkCode(){const input=codeInput.value.trim().toUpperCase();if(input===ACCESS_CODE.toUpperCase()){document.getElementById('accessGate').style.display='none';document.getElementById('sampleSection').style.display='none';document.getElementById('registerHint').style.display='none';document.getElementById('reportsSection').classList.add('unlocked');document.getElementById('clearanceLight').style.background='var(--accent-green)';document.getElementById('clearanceValue').textContent='Operative';document.getElementById('clearanceValue').style.color='var(--accent-green)';generateAllLineNumbers();document.querySelectorAll('.reports-section .reveal').forEach(el=>observer.observe(el));}else if(input===''){accessResponse.textContent='// Access code required.';accessResponse.style.color='var(--accent-red)';}else{accessResponse.textContent='// Access denied. Code not recognised.';accessResponse.style.color='var(--accent-red)';}}
         codeSubmit.addEventListener('click',checkCode);codeInput.addEventListener('keydown',e=>{if(e.key==='Enter')checkCode();});
