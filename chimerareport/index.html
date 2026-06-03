@@ -266,7 +266,7 @@
                 </nav>
                 <div class="header-status">
                     <span class="status-dot"></span>
-                    Latest: Report 008
+                    Latest: Report 009
                 </div>
             </div>
         </header>
@@ -290,7 +290,7 @@
                 <div class="mobile-menu-divider"></div>
                 <div class="mobile-menu-status">
                     <span class="status-dot"></span>
-                    Latest: Report 008
+                    Latest: Report 009
                 </div>
             </div>
         </div>
@@ -379,8 +379,48 @@
 <!-- ================================================================================
             WEEKLY CHIMERA REPORTS - CHANGE ACTIVE/LATEST STATUS WEEKLY
 ================================================================================= -->
+<!-- ══════ Report 009 // Intercepted Transmission // ONE-009-TH ══════ -->
+ <div class="report-card reveal"><button class="report-header" onclick="toggleReport(this)"><span class="report-arrow">&#9654;</span><span class="report-number">009</span><div class="report-meta"><div class="report-title">The Squab HQ - Intercepted Transmission</div><div class="report-date">Transmission - 03 Jun 2026</div></div><span class="report-status report-status--latest">Latest</span></button><div class="report-body"><div class="code-block"><div class="code-line-numbers"></div><div class="code-content"><span class="code-comment">// CHIMERA CORP - CLASSIFIED REPORT 009</span>
+<span class="code-comment">// DATE: 2026-06-03</span>
+<span class="code-comment">// FROM: [ENCRYPTED - ORIGIN MASKED]</span>
+<span class="code-comment">// RE: Intercepted Signal - Frequency 7.42 GHz</span>
+
+<span class="code-key">report</span>: {
+  <span class="code-key">subject</span>: <span class="code-value">"Intercepted Transmission"</span>,
+  <span class="code-key">status</span>: <span class="code-value">"Partially Corrupted"</span>,
+
+  <span class="code-comment">// The following fragment was recovered from</span>
+  <span class="code-comment">// a signal broadcast on a frequency not</span>
+  <span class="code-comment">// assigned to any known Chimera Corp channel.</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// --- BEGIN FRAGMENT ---</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// ...the pidgies were never the target.</span>
+  <span class="code-comment">// They were the ██████████. The real</span>
+  <span class="code-comment">// operation has been running since before</span>
+  <span class="code-comment">// the agency was ████████. Ask yourself</span>
+  <span class="code-comment">// who built the ████████ machine and why</span>
+  <span class="code-comment">// it only dispenses ██████ on Tuesdays.</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// The three are ███████████.</span>
+  <span class="code-comment">// They have always been ███████████.</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// --- END FRAGMENT ---</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// Analysis pending. Do not distribute.</span>
+
+  <span class="code-key">signal</span>: {
+    <span class="code-key">frequency</span>: <span class="code-value">"7.42 GHz"</span>,
+    <span class="code-key">integrity</span>: <span class="code-value">"34%"</span>,
+    <span class="code-key">classification</span>: <span class="code-value">"ABOVE CLEARANCE"</span>
+  }
+}
+
+<span class="code-comment">// End of encryption.</span>
+<span class="code-comment">// - Unknown</span></div></div></div></div>
+
 <!-- ══════ Report 008 // Faction Deep-Dive: RATS // RATS-008-CC ══════ -->
-<div class="report-card reveal"><button class="report-header" onclick="toggleReport(this)"><span class="report-arrow">&#9654;</span><span class="report-number">008</span><div class="report-meta"><div class="report-title">The Squab HQ - Faction Briefing: RATS</div><div class="report-date">Transmission - 27 May 2026</div></div><span class="report-status report-status--latest">Latest</span></button><div class="report-body"><div class="code-block"><div class="code-line-numbers"></div><div class="code-content"><span class="code-comment">// CHIMERA CORP - CLASSIFIED REPORT 008</span>
+<div class="report-card reveal"><button class="report-header" onclick="toggleReport(this)"><span class="report-arrow">&#9654;</span><span class="report-number">008</span><div class="report-meta"><div class="report-title">The Squab HQ - Faction Briefing: RATS</div><div class="report-date">Transmission - 27 May 2026</div></div><span class="report-status report-status--archived">Archived</span></button><div class="report-body"><div class="code-block"><div class="code-line-numbers"></div><div class="code-content"><span class="code-comment">// CHIMERA CORP - CLASSIFIED REPORT 008</span>
 <span class="code-comment">// DATE: 2026-05-27</span>
 <span class="code-comment">// FROM: [SIGNAL ORIGIN UNKNOWN]</span>
 <span class="code-comment">// RE: Faction Briefing - RATS</span>
@@ -750,7 +790,7 @@
         ACCESS CODE - CHANGE WEEKLY
 =========================================== */
         
-        const ACCESS_CODE='RATS-008-CC';
+        const ACCESS_CODE='ONE-009-TH';
         const codeInput=document.getElementById('codeInput'),codeSubmit=document.getElementById('codeSubmit'),accessResponse=document.getElementById('accessResponse');
         function checkCode(){const input=codeInput.value.trim().toUpperCase();if(input===ACCESS_CODE.toUpperCase()){document.getElementById('accessGate').style.display='none';document.getElementById('sampleSection').style.display='none';document.getElementById('registerHint').style.display='none';document.getElementById('reportsSection').classList.add('unlocked');document.getElementById('clearanceLight').style.background='var(--accent-green)';document.getElementById('clearanceValue').textContent='Operative';document.getElementById('clearanceValue').style.color='var(--accent-green)';generateAllLineNumbers();document.querySelectorAll('.reports-section .reveal').forEach(el=>observer.observe(el));}else if(input===''){accessResponse.textContent='// Access code required.';accessResponse.style.color='var(--accent-red)';}else{accessResponse.textContent='// Access denied. Code not recognised.';accessResponse.style.color='var(--accent-red)';}}
         codeSubmit.addEventListener('click',checkCode);codeInput.addEventListener('keydown',e=>{if(e.key==='Enter')checkCode();});
