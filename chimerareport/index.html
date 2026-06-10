@@ -266,7 +266,7 @@
                 </nav>
                 <div class="header-status">
                     <span class="status-dot"></span>
-                    Latest: Report 009
+                    Latest: Report 010
                 </div>
             </div>
         </header>
@@ -290,7 +290,7 @@
                 <div class="mobile-menu-divider"></div>
                 <div class="mobile-menu-status">
                     <span class="status-dot"></span>
-                    Latest: Report 009
+                    Latest: Report 010
                 </div>
             </div>
         </div>
@@ -379,8 +379,43 @@
 <!-- ================================================================================
             WEEKLY CHIMERA REPORTS - CHANGE ACTIVE/LATEST STATUS WEEKLY
 ================================================================================= -->
+<!-- ══════ Report 010 // New Product Drop // FLGN-010-CC ══════ -->
+ <div class="report-card reveal"><button class="report-header" onclick="toggleReport(this)"><span class="report-arrow">&#9654;</span><span class="report-number">010</span><div class="report-meta"><div class="report-title">Floragnus - New Requisitions Available</div><div class="report-date">Transmission - 10 Jun 2026</div></div><span class="report-status report-status--latest">Latest</span></button><div class="report-body"><div class="code-block"><div class="code-line-numbers"></div><div class="code-content"><span class="code-comment">// CHIMERA CORP - CLASSIFIED REPORT 010</span>
+<span class="code-comment">// DATE: 2026-06-10</span>
+<span class="code-comment">// FROM: Chimera Corp headquarters</span>
+<span class="code-comment">// RE: Floragnus - Inventory Update</span>
+
+<span class="code-key">report</span>: {
+  <span class="code-key">subject</span>: <span class="code-value">"New Requisitions"</span>,
+  <span class="code-key">status</span>: <span class="code-value">"Available"</span>,
+
+  <span class="code-comment">// The Floragnus catalogue will be expanding.</span>
+  <span class="code-comment">// New items have cleared quality assurance</span>
+  <span class="code-comment">// and will be available for procurement.</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// We will not be listing the items here.</span>
+  <span class="code-comment">// That would be convenient, and convenience</span>
+  <span class="code-comment">// is not a service we provide.</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// Navigate to floragnus.xyz in the coming weeks.</span>
+  <span class="code-comment">// Browse. Acquire. Report back.</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// Your operative discount code remains active.</span>
+  <span class="code-comment">// If you have forgotten it, consult Report 002.</span>
+  <span class="code-comment">// We do not repeat ourselves.</span>
+
+  <span class="code-key">catalogue</span>: {
+    <span class="code-key">new_items</span>: <span class="code-value">"[SEE STORE]"</span>,
+    <span class="code-key">store_url</span>: <span class="code-value">"floragnus.xyz"</span>,
+    <span class="code-key">discount_status</span>: <span class="code-value">"Active"</span>
+  }
+}
+
+<span class="code-comment">// End of report. Make good, things happen.</span>
+<span class="code-comment">// - CEO, Chimera Corp</span></div></div></div></div>
+
 <!-- ══════ Report 009 // Intercepted Transmission // ONE-009-TH ══════ -->
- <div class="report-card reveal"><button class="report-header" onclick="toggleReport(this)"><span class="report-arrow">&#9654;</span><span class="report-number">009</span><div class="report-meta"><div class="report-title">The Squab HQ - Intercepted Transmission</div><div class="report-date">Transmission - 03 Jun 2026</div></div><span class="report-status report-status--latest">Latest</span></button><div class="report-body"><div class="code-block"><div class="code-line-numbers"></div><div class="code-content"><span class="code-comment">// CHIMERA CORP - CLASSIFIED REPORT 009</span>
+ <div class="report-card reveal"><button class="report-header" onclick="toggleReport(this)"><span class="report-arrow">&#9654;</span><span class="report-number">009</span><div class="report-meta"><div class="report-title">The Squab HQ - Intercepted Transmission</div><div class="report-date">Transmission - 03 Jun 2026</div></div><span class="report-status report-status--archived">Archived</span></button><div class="report-body"><div class="code-block"><div class="code-line-numbers"></div><div class="code-content"><span class="code-comment">// CHIMERA CORP - CLASSIFIED REPORT 009</span>
 <span class="code-comment">// DATE: 2026-06-03</span>
 <span class="code-comment">// FROM: [ENCRYPTED - ORIGIN MASKED]</span>
 <span class="code-comment">// RE: Intercepted Signal - Frequency 7.42 GHz</span>
@@ -790,7 +825,7 @@
         ACCESS CODE - CHANGE WEEKLY
 =========================================== */
         
-        const ACCESS_CODE='ONE-009-TH';
+        const ACCESS_CODE='FLGN-010-CC';
         const codeInput=document.getElementById('codeInput'),codeSubmit=document.getElementById('codeSubmit'),accessResponse=document.getElementById('accessResponse');
         function checkCode(){const input=codeInput.value.trim().toUpperCase();if(input===ACCESS_CODE.toUpperCase()){document.getElementById('accessGate').style.display='none';document.getElementById('sampleSection').style.display='none';document.getElementById('registerHint').style.display='none';document.getElementById('reportsSection').classList.add('unlocked');document.getElementById('clearanceLight').style.background='var(--accent-green)';document.getElementById('clearanceValue').textContent='Operative';document.getElementById('clearanceValue').style.color='var(--accent-green)';generateAllLineNumbers();document.querySelectorAll('.reports-section .reveal').forEach(el=>observer.observe(el));}else if(input===''){accessResponse.textContent='// Access code required.';accessResponse.style.color='var(--accent-red)';}else{accessResponse.textContent='// Access denied. Code not recognised.';accessResponse.style.color='var(--accent-red)';}}
         codeSubmit.addEventListener('click',checkCode);codeInput.addEventListener('keydown',e=>{if(e.key==='Enter')checkCode();});
