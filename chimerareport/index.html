@@ -266,7 +266,7 @@
                 </nav>
                 <div class="header-status">
                     <span class="status-dot"></span>
-                    Latest: Report 012
+                    Latest: Report 013
                 </div>
             </div>
         </header>
@@ -290,7 +290,7 @@
                 <div class="mobile-menu-divider"></div>
                 <div class="mobile-menu-status">
                     <span class="status-dot"></span>
-                    Latest: Report 012
+                    Latest: Report 013
                 </div>
             </div>
         </div>
@@ -379,8 +379,47 @@
 <!-- ================================================================================
             WEEKLY CHIMERA REPORTS - CHANGE ACTIVE/LATEST STATUS WEEKLY
 ================================================================================= -->
+<!-- ══════ Report 013 // Salvare Creative Update // SLVR-013-TS ══════ -->
+ <div class="report-card reveal"><button class="report-header" onclick="toggleReport(this)"><span class="report-arrow">&#9654;</span><span class="report-number">013</span><div class="report-meta"><div class="report-title">Chimera Corp - Operative Dispatch</div><div class="report-date">Transmission - 01 Jul 2026</div></div><span class="report-status report-status--latest">Latest</span></button><div class="report-body"><div class="code-block"><div class="code-line-numbers"></div><div class="code-content"><span class="code-comment">// CHIMERA CORP - CLASSIFIED REPORT 013</span>
+<span class="code-comment">// DATE: 2026-07-01</span>
+<span class="code-comment">// FROM: The Salvare's office</span>
+<span class="code-comment">// RE: Operative Dispatch - Personal Transmission</span>
+
+<span class="code-key">report</span>: {
+  <span class="code-key">subject</span>: <span class="code-value">"Direct Transmission"</span>,
+  <span class="code-key">status</span>: <span class="code-value">"Unfiltered"</span>,
+
+  <span class="code-comment">// This transmission has not been reviewed</span>
+  <span class="code-comment">// by Chimera Corp management. They will</span>
+  <span class="code-comment">// probably have opinions about that later.</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// I wanted to say something directly.</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// Building all of this, has been</span>
+  <span class="code-comment">// the most creatively fulfilling thing I've</span>
+  <span class="code-comment">// done. The website, the assessment, the</span>
+  <span class="code-comment">// reports, the store. Every piece connects.</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// If you're reading this, you're part of</span>
+  <span class="code-comment">// something that I have poured my life in to.</span>
+  <span class="code-comment">// Thank you for participating, and questioning.</span>
+  <span class="code-comment">// This would be nothing without you.</span>
+  <span class="code-comment">//</span>
+  <span class="code-comment">// More is coming. The story is being written.</span>
+  <span class="code-comment">// The world is getting bigger. Stay close.</span>
+
+  <span class="code-key">dispatch</span>: {
+    <span class="code-key">type</span>: <span class="code-value">"Personal"</span>,
+    <span class="code-key">corporate_approval</span>: <span class="code-value">"Pending"</span>,
+    <span class="code-key">sincerity_level</span>: <span class="code-value">"Dangerously High"</span>
+  }
+}
+
+<span class="code-comment">// End of report. Experiencing the devestating beauty of life.</span>
+<span class="code-comment">// - Operative, The Salvare</span></div></div></div></div>
+
 <!-- ══════ Report 012 // Faction Deep-Dive: PLANT // PLNT-012-CC ══════ -->
-<div class="report-card reveal"><button class="report-header" onclick="toggleReport(this)"><span class="report-arrow">&#9654;</span><span class="report-number">012</span><div class="report-meta"><div class="report-title">The Squab HQ - Faction Briefing: PLANT</div><div class="report-date">Transmission - 24 Jun 2026</div></div><span class="report-status report-status--latest">Latest</span></button><div class="report-body"><div class="code-block"><div class="code-line-numbers"></div><div class="code-content"><span class="code-comment">// CHIMERA CORP - CLASSIFIED REPORT 012</span>
+<div class="report-card reveal"><button class="report-header" onclick="toggleReport(this)"><span class="report-arrow">&#9654;</span><span class="report-number">012</span><div class="report-meta"><div class="report-title">The Squab HQ - Faction Briefing: PLANT</div><div class="report-date">Transmission - 24 Jun 2026</div></div><span class="report-status report-status--archived">Archived</span></button><div class="report-body"><div class="code-block"><div class="code-line-numbers"></div><div class="code-content"><span class="code-comment">// CHIMERA CORP - CLASSIFIED REPORT 012</span>
 <span class="code-comment">// DATE: 2026-06-24</span>
 <span class="code-comment">// FROM: FBI</span>
 <span class="code-comment">// RE: Faction Briefing - PLANT</span>
@@ -907,7 +946,7 @@
         ACCESS CODE - CHANGE WEEKLY
 =========================================== */
         
-        const ACCESS_CODE='PLNT-012-CC';
+        const ACCESS_CODE='SLVR-013-TS';
         const codeInput=document.getElementById('codeInput'),codeSubmit=document.getElementById('codeSubmit'),accessResponse=document.getElementById('accessResponse');
         function checkCode(){const input=codeInput.value.trim().toUpperCase();if(input===ACCESS_CODE.toUpperCase()){document.getElementById('accessGate').style.display='none';document.getElementById('sampleSection').style.display='none';document.getElementById('registerHint').style.display='none';document.getElementById('reportsSection').classList.add('unlocked');document.getElementById('clearanceLight').style.background='var(--accent-green)';document.getElementById('clearanceValue').textContent='Operative';document.getElementById('clearanceValue').style.color='var(--accent-green)';generateAllLineNumbers();document.querySelectorAll('.reports-section .reveal').forEach(el=>observer.observe(el));}else if(input===''){accessResponse.textContent='// Access code required.';accessResponse.style.color='var(--accent-red)';}else{accessResponse.textContent='// Access denied. Code not recognised.';accessResponse.style.color='var(--accent-red)';}}
         codeSubmit.addEventListener('click',checkCode);codeInput.addEventListener('keydown',e=>{if(e.key==='Enter')checkCode();});
